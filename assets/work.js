@@ -19,18 +19,19 @@ window.VAELO_WORK = [
     kpis: [['240', 'Assets shipped'], ['9 days', 'Concept to live'], ['4', 'Channels at launch']]
   },
   {
-    slug: 'sell-the-feeling',
+    slug: 'marigold-miraaya',
     idx: '02',
-    title: 'Sell the Feeling',
+    title: 'Marigold Miraaya',
     cat: 'Real Estate',
-    scope: 'Film + Web',
+    scope: 'Film + Social Campaign',
     year: '2026',
-    client: 'Confidential — residential development',
-    tile: 't-b',
-    summary: 'A development competing on floor plans and price per square foot, in a market where every listing page reads the same.',
-    brief: 'Buyers were comparing spreadsheets. The development had a genuine advantage in light, layout and the way the building sat on its plot — none of which survives translation into a specification table.',
-    did: 'We moved the pitch from specification to atmosphere. A film-led campaign shot for how the space feels at four times of day, and a site built around the walk-through rather than the brochure download. Specification still exists on the page — it just stopped being the argument.',
-    kpis: [['3:1', 'Site time vs. category'], ['1 film', '+ 12 cutdowns'], ['2026', 'Live']]
+    client: 'Marigold Miraaya by K H Jogani',
+    tile: 'tall',
+    summary: 'A completed Mumbai tower with its OC in hand, sold on how the evenings feel rather than on the floor plan.',
+    brief: 'Marigold Miraaya had reached the point most developments treat as the finish line \u2014 OC received, ready to move in, MahaRERA P51800003669. The category answers that moment with specification: carpet area, configuration, possession date. None of it tells a buyer what living there is actually like, and every competing listing reads the same way.',
+    did: 'We shot the building the way residents use it and built the campaign around moments rather than amenities \u2014 carrom in the indoor games room, a couple in the poolside cabana, families in the water at the same hour. The line carries the argument: Evenings Well Spent. Unwind. Together. Something for Everyone. The specification and the RERA number stay on the pack where they belong; the campaign sells the evening.',
+    kpis: [['OC', 'Received'], ['P51800003669', 'MahaRERA'], ['Ready', 'To move in']],
+    images: { hero: '', gallery: ['assets/work/marigold-miraaya/film.mp4'] }
   },
   {
     slug: 'catalogue-at-scale',
