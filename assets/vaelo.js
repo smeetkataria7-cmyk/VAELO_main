@@ -92,26 +92,59 @@
     }
   }
 
-  /* ---------- work tiles: clip-path reveal + image parallax ---------- */
-  if (hasGsap && window.ScrollTrigger && !reduce) {
-    gsap.utils.toArray('.tile .frame').forEach(function (frame, i) {
-      gsap.fromTo(frame,
-        { clipPath: 'inset(0 0 100% 0)' },
-        { clipPath: 'inset(0 0 0% 0)', duration: 1.15, ease: 'power3.out',
-          scrollTrigger: { trigger: frame, start: 'top 88%' } });
-      var layer = frame.querySelector('.slot');
-      if (layer) {
-        gsap.fromTo(layer, { yPercent: -7 }, { yPercent: 7, ease: 'none',
-          scrollTrigger: { trigger: frame, start: 'top bottom', end: 'bottom top', scrub: true } });
+  /* ---------- work rail: pinned horizontal scroll ---------- */
+  var railWrap = document.getElementById('railWrap'),
+      rail = document.getElementById('rail'),
+      prog = document.getElementById('prog');
+
+  if (rail && hasGsap && window.ScrollTrigger && !reduce) {
+    ScrollTrigger.matchMedia({
+      '(min-width: 901px)': function () {
+        var drive = function () {
+          return Math.max(0, rail.scrollWidth - innerWidth + innerWidth * 0.10);
+        };
+        gsap.to(rail, {
+          x: function () { return -drive(); },
+          ease: 'none',
+          scrollTrigger: {
+            trigger: railWrap,
+            start: 'top top',
+            end: function () { return '+=' + drive(); },
+            pin: '.rail-stick',
+            scrub: 0.6,
+            invalidateOnRefresh: true,
+            onUpdate: function (self) {
+              if (prog) prog.style.width = (5 + self.progress * 95) + '%';
+            }
+          }
+        });
       }
     });
+
+    /* each card lifts as it enters the viewport horizontally */
+    gsap.utils.toArray('.tile .frame').forEach(function (frame) {
+      gsap.fromTo(frame, { yPercent: 6, opacity: 0.55 },
+        { yPercent: 0, opacity: 1, duration: .9, ease: 'power2.out',
+          scrollTrigger: { trigger: frame, start: 'top 92%' } });
+    });
+  }
+
+  /* gallery parallax on case pages */
+  if (hasGsap && window.ScrollTrigger && !reduce) {
     gsap.utils.toArray('.gal .slot').forEach(function (s) {
       gsap.fromTo(s, { yPercent: -5 }, { yPercent: 5, ease: 'none',
         scrollTrigger: { trigger: s, start: 'top bottom', end: 'bottom top', scrub: true } });
     });
-  } else {
-    document.querySelectorAll('.tile .frame').forEach(function (f) { f.style.clipPath = 'none'; });
   }
+
+  /* ---------- services accordions ---------- */
+  document.querySelectorAll('.svc-hd').forEach(function (hd) {
+    hd.addEventListener('click', function () {
+      var open = hd.parentElement.classList.toggle('open');
+      hd.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (hasGsap && window.ScrollTrigger) setTimeout(ScrollTrigger.refresh, 480);
+    });
+  });
 
   /* ---------- statement: word-by-word warm-up ---------- */
   var stmt = document.querySelector('[data-warm]');

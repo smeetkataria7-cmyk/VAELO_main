@@ -35,7 +35,7 @@
 <nav class="top">
   <a href="/" class="word">Vaelo</a>
   <div class="nav-links">
-    <a href="#work">Work</a><a href="#capabilities">Capabilities</a><a href="#studio">Studio</a><a href="#contact">Contact</a>
+    <a href="#work">Work</a><a href="#capabilities">Services</a><a href="#process">Process</a><a href="#studio">Studio</a><a href="#contact">Contact</a>
   </div>
   <button class="burger" aria-label="Menu" aria-expanded="false"><i></i><i></i><i></i></button>
 </nav>
@@ -72,13 +72,18 @@
   </div>
 </div>
 
-<!-- ================= WORK ================= -->
-<section class="sec" id="work" style="border-top:0">
-  <div class="sec-hd">
+<!-- ================= WORK — sticky horizontal rail ================= -->
+<section id="work">
+  <div class="rail-head">
     <div><p class="lab ac">Selected Work</p><h2 style="margin-top:14px">Five that<br>made the cut</h2></div>
-    <p class="lab tab">2025 — 2026 · 05 projects</p>
+    <p class="lab tab">2025 — 2026 · 05 projects · scroll →</p>
   </div>
-  <div class="work" id="workGrid"></div>
+  <div class="prog"><i id="prog"></i></div>
+  <div class="rail-wrap" id="railWrap">
+    <div class="rail-stick">
+      <div class="rail" id="rail"></div>
+    </div>
+  </div>
 </section>
 
 <!-- ================= STATEMENT ================= -->
@@ -95,25 +100,67 @@
   <div><div class="n"><em>AI</em></div><div class="l">Native production stack</div></div>
 </div>
 
-<!-- ================= CAPABILITIES ================= -->
+<!-- ================= SERVICES ================= -->
 <section class="sec rev" id="capabilities">
   <div class="sec-hd">
-    <div><p class="lab ac">Capabilities</p><h2 style="margin-top:14px">Six disciplines,<br>one team</h2></div>
+    <div><p class="lab ac">What We Do</p><h2 style="margin-top:14px">Six disciplines,<br>one team</h2></div>
     <p class="lab" style="max-width:32ch">Engaged as a retainer or a single campaign. Most clients start with one and add the next within a quarter.</p>
   </div>
-  <div class="grid6">
-    <div class="cell"><p class="lab tab">01</p><h3>Brand &amp; Design</h3><p>Identity built to survive a real shelf, feed and ad account.</p>
-      <ul><li>Identity &amp; brand books</li><li>Packaging systems</li><li>Campaign key visuals</li></ul></div>
-    <div class="cell"><p class="lab tab">02</p><h3>AI Production</h3><p>The reason a month of assets ships in a week.</p>
-      <ul><li>Product &amp; lifestyle imagery</li><li>UGC-style video</li><li>Variants at scale</li></ul></div>
-    <div class="cell"><p class="lab tab">03</p><h3>Performance</h3><p>Meta and Amazon, run against creative we made ourselves.</p>
-      <ul><li>Planning &amp; buying</li><li>Creative testing</li><li>Reporting with a next move</li></ul></div>
-    <div class="cell"><p class="lab tab">04</p><h3>Web &amp; Product</h3><p>Storefronts that convert, tools that get used.</p>
-      <ul><li>Shopify &amp; custom builds</li><li>Landing pages</li><li>Internal ops tooling</li></ul></div>
-    <div class="cell"><p class="lab tab">05</p><h3>Content Systems</h3><p>Workflows that hold when the month gets loud.</p>
-      <ul><li>Calendars &amp; stage gates</li><li>Approval flows</li><li>Trend-swap change logs</li></ul></div>
-    <div class="cell"><p class="lab tab">06</p><h3>Strategy</h3><p>Positioning delivered as decisions, not a deck.</p>
-      <ul><li>Positioning &amp; messaging</li><li>Category research</li><li>Go-to-market planning</li></ul></div>
+  <div class="svc">
+    <button class="svc-hd" aria-expanded="false"><span class="no">01</span><span class="name">Brand &amp; Design</span><span class="plus"></span></button>
+    <div class="svc-body"><div><div class="svc-in">
+      <p>Identity systems, packaging and campaign visuals built to survive contact with a real shelf, feed and ad account.</p>
+      <ul><li>Identity &amp; brand books</li><li>Packaging &amp; label systems</li><li>Campaign key visuals</li></ul>
+    </div></div></div>
+  </div>
+  <div class="svc">
+    <button class="svc-hd" aria-expanded="false"><span class="no">02</span><span class="name">AI Production</span><span class="plus"></span></button>
+    <div class="svc-body"><div><div class="svc-in">
+      <p>Product imagery, UGC-style video and content at volume — the reason a month of assets ships in a week.</p>
+      <ul><li>Product &amp; lifestyle imagery</li><li>UGC-style video</li><li>Variant generation at scale</li></ul>
+    </div></div></div>
+  </div>
+  <div class="svc">
+    <button class="svc-hd" aria-expanded="false"><span class="no">03</span><span class="name">Performance</span><span class="plus"></span></button>
+    <div class="svc-body"><div><div class="svc-in">
+      <p>Meta and Amazon planning and buying, run against the same creative we produce — so the test loop is one team, not three.</p>
+      <ul><li>Media planning &amp; buying</li><li>Creative testing frameworks</li><li>Reporting that names the next move</li></ul>
+    </div></div></div>
+  </div>
+  <div class="svc">
+    <button class="svc-hd" aria-expanded="false"><span class="no">04</span><span class="name">Web &amp; Product</span><span class="plus"></span></button>
+    <div class="svc-body"><div><div class="svc-in">
+      <p>Storefronts and sites built to convert, and internal tools built to be used — not prototypes that rot.</p>
+      <ul><li>Shopify &amp; custom storefronts</li><li>Landing pages &amp; microsites</li><li>Internal ops tooling</li></ul>
+    </div></div></div>
+  </div>
+  <div class="svc">
+    <button class="svc-hd" aria-expanded="false"><span class="no">05</span><span class="name">Content Systems</span><span class="plus"></span></button>
+    <div class="svc-body"><div><div class="svc-in">
+      <p>Repeatable, on-brand production workflows — calendars, stage gates and approvals that hold when the month gets loud.</p>
+      <ul><li>Content calendars</li><li>Approval &amp; stage-gate flows</li><li>Trend-swap change logs</li></ul>
+    </div></div></div>
+  </div>
+  <div class="svc">
+    <button class="svc-hd" aria-expanded="false"><span class="no">06</span><span class="name">Strategy</span><span class="plus"></span></button>
+    <div class="svc-body"><div><div class="svc-in">
+      <p>Positioning and go-to-market grounded in research, delivered as decisions rather than a deck.</p>
+      <ul><li>Positioning &amp; messaging</li><li>Category &amp; competitor research</li><li>Go-to-market planning</li></ul>
+    </div></div></div>
+  </div>
+</section>
+
+<!-- ================= PROCESS ================= -->
+<section class="sec rev" id="process">
+  <div class="sec-hd">
+    <div><p class="lab ac">How It Runs</p><h2 style="margin-top:14px">Four stages,<br>no handoff tax</h2></div>
+    <p class="lab tab">Typical cycle · 2–3 weeks</p>
+  </div>
+  <div class="steps">
+    <div><p class="n">01</p><h3>Map</h3><p>Positioning, category and the one thing the work has to prove.</p></div>
+    <div><p class="n">02</p><h3>Make</h3><p>Concepts and production in the same room — AI stack where it earns its place.</p></div>
+    <div><p class="n">03</p><h3>Ship</h3><p>Live across feed, shelf and storefront while the idea still feels current.</p></div>
+    <div><p class="n">04</p><h3>Sharpen</h3><p>Read the performance data, cut what missed, scale what landed.</p></div>
   </div>
 </section>
 
@@ -154,9 +201,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="/assets/work.js"></script>
 <script>
-/* Work grid renders from assets/work.js — add a project there, not here. */
-document.getElementById('workGrid').innerHTML = window.VAELO_WORK.map(function (w) {
-  return '<a class="tile ' + w.tile + '" href="/work/' + w.slug + '.html">' +
+/* The rail renders from assets/work.js — add a project there, not here. */
+document.getElementById('rail').innerHTML = window.VAELO_WORK.map(function (w, i) {
+  return '<a class="tile' + (i % 2 ? ' tall' : '') + '" href="/work/' + w.slug + '.html">' +
     '<div class="frame"><div class="slot" data-spec="Case image"></div><div class="veil"></div><div class="go">↗</div></div>' +
     '<div class="meta"><div><div class="cat">' + w.cat + ' · ' + w.scope + '</div><h3>' + w.title + '</h3></div>' +
     '<div class="idx">' + w.idx + '</div></div></a>';
