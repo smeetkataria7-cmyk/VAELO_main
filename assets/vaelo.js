@@ -88,9 +88,64 @@
     markNav(); onScroll(markNav);
   }
 
-  /* ---------------------------------------------------------- hero intro */
-  /* CSS runs the masked lines; the class just starts them in sequence. */
-  requestAnimationFrame(function () { doc.body.classList.add('lit'); });
+  /* ------------------------------------------------------ opening curtain ---
+     Built by script rather than sitting in the markup, so a page without JS
+     never faces a cover that cannot lift. The count follows real document
+     progress where the browser reports it and a clock where it does not, and
+     it always resolves: the curtain cannot outstay 1.9 seconds. */
+  var startLit = function () {
+    requestAnimationFrame(function () { doc.body.classList.add('lit'); });
+  };
+  /* the home page is the one with a full hero; case pages get the wipe */
+  var wantsCurtain = !!doc.querySelector('.hero') && !reduce;
+
+  if (wantsCurtain) {
+    var curt = doc.createElement('div');
+    curt.className = 'curtain';
+    curt.setAttribute('aria-hidden', 'true');
+    curt.innerHTML =
+      '<div class="c-sub">Mumbai \u00b7 Independent, AI-native creative company</div>' +
+      '<div class="c-bar"><i></i></div>' +
+      '<div class="c-row"><div class="c-word"><i>Vaelo</i></div><div class="c-num">0</div></div>';
+    doc.body.appendChild(curt);
+    doc.body.style.overflow = 'hidden';
+
+    var cBar = curt.querySelector('.c-bar i'),
+        cNum = curt.querySelector('.c-num'),
+        shown = 0, lifted = false, t0 = performance.now();
+
+    var lift = function () {
+      if (lifted) return;
+      lifted = true;
+      cNum.textContent = '100';
+      cBar.style.width = '100%';
+      setTimeout(function () {
+        curt.classList.add('up');
+        doc.body.style.overflow = '';
+        startLit();
+        setTimeout(function () {
+          if (curt.parentNode) curt.parentNode.removeChild(curt);
+        }, 1150);
+      }, 280);
+    };
+
+    var count = function (t) {
+      var byTime = Math.min(1, (t - t0) / 1400);
+      var byLoad = doc.readyState === 'complete' ? 1
+                 : (doc.readyState === 'interactive' ? 0.72 : 0.4);
+      var p = Math.min(byTime, Math.max(byTime * 0.55, byLoad));
+      shown = Math.max(shown, Math.round(p * 100));
+      cNum.textContent = shown;
+      cBar.style.width = shown + '%';
+      if (shown < 100 && !lifted) requestAnimationFrame(count);
+      else lift();
+    };
+    requestAnimationFrame(count);
+    on(window, 'load', function () { setTimeout(lift, 240); });
+    setTimeout(lift, 1900);                    /* the hard ceiling */
+  } else {
+    startLit();
+  }
 
   /* --------------------------------------------------- hero backdrop ---
      A showreel takes over when the file exists. Until then a generative
@@ -209,9 +264,13 @@
 
     var glide = function () {
       var d = target - current;
-      if (Math.abs(d) < 0.12) { current = target; gliding = false; }
+      if (Math.abs(d) < 0.12) { current = target; gliding = false; d = 0; }
       current += d * 0.11;                       /* the ease */
-      rail.style.transform = 'translate3d(' + current.toFixed(2) + 'px,0,0)';
+      /* the outstanding distance is also the lean: the strip flexes into a
+         flick and stands upright again as it catches up */
+      var lean = Math.max(-7, Math.min(7, d * 0.012));
+      rail.style.transform = 'translate3d(' + current.toFixed(2) + 'px,0,0) ' +
+                             'skewX(' + lean.toFixed(2) + 'deg)';
       if (gliding) requestAnimationFrame(glide);
     };
 

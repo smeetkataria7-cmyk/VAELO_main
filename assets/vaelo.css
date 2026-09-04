@@ -423,3 +423,35 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
 @media(prefers-reduced-motion:reduce){
   .js .gal .slot{clip-path:none!important}
 }
+
+/* ==========================================================================
+   OPENING CURTAIN + RAIL LEAN
+   ========================================================================== */
+
+/* The curtain is built by script, so a page without JS never sees one and is
+   never left sitting behind a cover that cannot lift. */
+.curtain{position:fixed;inset:0;z-index:600;background:var(--deep);overflow:hidden;
+  display:flex;flex-direction:column;justify-content:flex-end;padding:var(--pad);
+  transition:clip-path 1.05s cubic-bezier(.72,0,.16,1)}
+.curtain.up{clip-path:inset(0 0 100% 0)}
+.curtain::after{content:'';position:absolute;inset:0;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.curtain .c-bar{height:1px;background:var(--line);margin-bottom:26px;position:relative}
+.curtain .c-bar i{position:absolute;left:0;top:-1px;display:block;height:3px;width:0;background:var(--accent);
+  transition:width .25s linear}
+.curtain .c-row{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.curtain .c-word{font-family:var(--display);font-weight:800;text-transform:uppercase;
+  font-size:clamp(44px,11vw,150px);letter-spacing:-.03em;line-height:.78;overflow:hidden}
+.curtain .c-word i{display:block;font-style:normal;transform:translateY(106%);
+  animation:c-rise .95s .05s cubic-bezier(.2,.75,.2,1) forwards}
+@keyframes c-rise{to{transform:translateY(0)}}
+.curtain .c-num{font-family:var(--display);font-weight:800;font-size:clamp(30px,5vw,68px);
+  color:var(--accent);font-variant-numeric:tabular-nums;line-height:1}
+.curtain .c-sub{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--dim);
+  margin-bottom:14px}
+
+/* The rail leans into the distance it still has to travel — the lag itself
+   drives the lean, so it flexes on a flick and stands up as it settles. */
+.rail{transform-origin:center center}
+
+@media(prefers-reduced-motion:reduce){.curtain{display:none}}
