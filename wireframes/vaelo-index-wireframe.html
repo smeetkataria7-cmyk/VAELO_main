@@ -1,0 +1,433 @@
+<title>Vaelo Index</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Archivo:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ===== BRAND GUIDELINE — inherited from vaelo-agency.html, unchanged ===== */
+  :root{
+    --black:#0a0a0a; --deep:#040404; --off:#f4f2ec; --dim:#8c887e;
+    --accent:#d6ff3f; --line:rgba(244,242,236,0.14); --soft:rgba(244,242,236,0.06);
+    --display:'Bricolage Grotesque',ui-sans-serif,system-ui,sans-serif;
+    --text:'Archivo',ui-sans-serif,system-ui,-apple-system,sans-serif;
+    --rail:78px; --pad:clamp(20px,4vw,56px);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--black);color:var(--off);font-family:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:clip}
+  ::selection{background:var(--accent);color:var(--black)}
+  a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  h1,h2,h3,.disp{font-family:var(--display);font-weight:700;letter-spacing:-.02em;text-transform:uppercase;text-wrap:balance}
+  .out{color:transparent;-webkit-text-stroke:1.2px var(--off)}
+  .lab{font-size:10.5px;text-transform:uppercase;letter-spacing:.11em;color:var(--dim)}
+  .lab.ac{color:var(--accent)}
+  .tab{font-variant-numeric:tabular-nums}
+  .slot{position:relative;background:repeating-linear-gradient(135deg,rgba(244,242,236,.035) 0 1px,transparent 1px 10px),#111110;
+    border:1px solid var(--line);display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .slot span{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--dim);text-align:center;padding:0 10px}
+
+  /* ===== FIXED META RAIL — replaces the old top-nav-only chrome ===== */
+  .rail{position:fixed;left:0;top:0;bottom:0;width:var(--rail);z-index:120;border-right:1px solid var(--line);
+    background:var(--deep);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:20px 0}
+  .rail .mark{font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:.02em;writing-mode:vertical-rl;text-transform:uppercase}
+  .rail .mid{writing-mode:vertical-rl;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);display:flex;gap:22px;align-items:center}
+  .rail .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+  .rail .clock{writing-mode:vertical-rl;font-size:10.5px;letter-spacing:.14em;color:var(--dim);font-variant-numeric:tabular-nums}
+  .shell{margin-left:var(--rail)}
+  @media(max-width:860px){
+    .rail{width:100%;height:46px;bottom:auto;flex-direction:row;padding:0 var(--pad);border-right:0;border-bottom:1px solid var(--line)}
+    .rail .mark,.rail .mid,.rail .clock{writing-mode:horizontal-tb}
+    .rail .mid{gap:14px;font-size:9.5px}
+    .shell{margin-left:0;margin-top:46px}
+  }
+
+  /* ===== TOP LINE ===== */
+  .top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding:var(--pad) var(--pad) 0;flex-wrap:wrap}
+  .top nav{display:flex;gap:22px;font-size:11.5px;text-transform:uppercase;letter-spacing:.07em}
+  .top nav a{color:var(--dim);transition:color .25s}
+  .top nav a:hover{color:var(--accent)}
+  .top .say{font-size:13.5px;color:var(--dim);max-width:34ch}
+
+  /* ===== 01 · THE INDEX (the whole landing) ===== */
+  .index{position:relative;padding:clamp(30px,6vw,70px) 0 0;min-height:calc(100svh - 120px)}
+  .index-bg{position:fixed;inset:0 0 0 var(--rail);z-index:0;opacity:0;transition:opacity .55s ease;pointer-events:none}
+  .index-bg.on{opacity:.30}
+  .index-bg .slot{position:absolute;inset:0;border:0;background:repeating-linear-gradient(135deg,rgba(244,242,236,.05) 0 1px,transparent 1px 16px),#161615}
+  @media(max-width:860px){.index-bg{inset:46px 0 0 0}}
+  .index-hd{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;
+    padding:0 var(--pad) 22px;border-bottom:1px solid var(--line);position:relative;z-index:2}
+  .index-hd h1{font-size:clamp(30px,5.2vw,66px);line-height:.92}
+  .rows{position:relative;z-index:2}
+  .row{display:grid;grid-template-columns:52px 1fr 200px 62px;align-items:center;gap:18px;
+    padding:clamp(16px,2.4vw,26px) var(--pad);border-bottom:1px solid var(--soft);width:100%;
+    background:none;border-left:0;border-right:0;border-top:0;color:inherit;font:inherit;text-align:left;cursor:pointer;
+    transition:background .35s,padding-left .4s cubic-bezier(.2,.7,.2,1)}
+  .row .no{font-family:var(--display);font-weight:800;font-size:12px;color:var(--dim);font-variant-numeric:tabular-nums}
+  .row .ttl{font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:-.02em;
+    font-size:clamp(22px,4.6vw,58px);line-height:1;transition:color .3s,-webkit-text-stroke-color .3s}
+  .row .cat{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--dim)}
+  .row .yr{font-size:11px;color:var(--dim);text-align:right;font-variant-numeric:tabular-nums}
+  .row:hover,.row:focus-visible{background:rgba(244,242,236,.03);padding-left:calc(var(--pad) + 14px)}
+  .row:hover .ttl,.row:focus-visible .ttl{color:var(--accent)}
+  .rows.hot .row:not(:hover) .ttl{color:transparent;-webkit-text-stroke:1px rgba(244,242,236,.42)}
+  @media(max-width:860px){
+    .row{grid-template-columns:38px 1fr 44px;gap:12px}
+    .row .cat{grid-column:2;font-size:10px}
+    .row .yr{grid-column:3}
+    .rows.hot .row .ttl{color:var(--off);-webkit-text-stroke:0}
+  }
+  .index-ft{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:22px var(--pad);position:relative;z-index:2}
+
+  /* ===== CASE OVERLAY ===== */
+  .case{position:fixed;inset:0 0 0 auto;width:min(760px,100%);z-index:300;background:var(--deep);border-left:1px solid var(--line);
+    transform:translateX(101%);transition:transform .6s cubic-bezier(.72,0,.16,1);overflow-y:auto;overscroll-behavior:contain}
+  .case.on{transform:none}
+  .scrim{position:fixed;inset:0;z-index:290;background:rgba(4,4,4,.68);opacity:0;pointer-events:none;transition:opacity .45s}
+  .scrim.on{opacity:1;pointer-events:auto}
+  .case-top{position:sticky;top:0;background:var(--deep);border-bottom:1px solid var(--line);z-index:2;
+    display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px var(--pad)}
+  .x{background:none;border:1px solid var(--line);color:inherit;font:inherit;font-size:11px;text-transform:uppercase;
+    letter-spacing:.08em;padding:7px 13px;cursor:pointer;transition:border-color .25s,color .25s}
+  .x:hover{border-color:var(--accent);color:var(--accent)}
+  .case-in{padding:var(--pad) var(--pad) 70px;display:flex;flex-direction:column;gap:34px}
+  .case-in h2{font-size:clamp(28px,4.6vw,52px);line-height:.95}
+  .case-in .hero-slot{aspect-ratio:16/10}
+  .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--soft);border:1px solid var(--line)}
+  @media(max-width:600px){.facts{grid-template-columns:1fr}}
+  .facts div{background:var(--deep);padding:16px}
+  .facts b{display:block;font-size:14px;font-weight:500;margin-top:6px}
+  .case-in p{font-size:15px;color:var(--dim);max-width:62ch}
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:600px){.pair{grid-template-columns:1fr}}
+  .pair .slot{aspect-ratio:4/5}
+  .kpis{display:flex;gap:clamp(18px,4vw,44px);flex-wrap:wrap;border-top:1px solid var(--line);padding-top:22px}
+  .kpis div{display:flex;flex-direction:column;gap:4px}
+  .kpis .v{font-family:var(--display);font-weight:800;font-size:clamp(24px,4vw,38px);color:var(--accent);font-variant-numeric:tabular-nums}
+
+  /* ===== 02 · MANIFESTO — asymmetric, type as texture ===== */
+  .mani{position:relative;padding:clamp(90px,13vw,190px) var(--pad);border-top:1px solid var(--line);overflow:hidden}
+  .mani .ghost{position:absolute;left:-2vw;top:8%;font-family:var(--display);font-weight:800;text-transform:uppercase;
+    font-size:clamp(120px,26vw,380px);line-height:.8;color:transparent;-webkit-text-stroke:1px rgba(244,242,236,.09);
+    pointer-events:none;user-select:none;white-space:nowrap}
+  .mani-in{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,80px);align-items:end}
+  @media(max-width:860px){.mani-in{grid-template-columns:1fr}}
+  .mani-in .l{align-self:start}
+  .mani h2{font-size:clamp(24px,3.4vw,42px);line-height:1.1;text-transform:none;max-width:22ch}
+  .mani h2 em{font-style:normal;color:var(--accent)}
+  .mani .body{font-size:15px;color:var(--dim);display:flex;flex-direction:column;gap:14px;max-width:52ch}
+  .mani .body b{color:var(--off);font-weight:500}
+
+  /* ===== 03 · CAPABILITIES — dense editorial grid, not a hover list ===== */
+  .caps{border-top:1px solid var(--line);padding:clamp(60px,9vw,120px) var(--pad)}
+  .caps-hd{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:40px}
+  .caps-hd h2{font-size:clamp(24px,3.6vw,46px)}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--soft);border:1px solid var(--line)}
+  @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.grid{grid-template-columns:1fr}}
+  .cell{background:var(--black);padding:24px 20px;display:flex;flex-direction:column;gap:10px;min-height:210px;
+    transition:background .3s}
+  .cell:hover{background:#131312}
+  .cell h3{font-size:15px;letter-spacing:-.01em}
+  .cell p{font-size:13px;color:var(--dim)}
+  .cell ul{list-style:none;display:flex;flex-direction:column;gap:6px;margin-top:auto;font-size:11.5px;color:var(--dim)}
+  .cell li{padding-left:14px;position:relative}
+  .cell li::before{content:'';position:absolute;left:0;top:8px;width:5px;height:1px;background:var(--accent)}
+
+  /* ===== 04 · STUDIO — sticky title against scrolling body ===== */
+  .studio{border-top:1px solid var(--line);padding:clamp(60px,9vw,120px) var(--pad);
+    display:grid;grid-template-columns:minmax(200px,32%) 1fr;gap:clamp(24px,5vw,70px);align-items:start}
+  @media(max-width:860px){.studio{grid-template-columns:1fr;gap:26px}}
+  .studio .stick{position:sticky;top:calc(var(--pad))}
+  @media(max-width:860px){.studio .stick{position:static}}
+  .studio h2{font-size:clamp(24px,3.6vw,46px);line-height:1;margin-top:12px}
+  .studio .body{display:flex;flex-direction:column;gap:24px}
+  .studio p{font-size:15px;color:var(--dim);max-width:58ch}
+  .studio p b{color:var(--off);font-weight:500}
+  .studio .slot{aspect-ratio:16/9}
+  .facts2{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--soft);border:1px solid var(--line)}
+  @media(max-width:600px){.facts2{grid-template-columns:1fr}}
+  .facts2 div{background:var(--black);padding:16px}
+  .facts2 b{display:block;font-family:var(--display);font-weight:800;font-size:22px;margin-top:6px;font-variant-numeric:tabular-nums}
+
+  /* ===== 05 · CONTACT ===== */
+  .end{border-top:1px solid var(--line);padding:clamp(70px,11vw,150px) var(--pad) 0}
+  .end h2{font-size:clamp(38px,10vw,150px);line-height:.86;text-transform:uppercase}
+  .end .mail{display:inline-flex;align-items:center;gap:12px;margin-top:34px;font-family:var(--display);font-weight:700;
+    font-size:clamp(16px,2.6vw,30px);border-bottom:1px solid var(--line);padding-bottom:7px;transition:color .3s,border-color .3s}
+  .end .mail:hover{color:var(--accent);border-color:var(--accent)}
+  .end-grid{display:flex;gap:clamp(20px,5vw,60px);flex-wrap:wrap;margin-top:48px;padding-bottom:40px}
+  .end-grid div{display:flex;flex-direction:column;gap:5px}
+  .end-grid b{font-weight:500;font-size:14px}
+  footer{border-top:1px solid var(--line);padding:22px var(--pad) 76px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+    font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--dim)}
+
+  /* ===== WIREFRAME CHROME ===== */
+  .wf{position:fixed;left:0;right:0;bottom:0;z-index:350;display:flex;justify-content:space-between;align-items:center;gap:14px;
+    padding:10px var(--pad);background:rgba(4,4,4,.93);backdrop-filter:blur(10px);border-top:1px solid var(--line);
+    font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--dim)}
+  .wf b{color:var(--accent);font-weight:600}
+  .wf button{font:inherit;letter-spacing:.08em;color:var(--off);background:none;border:1px solid var(--line);padding:6px 12px;cursor:pointer;
+    transition:background .2s,color .2s,border-color .2s}
+  .wf button:hover{border-color:var(--accent);color:var(--accent)}
+  .wf button[aria-pressed="true"]{background:var(--accent);color:var(--black);border-color:var(--accent);font-weight:600}
+  .note{display:none;position:absolute;z-index:80;max-width:260px;border-left:2px solid var(--accent);
+    background:rgba(6,6,5,.95);padding:11px 13px;font-size:11.5px;line-height:1.45}
+  .note b{display:block;color:var(--accent);font-size:9.5px;text-transform:uppercase;letter-spacing:.09em;margin-bottom:4px}
+  body.notes .note{display:block}
+
+  .rev{transform:translateY(16px);transition:transform .8s cubic-bezier(.2,.75,.2,1)}
+  .rev.on{transform:none}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rev{transform:none}}
+</style>
+
+<aside class="rail">
+  <div class="mark">Vaelo</div>
+  <div class="mid"><span class="dot"></span><span>Open for Q1 briefs</span><span>Mumbai · 19.0760° N</span></div>
+  <div class="clock" id="clock">IST —:—</div>
+</aside>
+
+<div class="shell">
+
+  <div class="top">
+    <p class="say">Independent, AI-native creative company. We design, produce and ship in one room.</p>
+    <nav><a href="#caps">Capabilities</a><a href="#studio">Studio</a><a href="#end">Contact</a></nav>
+  </div>
+
+  <!-- ============ 01 · INDEX ============ -->
+  <section class="index" id="index">
+    <div class="index-bg" id="bg"><div class="slot"></div></div>
+
+    <div class="note" style="right:var(--pad);top:8px">
+      <b>The structural change</b>No hero. The site opens straight into the work as a typographic index — hovering a title floods the background with that project. Nothing else competes for the first screen.
+    </div>
+
+    <div class="index-hd">
+      <h1>Selected<br>Work</h1>
+      <div class="lab tab">Index · 05 projects · 2025–26</div>
+    </div>
+
+    <div class="rows" id="rows">
+      <button class="row" data-i="0"><span class="no">01</span><span class="ttl">Launch, Not a Rollout</span><span class="cat">D2C · Brand + Performance</span><span class="yr">’26</span></button>
+      <button class="row" data-i="1"><span class="no">02</span><span class="ttl">Sell the Feeling</span><span class="cat">Real Estate · Film + Web</span><span class="yr">’26</span></button>
+      <button class="row" data-i="2"><span class="no">03</span><span class="ttl">Catalogue at Scale</span><span class="cat">Fashion · AI Production</span><span class="yr">’25</span></button>
+      <button class="row" data-i="3"><span class="no">04</span><span class="ttl">Built to Enroll</span><span class="cat">Ed-Tech · Content Systems</span><span class="yr">’25</span></button>
+      <button class="row" data-i="4"><span class="no">05</span><span class="ttl">Make the Science Legible</span><span class="cat">Packaging · Design</span><span class="yr">’25</span></button>
+    </div>
+
+    <div class="index-ft">
+      <span class="lab">Select a project to open the case</span>
+      <span class="lab ac">↳ Full archive coming</span>
+    </div>
+  </section>
+
+  <!-- ============ 02 · MANIFESTO ============ -->
+  <section class="mani rev">
+    <div class="ghost" aria-hidden="true">Still Current</div>
+    <div class="note" style="right:var(--pad);top:40px">
+      <b>Not a centred statement</b>Outlined display type sits behind the copy as texture. The argument runs in two offset columns instead of one centred block.
+    </div>
+    <div class="mani-in">
+      <div class="l">
+        <div class="lab ac">Position</div>
+        <h2 style="margin-top:14px">We're not a department store of services. We're one team that designs, produces and ships — <em>fast enough</em> that the idea still feels current when it goes live.</h2>
+      </div>
+      <div class="body">
+        <p>Most agencies lose the idea in the handoff. Strategy writes it, design reinterprets it, production compromises it, media buys whatever survived.</p>
+        <p><b>We removed the handoffs.</b> The people who decide the positioning are the people who shoot, cut and publish it — with an AI production stack that turns a month of assets into a week.</p>
+        <p>That's the whole proposition. Speed is not the point; <b>speed is what keeps the idea intact.</b></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 03 · CAPABILITIES ============ -->
+  <section class="caps rev" id="caps">
+    <div class="caps-hd">
+      <div><div class="lab ac">Capabilities</div><h2 style="margin-top:12px">Six disciplines,<br>one P&amp;L</h2></div>
+      <div class="lab" style="max-width:32ch">Engaged as a retainer or a single campaign. Most clients start with one and add the next within a quarter.</div>
+    </div>
+    <div class="note" style="right:var(--pad);top:20px">
+      <b>Audit fix</b>The old services list only responded to hover — dead on touch. This is a static grid that reads fully at a glance, no interaction required.
+    </div>
+    <div class="grid">
+      <div class="cell"><div class="lab tab">01</div><h3>Brand &amp; Design</h3><p>Identity built to survive a real shelf, feed and ad account.</p>
+        <ul><li>Identity &amp; brand books</li><li>Packaging systems</li><li>Campaign key visuals</li></ul></div>
+      <div class="cell"><div class="lab tab">02</div><h3>AI Production</h3><p>The reason a month of assets ships in a week.</p>
+        <ul><li>Product &amp; lifestyle imagery</li><li>UGC-style video</li><li>Variants at scale</li></ul></div>
+      <div class="cell"><div class="lab tab">03</div><h3>Performance</h3><p>Meta and Amazon, run against creative we made ourselves.</p>
+        <ul><li>Planning &amp; buying</li><li>Creative testing</li><li>Reporting with a next move</li></ul></div>
+      <div class="cell"><div class="lab tab">04</div><h3>Web &amp; Product</h3><p>Storefronts that convert, tools that get used.</p>
+        <ul><li>Shopify &amp; custom builds</li><li>Landing pages</li><li>Internal ops tooling</li></ul></div>
+      <div class="cell"><div class="lab tab">05</div><h3>Content Systems</h3><p>Workflows that hold when the month gets loud.</p>
+        <ul><li>Calendars &amp; stage gates</li><li>Approval flows</li><li>Trend-swap change logs</li></ul></div>
+      <div class="cell"><div class="lab tab">06</div><h3>Strategy</h3><p>Positioning delivered as decisions, not a deck.</p>
+        <ul><li>Positioning &amp; messaging</li><li>Category research</li><li>Go-to-market planning</li></ul></div>
+    </div>
+  </section>
+
+  <!-- ============ 04 · STUDIO ============ -->
+  <section class="studio rev" id="studio">
+    <div class="stick">
+      <div class="lab ac">Studio</div>
+      <h2>Small on<br>purpose</h2>
+    </div>
+    <div class="body">
+      <div class="note" style="right:var(--pad);top:0">
+        <b>Sticky column</b>The title pins while the body scrolls past it — a different reading rhythm from every other section.
+      </div>
+      <p>Vaelo runs out of Mumbai as one integrated team rather than a stack of departments. <b>Every brief is touched by the people who will ship it</b> — no account layer translating between you and the work.</p>
+      <div class="slot"><span>Studio / team photograph · 1920×1080</span></div>
+      <p>The AI production stack is not a novelty line on a credentials page. It's the operating constraint that lets a team this size take on <b>five categories at once</b> — D2C, real estate, ed-tech, fashion and packaging — without diluting any of them.</p>
+      <div class="facts2">
+        <div><span class="lab">Categories served</span><b>05</b></div>
+        <div><span class="lab">Typical cycle</span><b>2–3 wks</b></div>
+        <div><span class="lab">Founded</span><b>2025</b></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 05 · CONTACT ============ -->
+  <section class="end rev" id="end">
+    <div class="lab ac">New Business</div>
+    <h2 style="margin-top:20px">Tell us what<br><span class="out">won't</span> move.</h2>
+    <a class="mail" href="mailto:hello@vaelocreative.com">hello@vaelocreative.com <span aria-hidden="true">↗</span></a>
+    <div class="note" style="left:var(--pad);bottom:20px">
+      <b>Biggest audit fix</b>The live site gives a visitor no email, phone or form. Addresses here are placeholders — send me the real ones.
+    </div>
+    <div class="end-grid">
+      <div><span class="lab">Studio</span><b>Mumbai, India</b></div>
+      <div><span class="lab">Instagram</span><b>@vaelocreative.official</b></div>
+      <div><span class="lab">New business</span><b>+91 ·· ···· ····</b></div>
+      <div><span class="lab">Local time</span><b id="clock2">IST —:—</b></div>
+    </div>
+  </section>
+
+  <footer>
+    <div>Vaelo Creative LLP, Mumbai</div>
+    <div>Wireframe · structure, not final art</div>
+    <div>© 2026</div>
+  </footer>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<aside class="case" id="case" aria-hidden="true" aria-label="Case study">
+  <div class="case-top">
+    <span class="lab tab" id="caseNo">Case 01</span>
+    <button class="x" id="close">Close ✕</button>
+  </div>
+  <div class="case-in">
+    <div><div class="lab ac" id="caseCat">D2C</div><h2 id="caseTtl" style="margin-top:12px">Launch, Not a Rollout</h2></div>
+    <div class="slot hero-slot"><span>Case hero · 1920×1200</span></div>
+    <div class="facts">
+      <div><span class="lab">Client</span><b id="caseClient">Confidential</b></div>
+      <div><span class="lab">Scope</span><b id="caseScope">Brand + Performance</b></div>
+      <div><span class="lab">Year</span><b id="caseYr">2026</b></div>
+    </div>
+    <div><div class="lab ac">The brief</div><p style="margin-top:10px" id="caseBrief">One paragraph on what the client needed and what was in the way. Written from their side, not ours.</p></div>
+    <div><div class="lab ac">What we did</div><p style="margin-top:10px" id="caseDid">Two or three sentences on the actual work — decisions made, assets produced, channels shipped to.</p></div>
+    <div class="pair"><div class="slot"><span>Detail · 1200×1500</span></div><div class="slot"><span>Detail · 1200×1500</span></div></div>
+    <div class="kpis">
+      <div><span class="lab">Assets shipped</span><span class="v">240</span></div>
+      <div><span class="lab">Cycle time</span><span class="v">9 days</span></div>
+      <div><span class="lab">Result metric</span><span class="v">— —</span></div>
+    </div>
+    <div class="slot" style="aspect-ratio:16/9"><span>Campaign film still · 1920×1080</span></div>
+    <p class="lab">Next case ↓ loads in place — the visitor never returns to a grid.</p>
+  </div>
+</aside>
+
+<div class="wf">
+  <div>Wireframe — palette, type &amp; motion locked from <b>vaelo-agency.html</b>; layout rebuilt</div>
+  <button id="notesBtn" aria-pressed="false">Show build notes</button>
+</div>
+
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* live Mumbai time — IST is UTC+5:30 */
+  function tick(){
+    var d = new Date(Date.now() + (330 + new Date().getTimezoneOffset()) * 60000);
+    var t = 'IST ' + String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+    document.getElementById('clock').textContent = t;
+    document.getElementById('clock2').textContent = t;
+  }
+  tick(); setInterval(tick, 20000);
+
+  /* build notes */
+  var nb = document.getElementById('notesBtn');
+  nb.addEventListener('click', function(){
+    var on = document.body.classList.toggle('notes');
+    nb.setAttribute('aria-pressed', on ? 'true':'false');
+    nb.textContent = on ? 'Hide build notes' : 'Show build notes';
+  });
+
+  /* index hover → background flood */
+  var rows = document.getElementById('rows'), bg = document.getElementById('bg');
+  if (!reduce && matchMedia('(hover:hover)').matches){
+    rows.addEventListener('pointerover', function(e){
+      if (e.target.closest('.row')){ rows.classList.add('hot'); bg.classList.add('on'); }
+    });
+    rows.addEventListener('pointerleave', function(){
+      rows.classList.remove('hot'); bg.classList.remove('on');
+    });
+  }
+
+  /* case overlay */
+  var DATA = [
+    {cat:'D2C · Brand + Performance', ttl:'Launch, Not a Rollout', scope:'Brand + Performance', yr:'2026',
+     brief:'A new D2C range with a fixed launch date, no existing audience, and a category where every competitor looks the same on a shelf and identical in a feed.',
+     did:'Built the identity and packaging system, produced the full launch asset library in-house, and ran the Meta buy against our own creative so the test loop stayed inside one team.'},
+    {cat:'Real Estate · Film + Web', ttl:'Sell the Feeling', scope:'Film + Web', yr:'2026',
+     brief:'A development competing on floor plans and price per square foot, in a market where every listing page reads the same.',
+     did:'Shifted the pitch from specification to atmosphere — a film-led campaign and a site built around the walk-through rather than the brochure.'},
+    {cat:'Fashion · AI Production', ttl:'Catalogue at Scale', scope:'AI Production', yr:'2025',
+     brief:'A catalogue too large to shoot conventionally inside the season it was meant to sell in.',
+     did:'Stood up an AI production pipeline for product and lifestyle imagery, with a consistency spec tight enough to pass the brand’s own review.'},
+    {cat:'Ed-Tech · Content Systems', ttl:'Built to Enroll', scope:'Content Systems', yr:'2025',
+     brief:'Strong course outcomes, a content operation that could not keep pace with the enrolment calendar.',
+     did:'Designed a repeatable content system — calendar, stage gates and approvals — then produced against it through two intake cycles.'},
+    {cat:'Packaging · Design', ttl:'Make the Science Legible', scope:'Design', yr:'2025',
+     brief:'A genuinely sustainable material story that customers could not read off the pack in three seconds.',
+     did:'Rebuilt the pack hierarchy so the claim lands before the ingredient list, with a visual system that scales across the range.'}
+  ];
+  var cs = document.getElementById('case'), scrim = document.getElementById('scrim'), lastFocus = null;
+
+  function open(i){
+    var d = DATA[i];
+    document.getElementById('caseNo').textContent = 'Case ' + String(i+1).padStart(2,'0');
+    document.getElementById('caseCat').textContent = d.cat;
+    document.getElementById('caseTtl').textContent = d.ttl;
+    document.getElementById('caseScope').textContent = d.scope;
+    document.getElementById('caseYr').textContent = d.yr;
+    document.getElementById('caseBrief').textContent = d.brief;
+    document.getElementById('caseDid').textContent = d.did;
+    lastFocus = document.activeElement;
+    cs.classList.add('on'); scrim.classList.add('on');
+    cs.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('close').focus();
+  }
+  function close(){
+    cs.classList.remove('on'); scrim.classList.remove('on');
+    cs.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+    if (lastFocus) lastFocus.focus();
+  }
+  document.querySelectorAll('.row').forEach(function(r){
+    r.addEventListener('click', function(){ open(+r.dataset.i); });
+  });
+  document.getElementById('close').addEventListener('click', close);
+  scrim.addEventListener('click', close);
+  addEventListener('keydown', function(e){ if (e.key === 'Escape' && cs.classList.contains('on')) close(); });
+
+  /* reveals — transform only, text never hidden */
+  if ('IntersectionObserver' in window && !reduce){
+    var io = new IntersectionObserver(function(en){
+      en.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); } });
+    }, {rootMargin:'0px 0px -10% 0px'});
+    document.querySelectorAll('.rev').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.rev').forEach(function(el){ el.classList.add('on'); });
+  }
+})();
+</script>
