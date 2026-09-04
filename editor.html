@@ -53,6 +53,29 @@
     background:var(--accent);color:var(--black);font-size:12px;font-weight:600;text-transform:uppercase;
     letter-spacing:.06em;padding:11px 20px;pointer-events:none;transition:opacity .3s,transform .3s;z-index:100}
   .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+  .drop{display:block;border:1px dashed var(--line);padding:30px 20px;text-align:center;transition:border-color .25s,background .25s;
+    cursor:pointer;position:relative}
+  .drop:hover,.drop.over{border-color:var(--accent);background:rgba(214,255,63,.05)}
+  .drop b{display:block;font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:15px;margin-bottom:6px}
+  .drop span{font-size:12px;color:var(--dim)}
+  .drop input{position:absolute;inset:0;opacity:0;cursor:pointer}
+  .shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:10px;margin-top:16px}
+  .thumb{position:relative;border:1px solid var(--line);background:#111110;overflow:hidden}
+  .thumb .box{position:relative;aspect-ratio:4/3;overflow:hidden;background:#0d0d0c}
+  .thumb img,.thumb video{width:100%;height:100%;object-fit:cover;display:block}
+  .thumb .tag{position:absolute;left:0;top:0;background:var(--accent);color:var(--black);font-size:9px;font-weight:700;
+    text-transform:uppercase;letter-spacing:.08em;padding:3px 7px}
+  .thumb .nm{font-size:10px;color:var(--dim);padding:6px 7px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .thumb .acts{display:flex;gap:1px;padding:6px 5px 5px}
+  .thumb .acts button{flex:1;font:inherit;font-size:10px;background:none;border:1px solid var(--line);color:var(--dim);
+    padding:4px 0;cursor:pointer;transition:color .2s,border-color .2s}
+  .thumb .acts button:hover{color:var(--accent);border-color:var(--accent)}
+  .thumb .acts button.rm:hover{color:#ff5f45;border-color:#ff5f45}
+  .savebar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:16px}
+  .savebar .note{font-size:11.5px;color:var(--dim);flex:1;min-width:220px}
+  .bar{height:2px;background:var(--line);margin-top:12px;position:relative;display:none}
+  .bar.on{display:block}
+  .bar i{position:absolute;left:0;top:-1px;height:4px;background:var(--accent);width:0;transition:width .2s}
   .prev{border:1px solid var(--line);padding:16px;margin-top:6px}
   .prev .frame{position:relative;aspect-ratio:4/3;overflow:hidden}
   .prev .meta{display:flex;justify-content:space-between;align-items:flex-end;padding-top:12px;gap:12px}
@@ -118,6 +141,22 @@
       </div>
 
       <div class="sect">
+        <h2>Images and film</h2>
+        <label class="drop" id="drop">
+          <b>Drop files here</b>
+          <span>or click to choose — images and video, any number. The first is the hero.</span>
+          <input type="file" id="picker" multiple accept="image/*,video/*">
+        </label>
+        <div class="shelf" id="shelf"></div>
+        <div class="savebar">
+          <button type="button" class="btn pri" id="saveFolder">Save into the site folder</button>
+          <button type="button" class="btn" id="saveZip">Download a zip</button>
+          <span class="note" id="saveNote"></span>
+        </div>
+        <div class="bar" id="bar"><i></i></div>
+      </div>
+
+      <div class="sect">
         <h2>How it will look</h2>
         <div class="prev">
           <div class="frame"><div class="slot" data-spec="Case image" style="position:absolute;inset:0"></div></div>
@@ -155,6 +194,7 @@
 <div class="toast" id="toast">Saved</div>
 
 <script src="assets/work.js"></script>
+<script src="assets/editor-images.js"></script>
 <script>
 (function () {
   var KEY = 'vaelo-work-draft';
@@ -187,7 +227,10 @@
         '<span class="c">' + (w.cat || '') + '</span></button>';
     }).join('');
     document.querySelectorAll('.pitem').forEach(function (b) {
-      b.addEventListener('click', function () { idx = +b.dataset.i; fill(); renderList(); });
+      b.addEventListener('click', function () {
+        idx = +b.dataset.i; fill(); renderList();
+        IM.load(slugNow()).then(renderShelf);
+      });
     });
     var cats = [];
     work.forEach(function (w) { if (w.cat && cats.indexOf(w.cat) === -1) cats.push(w.cat); });
@@ -204,6 +247,8 @@
       document.getElementById('k' + k + 'l').value = kp[1];
     }
     preview();
+    if (window.VaeloImages) window.VaeloImages.load(
+      (w.slug || slugify(w.title || '') || 'untitled')).then(renderShelf);
   }
   function preview() {
     var t = document.getElementById('title').value || 'Project title';
@@ -276,7 +321,9 @@
         "    summary: '" + esc(w.summary) + "',\n" +
         "    brief: '" + esc(w.brief) + "',\n" +
         "    did: '" + esc(w.did) + "',\n" +
-        "    kpis: [" + kp + "]\n  }";
+        "    kpis: [" + kp + "],\n" +
+        "    images: { hero: '" + esc((IM.pathsFor(w.slug) || [])[0] || (w.images && w.images.hero) || '') + "', " +
+        "gallery: [" + (IM.pathsFor(w.slug).slice(1).map(function (g) { return "'" + esc(g) + "'"; }).join(', ')) + "] }\n  }";
     }).join(',\n');
     document.getElementById('output').value =
       "/* ==========================================================================\n" +
@@ -302,6 +349,103 @@
     a.href = URL.createObjectURL(blob); a.download = 'work.js';
     document.body.appendChild(a); a.click(); a.remove();
     toast('Downloaded');
+  });
+
+  /* ------------------------------------------------------------ images */
+  var IM = window.VaeloImages;
+  var drop = document.getElementById('drop'),
+      picker = document.getElementById('picker'),
+      shelf = document.getElementById('shelf'),
+      bar = document.getElementById('bar'),
+      note = document.getElementById('saveNote');
+
+  function slugNow() {
+    return document.getElementById('slug').value.trim() ||
+           slugify(document.getElementById('title').value) || 'untitled';
+  }
+
+  function renderShelf() {
+    var slug = slugNow(), list = IM.list(slug);
+    if (!list.length) { shelf.innerHTML = ''; return; }
+    shelf.innerHTML = list.map(function (r, i) {
+      var url = URL.createObjectURL(r.blob);
+      var media = r.type.indexOf('video') === 0
+        ? '<video src="' + url + '" muted playsinline preload="metadata"></video>'
+        : '<img src="' + url + '" alt="">';
+      return '<div class="thumb" data-id="' + r.id + '">' +
+        '<div class="box">' + media + (i === 0 ? '<span class="tag">Hero</span>' : '') + '</div>' +
+        '<div class="nm" title="' + r.name.replace(/"/g, '&quot;') + '">' + IM.diskName(r, i) + '</div>' +
+        '<div class="acts">' +
+          '<button type="button" data-a="up" title="Move earlier">↑</button>' +
+          '<button type="button" data-a="down" title="Move later">↓</button>' +
+          (i === 0 ? '' : '<button type="button" data-a="hero" title="Make hero">★</button>') +
+          '<button type="button" class="rm" data-a="rm" title="Remove">✕</button>' +
+        '</div></div>';
+    }).join('');
+    shelf.querySelectorAll('button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var id = b.closest('.thumb').dataset.id, a = b.dataset.a, slug = slugNow();
+        var job = a === 'rm' ? IM.remove(slug, id)
+                : a === 'hero' ? IM.makeHero(slug, id)
+                : IM.move(slug, id, a === 'up' ? -1 : 1);
+        job.then(function () { renderShelf(); renderOutput(); });
+      });
+    });
+  }
+
+  function intake(fileList) {
+    if (!fileList || !fileList.length) return;
+    IM.add(slugNow(), fileList).then(function () {
+      renderShelf(); renderOutput();
+      toast(fileList.length + ' file' + (fileList.length > 1 ? 's' : '') + ' added');
+    });
+  }
+  picker.addEventListener('change', function () { intake(picker.files); picker.value = ''; });
+  ['dragenter', 'dragover'].forEach(function (e) {
+    drop.addEventListener(e, function (ev) { ev.preventDefault(); drop.classList.add('over'); });
+  });
+  ['dragleave', 'drop'].forEach(function (e) {
+    drop.addEventListener(e, function (ev) { ev.preventDefault(); drop.classList.remove('over'); });
+  });
+  drop.addEventListener('drop', function (ev) {
+    if (ev.dataTransfer && ev.dataTransfer.files) intake(ev.dataTransfer.files);
+  });
+
+  var saveFolderBtn = document.getElementById('saveFolder');
+  if (!IM.canWriteDirect()) {
+    saveFolderBtn.disabled = true;
+    saveFolderBtn.classList.remove('pri');
+    saveFolderBtn.title = 'This browser cannot write to a folder — use Chrome or Edge, or download the zip';
+    note.textContent = 'Saving straight to the folder needs Chrome or Edge. The zip works everywhere.';
+  } else {
+    note.textContent = 'Pick your VAELO_main folder once; later saves go straight there.';
+  }
+
+  saveFolderBtn.addEventListener('click', function () {
+    bar.classList.add('on');
+    IM.saveToFolder(work, document.getElementById('output').value, function (done, total) {
+      bar.querySelector('i').style.width = (total ? (done / total) * 100 : 100) + '%';
+      note.textContent = 'Writing ' + done + ' of ' + total + '…';
+    }).then(function (r) {
+      note.textContent = r.written + ' files written, assets/work.js updated. ' +
+                         'Now run: python3 build-cases.py';
+      toast('Saved to folder');
+      setTimeout(function () { bar.classList.remove('on'); }, 1200);
+    }).catch(function (e) {
+      bar.classList.remove('on');
+      note.textContent = /abort/i.test(e && e.name) ? 'Folder choice cancelled.'
+        : 'Could not write: ' + (e && e.message ? e.message : e);
+    });
+  });
+
+  document.getElementById('saveZip').addEventListener('click', function () {
+    note.textContent = 'Building the zip…';
+    IM.saveZip(document.getElementById('output').value).then(function () {
+      note.textContent = 'Zip downloaded — unpack it over the repo, then run python3 build-cases.py';
+      toast('Zip ready');
+    }).catch(function (e) {
+      note.textContent = 'Could not build the zip: ' + (e && e.message ? e.message : e);
+    });
   });
 
   load(); renderList(); fill(); renderOutput();
