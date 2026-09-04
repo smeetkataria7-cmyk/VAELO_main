@@ -170,8 +170,59 @@
     })(0, 0);
   }
 
-  /* ---- the work grid is a plain vertical grid now: no pinning, no
-     scroll-jacking. Tiles reveal through the shared observer below. ---- */
+  /* -------------------------------------------------------- work rail ---
+     Sticky section driven by its own scroll progress. The rail eases toward
+     the scroll position rather than tracking it 1:1 — that lag is what gives
+     the movement weight instead of feeling mechanical. Pure transform, so
+     the page itself never scrolls sideways. Below 900px it unpins and the
+     rail stacks vertically (handled in CSS). */
+  var railWrap = doc.getElementById('railWrap'),
+      rail = doc.getElementById('rail'),
+      prog = doc.getElementById('prog');
+
+  if (rail && railWrap) {
+    var wide = false, travel = 0, target = 0, current = 0, gliding = false;
+
+    var fit = function () {
+      wide = innerWidth > 900 && !reduce;
+      if (!wide) {
+        rail.style.transform = '';
+        railWrap.style.height = '';
+        if (prog) prog.style.width = '100%';
+        return;
+      }
+      travel = Math.max(0, rail.scrollWidth - innerWidth + innerWidth * 0.08);
+      /* the section is exactly as tall as the distance the rail must cover,
+         plus one viewport to hold it — never an arbitrary multiple */
+      railWrap.style.height = (innerHeight + travel * 1.15) + 'px';
+    };
+
+    var aim = function () {
+      if (!wide) return;
+      var box = railWrap.getBoundingClientRect();
+      var span = railWrap.offsetHeight - innerHeight;
+      var p = span > 0 ? Math.min(1, Math.max(0, -box.top / span)) : 0;
+      target = -p * travel;
+      if (prog) prog.style.width = (5 + p * 95) + '%';
+      if (!gliding) { gliding = true; requestAnimationFrame(glide); }
+    };
+
+    var glide = function () {
+      var d = target - current;
+      if (Math.abs(d) < 0.12) { current = target; gliding = false; }
+      current += d * 0.11;                       /* the ease */
+      rail.style.transform = 'translate3d(' + current.toFixed(2) + 'px,0,0)';
+      if (gliding) requestAnimationFrame(glide);
+    };
+
+    var settle = function () { fit(); aim(); current = target;
+      if (wide) rail.style.transform = 'translate3d(' + current + 'px,0,0)'; };
+    settle();
+    on(window, 'resize', settle);
+    onScroll(aim);
+    setTimeout(settle, 60);                       /* tiles render from data */
+    on(window, 'load', settle);
+  }
 
   /* ------------------------------------------------------- scroll reveal */
   var revs = doc.querySelectorAll('[data-rev]');

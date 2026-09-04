@@ -85,13 +85,18 @@
   </div>
 </div>
 
-<!-- ================= WORK ================= -->
-<section class="sec" id="work" style="border-top:0">
-  <div class="sec-hd" data-rev data-stagger>
+<!-- ================= WORK — pinned horizontal rail ================= -->
+<section id="work">
+  <div class="rail-head" data-rev data-stagger>
     <div><p class="lab ac">Selected Work</p><h2 style="margin-top:14px">Five that<br>made the cut</h2></div>
-    <p class="lab tab">2025 — 2026 · 05 projects<br><a href="/work/" style="color:var(--accent)">View the full archive ↗</a></p>
+    <p class="lab tab">2025 — 2026 · 05 projects · scroll →<br><a href="/work/" style="color:var(--accent)">View the full archive ↗</a></p>
   </div>
-  <div class="work" id="workGrid"></div>
+  <div class="prog"><i id="prog"></i></div>
+  <div class="rail-wrap" id="railWrap">
+    <div class="rail-stick">
+      <div class="rail" id="rail"></div>
+    </div>
+  </div>
 </section>
 
 <!-- ================= STATEMENT ================= -->
@@ -198,10 +203,9 @@
 </footer>
 <script src="/assets/work.js"></script>
 <script>
-/* The grid renders from assets/work.js — add a project there, not here. */
-document.getElementById('workGrid').innerHTML = window.VAELO_WORK.map(function (w, i, all) {
-  var wide = i === all.length - 1 && all.length % 2 === 1;
-  return '<a class="tile' + (wide ? ' wide' : '') + '" data-rev href="/work/' + w.slug + '.html">' +
+/* The rail renders from assets/work.js — add a project there, not here. */
+document.getElementById('rail').innerHTML = window.VAELO_WORK.map(function (w, i) {
+  return '<a class="tile' + (i % 2 ? ' tall' : '') + '" href="/work/' + w.slug + '.html">' +
     '<div class="frame"><div class="slot" data-spec="Case image" data-par="7"></div><div class="veil"></div><div class="go">↗</div></div>' +
     '<div class="meta"><div><div class="cat">' + w.cat + ' · ' + w.scope + '</div><h3>' + w.title + '</h3></div>' +
     '<div class="idx">' + w.idx + '</div></div></a>';
