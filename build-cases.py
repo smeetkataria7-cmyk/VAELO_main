@@ -35,11 +35,11 @@ TPL = """<!DOCTYPE html>
 <meta name="twitter:title" content="{title} — Vaelo">
 <meta name="twitter:description" content="{summary}">
 <meta name="twitter:image" content="https://www.vaelocreative.com/assets/work/{slug}-og.jpg">
-<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Archivo:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/vaelo.css">
+<link rel="stylesheet" href="../assets/vaelo.css">
 <script type="application/ld+json">
 {{"@context":"https://schema.org","@type":"CreativeWork","name":{title_j},
 "about":{cat_j},"dateCreated":"{year}",
@@ -51,9 +51,9 @@ TPL = """<!DOCTYPE html>
 <div class="cursor" aria-hidden="true"></div>
 
 <nav class="top">
-  <a href="/" class="word">Vaelo</a>
+  <a href="../index.html" class="word">Vaelo</a>
   <div class="nav-links">
-    <a href="/#work">Work</a><a href="/#capabilities">Capabilities</a><a href="/#studio">Studio</a><a href="/#contact">Contact</a>
+    <a href="index.html">Work</a><a href="../index.html#capabilities">Capabilities</a><a href="../index.html#studio">Studio</a><a href="../index.html#contact">Contact</a>
   </div>
   <button class="burger" aria-label="Menu" aria-expanded="false"><i></i><i></i><i></i></button>
 </nav>
@@ -63,7 +63,7 @@ TPL = """<!DOCTYPE html>
   <div class="slot" data-spec="Case hero · 2400×1400" data-par="8"></div>
   <div class="tint"></div>
   <div class="in">
-    <p class="crumb"><a href="/#work">Work</a> <span>/</span> <span>{idx}</span> <span>/</span> <span>{cat}</span></p>
+    <p class="crumb"><a href="index.html">Work</a> <span>/</span> <span>{idx}</span> <span>/</span> <span>{cat}</span></p>
     <h1><span class="mask"><i>{title}</i></span></h1>
   </div>
 </header>
@@ -101,7 +101,7 @@ TPL = """<!DOCTYPE html>
 <div class="kpis" data-rev data-stagger>{kpis}</div>
 </main>
 
-<a class="next" href="/work/{next_slug}.html">
+<a class="next" href="{next_slug}.html">
   <p class="lab ac">Next project — {next_idx}</p>
   <h2>{next_title}</h2>
   <span class="arrow" aria-hidden="true">↗</span>
@@ -113,7 +113,7 @@ TPL = """<!DOCTYPE html>
   <div>© 2026</div>
 </footer>
 
-<script src="/assets/vaelo.js"></script>
+<script src="../assets/vaelo.js"></script>
 </body>
 </html>
 """

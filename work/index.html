@@ -17,20 +17,20 @@
 <meta name="twitter:title" content="Work — Vaelo">
 <meta name="twitter:description" content="Selected work across five categories.">
 <meta name="twitter:image" content="https://www.vaelocreative.com/assets/og.jpg">
-<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Archivo:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/vaelo.css">
+<link rel="stylesheet" href="../assets/vaelo.css">
 </head>
 <body>
 <div class="wipe"></div>
 <div class="cursor" aria-hidden="true"></div>
 
 <nav class="top">
-  <a href="/" class="word">Vaelo</a>
+  <a href="../index.html" class="word">Vaelo</a>
   <div class="nav-links">
-    <a href="/work/">Work</a><a href="/#capabilities">Services</a><a href="/#process">Process</a><a href="/#studio">Studio</a><a href="/#contact">Contact</a>
+    <a href="">Work</a><a href="../index.html#capabilities">Services</a><a href="../index.html#process">Process</a><a href="../index.html#studio">Studio</a><a href="../index.html#contact">Contact</a>
   </div>
   <button class="burger" aria-label="Menu" aria-expanded="false"><i></i><i></i><i></i></button>
 </nav>
@@ -50,7 +50,7 @@
   <div><a href="mailto:hello@vaelocreative.com">hello@vaelocreative.com</a></div>
   <div>© 2026</div>
 </footer>
-<script src="/assets/work.js"></script>
+<script src="../assets/work.js"></script>
 <script>
 /* Tabs and cards both render from assets/work.js — categories are derived,
    so a new project with a new category adds its own tab automatically. */
@@ -66,7 +66,7 @@
     }).join('');
 
   document.getElementById('arch').innerHTML = W.map(function (w) {
-    return '<a class="arch-item" data-rev data-cat="' + w.cat + '" href="/work/' + w.slug + '.html">' +
+    return '<a class="arch-item" data-rev data-cat="' + w.cat + '" href="' + w.slug + '.html">' +
       '<div class="frame"><div class="slot" data-spec="Case image" data-par="7"></div><div class="veil"></div><div class="go">↗</div></div>' +
       '<div class="meta"><div><div class="cat">' + w.cat + ' · ' + w.scope + '</div><h3>' + w.title + '</h3></div>' +
       '<div class="yr">' + w.year + '</div></div>' +
@@ -74,6 +74,6 @@
   }).join('');
 })();
 </script>
-<script src="/assets/vaelo.js"></script>
+<script src="../assets/vaelo.js"></script>
 </body>
 </html>

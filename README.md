@@ -2,6 +2,11 @@
 
 Static site. No build step for the pages themselves; one small generator for case studies.
 
+Every path is relative, so the site works three ways: opened straight off disk
+by double-clicking `index.html`, served from a folder, or hosted at a domain
+root. Two things still need the internet — Google Fonts and nothing else — so
+offline the type falls back to the system sans.
+
 ```
 index.html              home
 work/index.html         work archive with category filter tabs

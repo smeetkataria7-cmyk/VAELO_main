@@ -17,11 +17,11 @@
 <meta name="twitter:title" content="Vaelo — We make brands impossible to scroll past">
 <meta name="twitter:description" content="Independent, AI-native creative company in Mumbai.">
 <meta name="twitter:image" content="https://www.vaelocreative.com/assets/og.jpg">
-<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Archivo:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/vaelo.css">
+<link rel="stylesheet" href="assets/vaelo.css">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"Vaelo Creative LLP",
 "url":"https://www.vaelocreative.com/","address":{"@type":"PostalAddress","addressLocality":"Mumbai","addressCountry":"IN"},
@@ -33,9 +33,9 @@
 <div class="cursor" aria-hidden="true"></div>
 
 <nav class="top">
-  <a href="/" class="word">Vaelo</a>
+  <a href="index.html" class="word">Vaelo</a>
   <div class="nav-links">
-    <a href="/work/">Work</a><a href="#capabilities">Services</a><a href="#process">Process</a><a href="#studio">Studio</a><a href="#contact">Contact</a><a href="/editor.html" style="color:var(--dim)">Editor</a>
+    <a href="work/">Work</a><a href="#capabilities">Services</a><a href="#process">Process</a><a href="#studio">Studio</a><a href="#contact">Contact</a><a href="editor.html" style="color:var(--dim)">Editor</a>
   </div>
   <button class="burger" aria-label="Menu" aria-expanded="false"><i></i><i></i><i></i></button>
 </nav>
@@ -49,7 +49,7 @@
          backdrop automatically. If it is missing or refuses to autoplay,
          the canvas above keeps the hero alive. -->
     <video id="heroVideo" poster="/assets/hero-poster.jpg" autoplay muted loop playsinline preload="auto" style="display:none">
-      <source src="/assets/showreel.mp4" type="video/mp4">
+      <source src="assets/showreel.mp4" type="video/mp4">
     </video>
   </div>
   <div class="hero-scan"></div>
@@ -89,7 +89,7 @@
 <section id="work">
   <div class="rail-head" data-rev data-stagger>
     <div><p class="lab ac">Selected Work</p><h2 style="margin-top:14px">Five that<br>made the cut</h2></div>
-    <p class="lab tab">2025 — 2026 · 05 projects · scroll →<br><a href="/work/" style="color:var(--accent)">View the full archive ↗</a></p>
+    <p class="lab tab">2025 — 2026 · 05 projects · scroll →<br><a href="work/" style="color:var(--accent)">View the full archive ↗</a></p>
   </div>
   <div class="prog"><i id="prog"></i></div>
   <p class="swipe-hint">← Swipe the work sideways</p>
@@ -204,16 +204,16 @@
   <div>Vaelo Creative LLP, Mumbai, India</div>
   <div>© 2026</div>
 </footer>
-<script src="/assets/work.js"></script>
+<script src="assets/work.js"></script>
 <script>
 /* The rail renders from assets/work.js — add a project there, not here. */
 document.getElementById('rail').innerHTML = window.VAELO_WORK.map(function (w, i) {
-  return '<a class="tile' + (i % 2 ? ' tall' : '') + '" href="/work/' + w.slug + '.html">' +
+  return '<a class="tile' + (i % 2 ? ' tall' : '') + '" href="work/' + w.slug + '.html">' +
     '<div class="frame"><div class="slot" data-spec="Case image" data-par="7"></div><div class="veil"></div><div class="go">↗</div></div>' +
     '<div class="meta"><div><div class="cat">' + w.cat + ' · ' + w.scope + '</div><h3>' + w.title + '</h3></div>' +
     '<div class="idx">' + w.idx + '</div></div></a>';
 }).join('');
 </script>
-<script src="/assets/vaelo.js"></script>
+<script src="assets/vaelo.js"></script>
 </body>
 </html>
