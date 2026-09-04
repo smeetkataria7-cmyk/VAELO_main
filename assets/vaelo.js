@@ -79,6 +79,15 @@
     });
   }
 
+  /* ------------------------------------------------------------ nav state */
+  var navBar = doc.querySelector('nav.top');
+  if (navBar) {
+    var markNav = function () {
+      doc.body.classList.toggle('scrolled', scrollY > innerHeight * 0.72);
+    };
+    markNav(); onScroll(markNav);
+  }
+
   /* ---------------------------------------------------------- hero intro */
   /* CSS runs the masked lines; the class just starts them in sequence. */
   requestAnimationFrame(function () { doc.body.classList.add('lit'); });
