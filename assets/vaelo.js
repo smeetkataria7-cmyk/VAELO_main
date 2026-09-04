@@ -184,7 +184,7 @@
     var wide = false, travel = 0, target = 0, current = 0, gliding = false;
 
     var fit = function () {
-      wide = innerWidth > 900 && !reduce;
+      wide = innerWidth > 720 && !reduce;
       if (!wide) {
         rail.style.transform = '';
         railWrap.style.height = '';
@@ -323,6 +323,92 @@
       hd.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
   });
+
+  /* ------------------------------------------------------ scroll progress */
+  var sprog = doc.createElement('div');
+  sprog.className = 'sprog';
+  doc.body.appendChild(sprog);
+  var tickProg = function () {
+    var max = doc.documentElement.scrollHeight - innerHeight;
+    sprog.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + '%';
+  };
+  tickProg(); onScroll(tickProg);
+
+  /* ------------------------------------------------- rail tile depth ----
+     Tiles swell slightly as they cross the middle of the screen and settle
+     back as they leave, so the strip reads as depth rather than a flat row. */
+  var tiles = doc.querySelectorAll('.tile');
+  if (tiles.length && !reduce) {
+    var depth = function () {
+      var mid = innerWidth / 2;
+      tiles.forEach(function (t) {
+        var b = t.getBoundingClientRect();
+        if (b.right < -100 || b.left > innerWidth + 100) return;
+        var d = Math.min(1, Math.abs((b.left + b.width / 2) - mid) / (innerWidth * 0.75));
+        t.style.setProperty('--depth', (1 - d * 0.06).toFixed(3));
+        t.style.setProperty('--lift', (d * 14).toFixed(1) + 'px');
+      });
+    };
+    depth(); onScroll(depth); on(window, 'resize', depth);
+  }
+
+  /* --------------------------------------------------- decoding eyebrows */
+  var GLYPH = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ/\\<>*+-—·';
+  var decode = function (el) {
+    var final = el.dataset.txt, len = final.length, frame = 0;
+    var run = function () {
+      var out = '';
+      for (var i = 0; i < len; i++) {
+        if (final[i] === ' ') { out += ' '; continue; }
+        if (i < frame / 2.2) out += final[i];
+        else out += GLYPH[(Math.random() * GLYPH.length) | 0];
+      }
+      el.textContent = out;
+      if (frame / 2.2 < len) { frame++; requestAnimationFrame(run); }
+      else el.textContent = final;
+    };
+    run();
+  };
+  var brows = doc.querySelectorAll('.lab.ac');
+  if (brows.length && !reduce && 'IntersectionObserver' in window) {
+    var bio = new IntersectionObserver(function (en) {
+      en.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var el = e.target;
+        if (el.querySelector('a')) { bio.unobserve(el); return; }
+        el.dataset.txt = el.textContent;
+        decode(el);
+        bio.unobserve(el);
+      });
+    }, { threshold: 0.9 });
+    brows.forEach(function (el) { bio.observe(el); });
+  }
+
+  /* -------------------------------------------------- magnetic buttons */
+  if (matchMedia('(hover:hover)').matches && !reduce) {
+    doc.querySelectorAll('.mail, .go, .btn').forEach(function (el) {
+      el.classList.add('magnet');
+      var host = el.closest('a, button') || el;
+      on(host, 'pointermove', function (e) {
+        var b = el.getBoundingClientRect();
+        var dx = (e.clientX - (b.left + b.width / 2)) * 0.22;
+        var dy = (e.clientY - (b.top + b.height / 2)) * 0.22;
+        el.style.transform = 'translate(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px)';
+      });
+      on(host, 'pointerleave', function () { el.style.transform = ''; });
+    });
+  }
+
+  /* ------------------------------------------------------ closing wordmark */
+  var endmark = doc.querySelector('.endmark span');
+  if (endmark) {
+    var fill = function () {
+      var b = endmark.getBoundingClientRect();
+      var p = 1 - Math.max(0, Math.min(1, (b.top - innerHeight * 0.25) / (innerHeight * 0.75)));
+      endmark.style.setProperty('--fill', (p * 100).toFixed(1) + '%');
+    };
+    fill(); onScroll(fill);
+  }
 
   /* ------------------------------------------------------- archive tabs */
   var tabs = doc.querySelectorAll('.tab-btn');

@@ -121,13 +121,16 @@ body.menu .burger i:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 .sec-hd{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:48px}
 .sec-hd h2{font-size:clamp(28px,5vw,64px);line-height:.94}
 
-/* ---------- work: sticky horizontal rail ---------- */
+/* ---------- work: horizontal rail ----------
+   Wide viewports pin the section and drive the strip with scroll. Narrow
+   ones get a native horizontal scroller with snap points — swipeable, and
+   still unmistakably sideways. The work never stacks into a column. */
 .rail-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;
   padding:clamp(80px,11vw,150px) var(--pad) 0}
 .rail-head h2{font-size:clamp(28px,5vw,64px);line-height:.94}
 .prog{height:1px;background:var(--line);margin:30px var(--pad) 0;position:relative}
 .prog i{position:absolute;left:0;top:-1px;height:3px;background:var(--accent);width:5%;display:block}
-.rail-wrap{height:360vh;position:relative}
+.rail-wrap{position:relative}
 .rail-stick{position:sticky;top:0;height:100svh;display:flex;align-items:center;overflow:hidden}
 .rail{display:flex;gap:clamp(14px,2vw,28px);padding:0 var(--pad);will-change:transform}
 .tile{flex:none;display:block;width:min(56vw,700px)}
@@ -148,14 +151,21 @@ body.menu .burger i:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 .tile:hover .meta h3{color:var(--accent)}
 .tile .cat{font-size:10.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--dim);margin-bottom:6px}
 .tile .idx{font-family:var(--display);font-weight:800;font-size:12px;color:var(--dim);font-variant-numeric:tabular-nums}
-@media(max-width:900px){
-  .rail-wrap{height:auto}
-  .rail-stick{position:static;height:auto;overflow:visible;padding:36px 0 0}
-  .rail{flex-direction:column;gap:44px;transform:none!important}
-  .tile,.tile.tall{width:100%}
+
+/* narrow: swipeable strip, no pinning */
+@media(max-width:720px){
+  .rail-wrap{height:auto!important}
+  .rail-stick{position:static;height:auto;overflow-x:auto;overflow-y:hidden;padding:36px 0 10px;
+    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .rail-stick::-webkit-scrollbar{display:none}
+  .rail{transform:none!important;padding-right:calc(var(--pad) + 40px)}
+  .tile{width:78vw;scroll-snap-align:center}
+  .tile.tall{width:64vw}
   .tile .frame,.tile.tall .frame{aspect-ratio:4/3}
-  .prog{display:none}
 }
+.swipe-hint{display:none;padding:12px var(--pad) 0;font-size:10.5px;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--dim)}
+@media(max-width:720px){.swipe-hint{display:block}}
 
 /* ---------- services: accordions ---------- */
 .svc{border-bottom:1px solid var(--line)}
@@ -337,4 +347,50 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
   .js [data-rev],.js [data-rev][data-stagger] > *{opacity:1!important;transform:none!important}
   .js .mask > i{transform:none!important}
   .js .hero-line,.js .hero-foot,.js .crumb,.js .case-hero .facts{opacity:1!important}
+}
+
+/* ==========================================================================
+   ORNAMENT — the layer that makes it feel made, not assembled
+   ========================================================================== */
+
+/* scroll progress, hairline across the top of the page */
+.sprog{position:fixed;top:0;left:0;height:2px;width:0;background:var(--accent);z-index:250;
+  box-shadow:0 0 14px rgba(214,255,63,.5);pointer-events:none}
+
+/* the cursor speaks when it is over something openable */
+.cursor{display:flex;align-items:center;justify-content:center}
+.cursor .cur-label{font-family:var(--display);font-weight:800;font-size:10.5px;letter-spacing:.06em;
+  color:var(--black);opacity:0;transform:scale(.6);transition:opacity .2s,transform .25s;white-space:nowrap}
+.cursor.view .cur-label{opacity:1;transform:scale(1)}
+.cursor.view{width:82px;height:82px;mix-blend-mode:normal}
+
+/* rail tiles gain depth as they pass the middle of the screen */
+.tile{--depth:1;--lift:0px}
+.tile .frame{transform:scale(var(--depth)) translateY(var(--lift));
+  transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+
+/* eyebrow labels decode themselves on reveal */
+.lab.ac{font-variant-ligatures:none}
+
+/* the wordmark, set enormous, filling with accent as the page ends */
+.endmark{position:relative;overflow:hidden;border-top:1px solid var(--line);padding:clamp(30px,5vw,60px) var(--pad) 0;
+  line-height:.78;text-align:center}
+.endmark span{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:clamp(76px,22vw,320px);
+  letter-spacing:-.03em;color:transparent;-webkit-text-stroke:1px rgba(244,242,236,.22);
+  background:linear-gradient(90deg,var(--accent) var(--fill,0%),transparent var(--fill,0%));
+  -webkit-background-clip:text;background-clip:text;display:block}
+
+/* buttons lean toward the pointer */
+.magnet{transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+
+/* a hairline that draws itself under every section heading */
+.sec-hd,.rail-head{position:relative}
+.sec-hd::after,.rail-head::after{content:'';position:absolute;left:0;bottom:-18px;height:1px;width:100%;
+  background:var(--line);transform:scaleX(0);transform-origin:left;transition:transform 1.1s cubic-bezier(.2,.75,.2,1)}
+.sec-hd.in::after,.rail-head.in::after{transform:scaleX(1)}
+
+@media(prefers-reduced-motion:reduce){
+  .sec-hd::after,.rail-head::after{transform:scaleX(1)}
+  .tile .frame{transform:none!important}
+  .cursor{display:none}
 }

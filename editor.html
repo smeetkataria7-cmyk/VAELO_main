@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Work Editor — Vaelo</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Archivo:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/vaelo.css">
+<style>
+  .ed{display:grid;grid-template-columns:280px 1fr;gap:0;min-height:100svh}
+  @media(max-width:900px){.ed{grid-template-columns:1fr}}
+  .ed-list{border-right:1px solid var(--line);padding:26px var(--pad) 40px;background:var(--deep)}
+  @media(max-width:900px){.ed-list{border-right:0;border-bottom:1px solid var(--line)}}
+  .ed-main{padding:26px var(--pad) 80px;max-width:900px}
+  .ed h1{font-size:22px;margin-bottom:4px}
+  .ed-sub{font-size:12px;color:var(--dim);margin-bottom:26px}
+  .plist{display:flex;flex-direction:column;gap:2px;margin:18px 0}
+  .pitem{display:flex;align-items:center;gap:10px;width:100%;text-align:left;font:inherit;color:inherit;
+    background:none;border:0;border-left:2px solid transparent;padding:11px 12px;cursor:pointer;transition:background .2s,border-color .2s}
+  .pitem:hover{background:rgba(244,242,236,.04)}
+  .pitem.on{background:rgba(214,255,63,.07);border-left-color:var(--accent)}
+  .pitem .n{font-size:10.5px;color:var(--dim);font-variant-numeric:tabular-nums}
+  .pitem .t{font-size:13.5px;font-weight:500;flex:1}
+  .pitem .c{font-size:9.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--dim)}
+  .btn{font:inherit;font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;padding:10px 16px;cursor:pointer;
+    background:none;color:var(--off);border:1px solid var(--line);transition:border-color .2s,color .2s,background .2s}
+  .btn:hover{border-color:var(--accent);color:var(--accent)}
+  .btn.pri{background:var(--accent);border-color:var(--accent);color:var(--black);font-weight:600}
+  .btn.pri:hover{filter:brightness(1.08);color:var(--black)}
+  .btn.danger:hover{border-color:#ff5f45;color:#ff5f45}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  .field{display:flex;flex-direction:column;gap:7px;margin-bottom:18px}
+  .field label{font-size:10.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--dim)}
+  .field .hint{font-size:11px;color:var(--dim);opacity:.8}
+  input,textarea,select{font:inherit;font-size:14px;color:var(--off);background:#111110;
+    border:1px solid var(--line);padding:11px 13px;width:100%;border-radius:0}
+  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent)}
+  textarea{min-height:96px;resize:vertical;line-height:1.55}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+  @media(max-width:640px){.grid2{grid-template-columns:1fr}}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:0 12px}
+  @media(max-width:640px){.grid3{grid-template-columns:1fr}}
+  .sect{border-top:1px solid var(--line);padding-top:24px;margin-top:8px;margin-bottom:20px}
+  .sect h2{font-size:13px;letter-spacing:.06em;margin-bottom:18px;color:var(--accent)}
+  .out{position:relative}
+  .out textarea{min-height:220px;font-family:ui-monospace,Menlo,monospace;font-size:11.5px;line-height:1.5;color:var(--dim)}
+  .steps-note{font-size:12.5px;color:var(--dim);line-height:1.7;margin-top:12px}
+  .steps-note code{font-family:ui-monospace,Menlo,monospace;color:var(--accent);font-size:11.5px}
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);opacity:0;
+    background:var(--accent);color:var(--black);font-size:12px;font-weight:600;text-transform:uppercase;
+    letter-spacing:.06em;padding:11px 20px;pointer-events:none;transition:opacity .3s,transform .3s;z-index:100}
+  .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+  .prev{border:1px solid var(--line);padding:16px;margin-top:6px}
+  .prev .frame{position:relative;aspect-ratio:4/3;overflow:hidden}
+  .prev .meta{display:flex;justify-content:space-between;align-items:flex-end;padding-top:12px;gap:12px}
+  .prev h3{font-size:20px}
+  .prev .cat{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);margin-bottom:5px}
+</style>
+</head>
+<body>
+<div class="ed">
+  <aside class="ed-list">
+    <h1>Work Editor</h1>
+    <p class="ed-sub">Your portfolio, edited here.</p>
+    <button class="btn pri" id="addBtn" style="width:100%">+ Add a project</button>
+    <div class="plist" id="plist"></div>
+    <div class="row">
+      <button class="btn" id="resetBtn" style="flex:1">Reset to saved</button>
+    </div>
+    <p class="ed-sub" style="margin-top:20px">Changes are kept in this browser until you export them.</p>
+    <p class="ed-sub"><a href="/" style="color:var(--accent)">← Back to the site</a></p>
+  </aside>
+
+  <main class="ed-main">
+    <form id="form" autocomplete="off">
+      <div class="sect" style="border-top:0;padding-top:0">
+        <h2>The basics</h2>
+        <div class="grid2">
+          <div class="field"><label for="title">Project title</label>
+            <input id="title" name="title" placeholder="Launch, Not a Rollout" required></div>
+          <div class="field"><label for="slug">Page address</label>
+            <input id="slug" name="slug" placeholder="launch-not-a-rollout">
+            <span class="hint">Becomes /work/<span id="slugEcho">your-project</span>.html</span></div>
+        </div>
+        <div class="grid3">
+          <div class="field"><label for="cat">Category</label>
+            <input id="cat" name="cat" placeholder="D2C" list="cats">
+            <datalist id="cats"></datalist></div>
+          <div class="field"><label for="scope">Scope</label>
+            <input id="scope" name="scope" placeholder="Brand + Performance"></div>
+          <div class="field"><label for="year">Year</label>
+            <input id="year" name="year" placeholder="2026"></div>
+        </div>
+        <div class="field"><label for="client">Client</label>
+          <input id="client" name="client" placeholder="Confidential — D2C personal care"></div>
+      </div>
+
+      <div class="sect">
+        <h2>The story</h2>
+        <div class="field"><label for="summary">One-line summary</label>
+          <textarea id="summary" name="summary" style="min-height:60px" placeholder="What the project was, in a sentence. Shown on the archive card and in the share preview."></textarea></div>
+        <div class="field"><label for="brief">The brief — what was in the way</label>
+          <textarea id="brief" name="brief" placeholder="Written from the client's side: what they needed and what was blocking it."></textarea></div>
+        <div class="field"><label for="did">What we did</label>
+          <textarea id="did" name="did" placeholder="The actual work — decisions made, assets produced, channels shipped to."></textarea></div>
+      </div>
+
+      <div class="sect">
+        <h2>Numbers</h2>
+        <div class="grid3">
+          <div class="field"><label>Figure 1</label><input id="k0v" placeholder="240"><input id="k0l" placeholder="Assets shipped" style="margin-top:8px"></div>
+          <div class="field"><label>Figure 2</label><input id="k1v" placeholder="9 days"><input id="k1l" placeholder="Concept to live" style="margin-top:8px"></div>
+          <div class="field"><label>Figure 3</label><input id="k2v" placeholder="4"><input id="k2l" placeholder="Channels at launch" style="margin-top:8px"></div>
+        </div>
+      </div>
+
+      <div class="sect">
+        <h2>How it will look</h2>
+        <div class="prev">
+          <div class="frame"><div class="slot" data-spec="Case image" style="position:absolute;inset:0"></div></div>
+          <div class="meta"><div><div class="cat" id="pvCat">Category · Scope</div><h3 id="pvTitle">Project title</h3></div>
+            <div class="idx" id="pvIdx" style="font-family:var(--display);font-weight:800;font-size:12px;color:var(--dim)">01</div></div>
+        </div>
+      </div>
+
+      <div class="row" style="margin:24px 0 34px">
+        <button type="submit" class="btn pri">Save project</button>
+        <button type="button" class="btn danger" id="delBtn">Delete this project</button>
+      </div>
+    </form>
+
+    <div class="sect">
+      <h2>Publish your changes</h2>
+      <div class="out">
+        <textarea id="output" readonly spellcheck="false"></textarea>
+      </div>
+      <div class="row" style="margin-top:12px">
+        <button class="btn pri" id="copyBtn">Copy the file</button>
+        <button class="btn" id="dlBtn">Download work.js</button>
+      </div>
+      <p class="steps-note">
+        1. Copy or download the file above.<br>
+        2. Replace <code>assets/work.js</code> in the repository with it.<br>
+        3. Run <code>python3 build-cases.py</code> — this writes a page for every project.<br>
+        4. Commit and push. The home rail, the archive and its category tabs all update themselves.<br><br>
+        Images go in <code>assets/work/</code> named after the project address, e.g. <code>assets/work/<span id="imgEcho">your-project</span>-hero.jpg</code>.
+      </p>
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast">Saved</div>
+
+<script src="/assets/work.js"></script>
+<script>
+(function () {
+  var KEY = 'vaelo-work-draft';
+  var work = [], idx = 0;
+
+  function load() {
+    var saved = null;
+    try { saved = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) {}
+    work = saved && saved.length ? saved : JSON.parse(JSON.stringify(window.VAELO_WORK));
+  }
+  function persist() {
+    try { localStorage.setItem(KEY, JSON.stringify(work)); } catch (e) {}
+    renderList(); renderOutput();
+  }
+  function slugify(s) {
+    return String(s).toLowerCase().replace(/['’]/g, '').replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '').slice(0, 60);
+  }
+  function toast(msg) {
+    var t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('on');
+    setTimeout(function () { t.classList.remove('on'); }, 1600);
+  }
+
+  function renderList() {
+    document.getElementById('plist').innerHTML = work.map(function (w, i) {
+      return '<button type="button" class="pitem' + (i === idx ? ' on' : '') + '" data-i="' + i + '">' +
+        '<span class="n">' + String(i + 1).padStart(2, '0') + '</span>' +
+        '<span class="t">' + (w.title || 'Untitled') + '</span>' +
+        '<span class="c">' + (w.cat || '') + '</span></button>';
+    }).join('');
+    document.querySelectorAll('.pitem').forEach(function (b) {
+      b.addEventListener('click', function () { idx = +b.dataset.i; fill(); renderList(); });
+    });
+    var cats = [];
+    work.forEach(function (w) { if (w.cat && cats.indexOf(w.cat) === -1) cats.push(w.cat); });
+    document.getElementById('cats').innerHTML = cats.map(function (c) { return '<option value="' + c + '">'; }).join('');
+  }
+
+  var F = ['title','slug','cat','scope','year','client','summary','brief','did'];
+  function fill() {
+    var w = work[idx] || {};
+    F.forEach(function (f) { document.getElementById(f).value = w[f] || ''; });
+    for (var k = 0; k < 3; k++) {
+      var kp = (w.kpis && w.kpis[k]) || ['', ''];
+      document.getElementById('k' + k + 'v').value = kp[0];
+      document.getElementById('k' + k + 'l').value = kp[1];
+    }
+    preview();
+  }
+  function preview() {
+    var t = document.getElementById('title').value || 'Project title';
+    var c = document.getElementById('cat').value || 'Category';
+    var s = document.getElementById('scope').value || 'Scope';
+    document.getElementById('pvTitle').textContent = t;
+    document.getElementById('pvCat').textContent = c + ' · ' + s;
+    document.getElementById('pvIdx').textContent = String(idx + 1).padStart(2, '0');
+    var sl = document.getElementById('slug').value || slugify(t) || 'your-project';
+    document.getElementById('slugEcho').textContent = sl;
+    document.getElementById('imgEcho').textContent = sl;
+  }
+  document.getElementById('form').addEventListener('input', preview);
+  document.getElementById('title').addEventListener('blur', function () {
+    var s = document.getElementById('slug');
+    if (!s.value) { s.value = slugify(this.value); preview(); }
+  });
+
+  document.getElementById('form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var w = work[idx] || {};
+    F.forEach(function (f) { w[f] = document.getElementById(f).value.trim(); });
+    if (!w.slug) w.slug = slugify(w.title);
+    w.idx = String(idx + 1).padStart(2, '0');
+    w.tile = idx % 2 ? 'tall' : '';
+    w.kpis = [];
+    for (var k = 0; k < 3; k++) {
+      var v = document.getElementById('k' + k + 'v').value.trim();
+      var l = document.getElementById('k' + k + 'l').value.trim();
+      if (v || l) w.kpis.push([v, l]);
+    }
+    work[idx] = w;
+    persist(); toast('Project saved');
+  });
+
+  document.getElementById('addBtn').addEventListener('click', function () {
+    work.push({ title: '', slug: '', cat: '', scope: '', year: String(new Date().getFullYear()),
+                client: '', summary: '', brief: '', did: '', kpis: [] });
+    idx = work.length - 1; renderList(); fill();
+    document.getElementById('title').focus();
+  });
+
+  document.getElementById('delBtn').addEventListener('click', function () {
+    if (!work.length) return;
+    if (!confirm('Delete "' + (work[idx].title || 'this project') + '"? You can still undo by choosing Reset to saved.')) return;
+    work.splice(idx, 1);
+    idx = Math.max(0, idx - 1);
+    persist(); fill(); toast('Project deleted');
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', function () {
+    if (!confirm('Discard every change made in this browser and go back to the published work?')) return;
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    load(); idx = 0; renderList(); fill(); renderOutput(); toast('Reset');
+  });
+
+  function esc(s) { return String(s || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'"); }
+  function renderOutput() {
+    var body = work.map(function (w, i) {
+      var kp = (w.kpis || []).map(function (k) { return "['" + esc(k[0]) + "', '" + esc(k[1]) + "']"; }).join(', ');
+      return "  {\n" +
+        "    slug: '" + esc(w.slug) + "',\n" +
+        "    idx: '" + String(i + 1).padStart(2, '0') + "',\n" +
+        "    title: '" + esc(w.title) + "',\n" +
+        "    cat: '" + esc(w.cat) + "',\n" +
+        "    scope: '" + esc(w.scope) + "',\n" +
+        "    year: '" + esc(w.year) + "',\n" +
+        "    client: '" + esc(w.client) + "',\n" +
+        "    tile: '" + (i % 2 ? 'tall' : '') + "',\n" +
+        "    summary: '" + esc(w.summary) + "',\n" +
+        "    brief: '" + esc(w.brief) + "',\n" +
+        "    did: '" + esc(w.did) + "',\n" +
+        "    kpis: [" + kp + "]\n  }";
+    }).join(',\n');
+    document.getElementById('output').value =
+      "/* ==========================================================================\n" +
+      "   VAELO — work data. One object per case study.\n" +
+      "   Generated by the Work Editor. After replacing this file, run\n" +
+      "   `python3 build-cases.py` to regenerate the pages in /work.\n" +
+      "   ========================================================================== */\n" +
+      "window.VAELO_WORK = [\n" + body + "\n];\n";
+  }
+
+  document.getElementById('copyBtn').addEventListener('click', function () {
+    var ta = document.getElementById('output');
+    ta.select();
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(ta.value).then(function () { toast('Copied — paste into assets/work.js'); },
+        function () { document.execCommand('copy'); toast('Copied'); });
+    } else { document.execCommand('copy'); toast('Copied'); }
+  });
+
+  document.getElementById('dlBtn').addEventListener('click', function () {
+    var blob = new Blob([document.getElementById('output').value], { type: 'text/javascript' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = 'work.js';
+    document.body.appendChild(a); a.click(); a.remove();
+    toast('Downloaded');
+  });
+
+  load(); renderList(); fill(); renderOutput();
+})();
+</script>
+</body>
+</html>
