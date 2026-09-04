@@ -79,7 +79,7 @@
 
 <!-- ================= WORK — sticky horizontal rail ================= -->
 <section id="work">
-  <div class="rail-head">
+  <div class="rail-head" data-rev data-stagger>
     <div><p class="lab ac">Selected Work</p><h2 style="margin-top:14px">Five that<br>made the cut</h2></div>
     <p class="lab tab">2025 — 2026 · 05 projects · scroll →<br><a href="/work/" style="color:var(--accent)">View the full archive ↗</a></p>
   </div>
@@ -92,13 +92,13 @@
 </section>
 
 <!-- ================= STATEMENT ================= -->
-<section class="sec statement rev">
+<section class="sec statement" data-rev>
   <p class="lab ac">Who We Are</p>
   <h2 data-warm style="margin-top:18px">We're not a department store of services. We're one team that designs, produces and ships — <span class="em">fast enough</span> that the idea still feels current when it goes live.</h2>
 </section>
 
 <!-- ================= COUNTERS ================= -->
-<div class="strip">
+<div class="strip" data-rev data-stagger>
   <div><div class="n"><span data-count="5">5</span></div><div class="l">Categories served</div></div>
   <div><div class="n"><span data-count="240">240</span><em>+</em></div><div class="l">Assets shipped this year</div></div>
   <div><div class="n"><span data-count="9">9</span> <em>days</em></div><div class="l">Median concept to live</div></div>
@@ -106,8 +106,8 @@
 </div>
 
 <!-- ================= SERVICES ================= -->
-<section class="sec rev" id="capabilities">
-  <div class="sec-hd">
+<section class="sec" data-rev id="capabilities">
+  <div class="sec-hd" data-rev data-stagger>
     <div><p class="lab ac">What We Do</p><h2 style="margin-top:14px">Six disciplines,<br>one team</h2></div>
     <p class="lab" style="max-width:32ch">Engaged as a retainer or a single campaign. Most clients start with one and add the next within a quarter.</p>
   </div>
@@ -156,12 +156,12 @@
 </section>
 
 <!-- ================= PROCESS ================= -->
-<section class="sec rev" id="process">
-  <div class="sec-hd">
+<section class="sec" data-rev id="process">
+  <div class="sec-hd" data-rev data-stagger>
     <div><p class="lab ac">How It Runs</p><h2 style="margin-top:14px">Four stages,<br>no handoff tax</h2></div>
     <p class="lab tab">Typical cycle · 2–3 weeks</p>
   </div>
-  <div class="steps">
+  <div class="steps" data-rev data-stagger>
     <div><p class="n">01</p><h3>Map</h3><p>Positioning, category and the one thing the work has to prove.</p></div>
     <div><p class="n">02</p><h3>Make</h3><p>Concepts and production in the same room — AI stack where it earns its place.</p></div>
     <div><p class="n">03</p><h3>Ship</h3><p>Live across feed, shelf and storefront while the idea still feels current.</p></div>
@@ -170,14 +170,14 @@
 </section>
 
 <!-- ================= STUDIO ================= -->
-<section class="sec rev" id="studio">
-  <div class="sec-hd">
+<section class="sec" data-rev id="studio">
+  <div class="sec-hd" data-rev data-stagger>
     <div><p class="lab ac">Studio</p><h2 style="margin-top:14px">Small on purpose</h2></div>
     <p class="lab tab">Mumbai · Founded 2025</p>
   </div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,60px);align-items:end" class="studio-grid">
     <div class="slot" data-spec="Studio / team · 1600×1000" style="aspect-ratio:16/10"></div>
-    <div class="prose">
+    <div class="prose" data-rev data-stagger>
       <p>Vaelo runs out of Mumbai as one integrated team rather than a stack of departments. <b>Every brief is touched by the people who will ship it</b> — no account layer translating between you and the work.</p>
       <p>The AI production stack isn't a line on a credentials page. It's the operating constraint that lets a team this size take on five categories at once without diluting any of them.</p>
     </div>
@@ -201,15 +201,12 @@
   <div>Vaelo Creative LLP, Mumbai, India</div>
   <div>© 2026</div>
 </footer>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="/assets/work.js"></script>
 <script>
 /* The rail renders from assets/work.js — add a project there, not here. */
 document.getElementById('rail').innerHTML = window.VAELO_WORK.map(function (w, i) {
   return '<a class="tile' + (i % 2 ? ' tall' : '') + '" href="/work/' + w.slug + '.html">' +
-    '<div class="frame"><div class="slot" data-spec="Case image"></div><div class="veil"></div><div class="go">↗</div></div>' +
+    '<div class="frame"><div class="slot" data-spec="Case image" data-par="7"></div><div class="veil"></div><div class="go">↗</div></div>' +
     '<div class="meta"><div><div class="cat">' + w.cat + ' · ' + w.scope + '</div><h3>' + w.title + '</h3></div>' +
     '<div class="idx">' + w.idx + '</div></div></a>';
 }).join('');

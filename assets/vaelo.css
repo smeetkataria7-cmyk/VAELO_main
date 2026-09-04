@@ -261,9 +261,32 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
   transition:transform .45s cubic-bezier(.2,.7,.2,1)}
 .next:hover .arrow{transform:translate(14px,-14px)}
 
-/* ---------- reveals: transform only, text is never invisible ---------- */
-.rev{transform:translateY(20px);transition:transform .9s cubic-bezier(.2,.75,.2,1)}
-.rev.on{transform:none}
+/* ---------- reveal system ----------
+   Gated on html.js: with scripting off nothing is ever hidden. The motion
+   itself is native — IntersectionObserver adds .in, CSS does the rest. */
+.js [data-rev]{opacity:0;transform:translateY(26px);
+  transition:opacity .85s cubic-bezier(.2,.75,.2,1),transform .85s cubic-bezier(.2,.75,.2,1)}
+.js [data-rev].in{opacity:1;transform:none}
+.js [data-rev][data-stagger] > *{opacity:0;transform:translateY(22px);
+  transition:opacity .7s cubic-bezier(.2,.75,.2,1),transform .7s cubic-bezier(.2,.75,.2,1)}
+.js [data-rev][data-stagger] > *.in{opacity:1;transform:none}
+.js [data-rev="left"]{transform:translateX(-30px)}
+.js [data-rev="scale"]{transform:scale(.95);transform-origin:left bottom}
+.js [data-rev="rise"]{transform:translateY(46px)}
+
+/* parallax: JS sets --py, CSS moves it */
+[data-par]{--py:0%}
+[data-par] .slot::before,.slot[data-par]::before{transform:translateY(var(--py))}
+
+/* hero masked lines run on a class, not a library */
+.js .mask > i{transform:translateY(108%)}
+.js body.lit .mask > i,.js.no-motion .mask > i{transform:none;
+  transition:transform 1.05s cubic-bezier(.2,.75,.2,1)}
+.js .mask:nth-of-type(2) > i{transition-delay:.09s}
+.js .mask:nth-of-type(3) > i{transition-delay:.18s}
+.js .hero-line,.js .hero-foot,.js .crumb,.js .case-hero .facts{opacity:0;transition:opacity .9s ease}
+.js body.lit .hero-line,.js body.lit .crumb{opacity:1;transition-delay:.35s}
+.js body.lit .hero-foot,.js body.lit .case-hero .facts{opacity:1;transition-delay:.9s}
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
   .rev{transform:none}.tile .frame{clip-path:none!important}.mask > i{transform:none!important}
@@ -302,3 +325,11 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
 .arch-item .cat{font-size:10.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--dim);margin-bottom:6px}
 .arch-item .sum{font-size:13px;color:var(--dim);margin-top:8px;max-width:46ch}
 .arch-item .yr{font-family:var(--display);font-weight:800;font-size:12px;color:var(--dim);font-variant-numeric:tabular-nums}
+
+
+/* ---------- reduced motion: everything resolves, nothing moves ---------- */
+@media(prefers-reduced-motion:reduce){
+  .js [data-rev],.js [data-rev][data-stagger] > *{opacity:1!important;transform:none!important}
+  .js .mask > i{transform:none!important}
+  .js .hero-line,.js .hero-foot,.js .crumb,.js .case-hero .facts{opacity:1!important}
+}

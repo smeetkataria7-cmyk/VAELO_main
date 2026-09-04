@@ -60,7 +60,7 @@ TPL = """<!DOCTYPE html>
 
 <main>
 <header class="case-hero">
-  <div class="slot" data-spec="Case hero · 2400×1400"></div>
+  <div class="slot" data-spec="Case hero · 2400×1400" data-par="8"></div>
   <div class="tint"></div>
   <div class="in">
     <p class="crumb"><a href="/#work">Work</a> <span>/</span> <span>{idx}</span> <span>/</span> <span>{cat}</span></p>
@@ -68,37 +68,37 @@ TPL = """<!DOCTYPE html>
   </div>
 </header>
 
-<div class="facts">
+<div class="facts" data-rev data-stagger>
   <div><span class="lab">Client</span><b>{client}</b></div>
   <div><span class="lab">Category</span><b>{cat}</b></div>
   <div><span class="lab">Scope</span><b>{scope}</b></div>
   <div><span class="lab">Year</span><b>{year}</b></div>
 </div>
 
-<section class="case-body rev">
+<section class="case-body" data-rev>
   <div class="stick"><p class="lab ac">The brief</p><h2 style="margin-top:12px">What was<br>in the way</h2></div>
-  <div class="prose"><p>{brief}</p></div>
+  <div class="prose" data-rev data-stagger><p>{brief}</p></div>
 </section>
 
-<div class="gal">
-  <div class="slot g-full" data-spec="Campaign still · 1920×1080"></div>
-  <div class="slot g-half" data-spec="Detail · 1200×1500"></div>
-  <div class="slot g-half" data-spec="Detail · 1200×1500"></div>
+<div class="gal" data-rev>
+  <div class="slot g-full" data-par="7" data-spec="Campaign still · 1920×1080"></div>
+  <div class="slot g-half" data-par="9" data-spec="Detail · 1200×1500"></div>
+  <div class="slot g-half" data-par="9" data-spec="Detail · 1200×1500"></div>
 </div>
 
-<section class="case-body rev" style="padding-top:0">
+<section class="case-body" data-rev style="padding-top:0">
   <div class="stick"><p class="lab ac">What we did</p><h2 style="margin-top:12px">The work<br>itself</h2></div>
-  <div class="prose"><p>{did}</p></div>
+  <div class="prose" data-rev data-stagger><p>{did}</p></div>
 </section>
 
-<div class="gal">
-  <div class="slot g-third" data-spec="Asset · 1200×1200"></div>
-  <div class="slot g-third" data-spec="Asset · 1200×1200"></div>
-  <div class="slot g-third" data-spec="Asset · 1200×1200"></div>
-  <div class="slot g-full" data-spec="Film still · 1920×1080"></div>
+<div class="gal" data-rev>
+  <div class="slot g-third" data-par="6" data-spec="Asset · 1200×1200"></div>
+  <div class="slot g-third" data-par="6" data-spec="Asset · 1200×1200"></div>
+  <div class="slot g-third" data-par="6" data-spec="Asset · 1200×1200"></div>
+  <div class="slot g-full" data-par="7" data-spec="Film still · 1920×1080"></div>
 </div>
 
-<div class="kpis">{kpis}</div>
+<div class="kpis" data-rev data-stagger>{kpis}</div>
 </main>
 
 <a class="next" href="/work/{next_slug}.html">
@@ -113,8 +113,6 @@ TPL = """<!DOCTYPE html>
   <div>© 2026</div>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="/assets/vaelo.js"></script>
 </body>
 </html>
