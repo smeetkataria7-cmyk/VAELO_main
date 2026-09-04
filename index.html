@@ -69,6 +69,14 @@
   </div>
 </header>
 
+<!-- ================= COUNTERS ================= -->
+<div class="strip" data-rev data-stagger>
+  <div><div class="n"><span data-count="5">5</span></div><div class="l">Categories served</div></div>
+  <div><div class="n"><span data-count="240">240</span><em>+</em></div><div class="l">Assets shipped this year</div></div>
+  <div><div class="n"><span data-count="9">9</span> <em>days</em></div><div class="l">Median concept to live</div></div>
+  <div><div class="n"><em>AI</em></div><div class="l">Native production stack</div></div>
+</div>
+
 <!-- ================= MARQUEE ================= -->
 <div class="marquee">
   <div class="track">
@@ -77,18 +85,13 @@
   </div>
 </div>
 
-<!-- ================= WORK — sticky horizontal rail ================= -->
-<section id="work">
-  <div class="rail-head" data-rev data-stagger>
+<!-- ================= WORK ================= -->
+<section class="sec" id="work" style="border-top:0">
+  <div class="sec-hd" data-rev data-stagger>
     <div><p class="lab ac">Selected Work</p><h2 style="margin-top:14px">Five that<br>made the cut</h2></div>
-    <p class="lab tab">2025 — 2026 · 05 projects · scroll →<br><a href="/work/" style="color:var(--accent)">View the full archive ↗</a></p>
+    <p class="lab tab">2025 — 2026 · 05 projects<br><a href="/work/" style="color:var(--accent)">View the full archive ↗</a></p>
   </div>
-  <div class="prog"><i id="prog"></i></div>
-  <div class="rail-wrap" id="railWrap">
-    <div class="rail-stick">
-      <div class="rail" id="rail"></div>
-    </div>
-  </div>
+  <div class="work" id="workGrid"></div>
 </section>
 
 <!-- ================= STATEMENT ================= -->
@@ -96,14 +99,6 @@
   <p class="lab ac">Who We Are</p>
   <h2 data-warm style="margin-top:18px">We're not a department store of services. We're one team that designs, produces and ships — <span class="em">fast enough</span> that the idea still feels current when it goes live.</h2>
 </section>
-
-<!-- ================= COUNTERS ================= -->
-<div class="strip" data-rev data-stagger>
-  <div><div class="n"><span data-count="5">5</span></div><div class="l">Categories served</div></div>
-  <div><div class="n"><span data-count="240">240</span><em>+</em></div><div class="l">Assets shipped this year</div></div>
-  <div><div class="n"><span data-count="9">9</span> <em>days</em></div><div class="l">Median concept to live</div></div>
-  <div><div class="n"><em>AI</em></div><div class="l">Native production stack</div></div>
-</div>
 
 <!-- ================= SERVICES ================= -->
 <section class="sec" data-rev id="capabilities">
@@ -203,9 +198,10 @@
 </footer>
 <script src="/assets/work.js"></script>
 <script>
-/* The rail renders from assets/work.js — add a project there, not here. */
-document.getElementById('rail').innerHTML = window.VAELO_WORK.map(function (w, i) {
-  return '<a class="tile' + (i % 2 ? ' tall' : '') + '" href="/work/' + w.slug + '.html">' +
+/* The grid renders from assets/work.js — add a project there, not here. */
+document.getElementById('workGrid').innerHTML = window.VAELO_WORK.map(function (w, i, all) {
+  var wide = i === all.length - 1 && all.length % 2 === 1;
+  return '<a class="tile' + (wide ? ' wide' : '') + '" data-rev href="/work/' + w.slug + '.html">' +
     '<div class="frame"><div class="slot" data-spec="Case image" data-par="7"></div><div class="veil"></div><div class="go">↗</div></div>' +
     '<div class="meta"><div><div class="cat">' + w.cat + ' · ' + w.scope + '</div><h3>' + w.title + '</h3></div>' +
     '<div class="idx">' + w.idx + '</div></div></a>';

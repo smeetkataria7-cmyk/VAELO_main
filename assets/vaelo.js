@@ -161,43 +161,8 @@
     })(0, 0);
   }
 
-  /* -------------------------------------------------------- work rail ---
-     Sticky section, driven by its own scroll progress. Pure transform, so
-     the page itself never scrolls sideways. Below 900px it unpins and the
-     rail stacks vertically (handled in CSS). */
-  var railWrap = doc.getElementById('railWrap'),
-      rail = doc.getElementById('rail'),
-      prog = doc.getElementById('prog');
-
-  if (rail && railWrap) {
-    var wide = false, travel = 0;
-    var fit = function () {
-      wide = innerWidth > 900 && !reduce;
-      if (!wide) {
-        rail.style.transform = '';
-        railWrap.style.height = '';
-        return;
-      }
-      travel = Math.max(0, rail.scrollWidth - innerWidth + innerWidth * 0.08);
-      /* the section is exactly as tall as the distance the rail must cover,
-         plus one viewport to hold it — no arbitrary 360vh */
-      railWrap.style.height = (innerHeight + travel) + 'px';
-    };
-    var drive = function () {
-      if (!wide) { if (prog) prog.style.width = '100%'; return; }
-      var box = railWrap.getBoundingClientRect();
-      var span = railWrap.offsetHeight - innerHeight;
-      var p = span > 0 ? Math.min(1, Math.max(0, -box.top / span)) : 0;
-      rail.style.transform = 'translate3d(' + (-p * travel) + 'px,0,0)';
-      if (prog) prog.style.width = (5 + p * 95) + '%';
-    };
-    fit(); drive();
-    on(window, 'resize', function () { fit(); drive(); });
-    onScroll(drive);
-    /* the rail is built from data after this file may have run, so re-fit */
-    setTimeout(function () { fit(); drive(); }, 60);
-    on(window, 'load', function () { fit(); drive(); });
-  }
+  /* ---- the work grid is a plain vertical grid now: no pinning, no
+     scroll-jacking. Tiles reveal through the shared observer below. ---- */
 
   /* ------------------------------------------------------- scroll reveal */
   var revs = doc.querySelectorAll('[data-rev]');
