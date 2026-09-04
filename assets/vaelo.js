@@ -88,6 +88,28 @@
     markNav(); onScroll(markNav);
   }
 
+  /* --------------------------------------------------- hero, split to chars ---
+     Each letter carries its own delay, so the headline assembles rather than
+     sliding in as three blocks. Done in script: the markup stays plain text
+     for screen readers until this runs, and the line keeps its own aria text. */
+  (function () {
+    var lines = doc.querySelectorAll('.hero .mask > i, .case-hero .mask > i');
+    if (!lines.length || reduce) return;
+    lines.forEach(function (line) {
+      var text = line.textContent, n = 0;
+      line.setAttribute('aria-label', text);
+      line.textContent = '';
+      text.split('').forEach(function (ch) {
+        var b = doc.createElement('b');
+        b.setAttribute('aria-hidden', 'true');
+        if (ch === ' ') { b.className = 'sp'; b.innerHTML = '&nbsp;'; }
+        else b.textContent = ch;
+        b.style.setProperty('--i', n++);
+        line.appendChild(b);
+      });
+    });
+  })();
+
   /* ------------------------------------------------------ opening curtain ---
      Built by script rather than sitting in the markup, so a page without JS
      never faces a cover that cannot lift. The count follows real document
@@ -211,15 +233,21 @@
     var measure = function () { half = track.scrollWidth / 2; };
     measure();
     on(window, 'resize', measure);
+    var dir = 1;
     onScroll(function () {
-      boost = Math.min(2.6, Math.abs(scrollY - lastY) / 26);
+      var dy = scrollY - lastY;
+      if (Math.abs(dy) > 2) dir = dy > 0 ? 1 : -1;   /* it runs with you */
+      boost = Math.min(2.6, Math.abs(dy) / 26);
       lastY = scrollY;
     });
     (function run(t, prev) {
       var dt = prev ? Math.min(48, t - prev) : 16;
-      mx -= (speed * (1 + boost)) * dt;
+      mx -= dir * (speed * (1 + boost)) * dt;
       boost *= 0.94;
-      if (half && -mx >= half) mx += half;
+      if (half) {
+        if (-mx >= half) mx += half;
+        else if (mx > 0) mx -= half;
+      }
       track.style.transform = 'translate3d(' + mx + 'px,0,0)';
       requestAnimationFrame(function (n) { run(n, t); });
     })(0, 0);
@@ -463,10 +491,61 @@
   if (endmark) {
     var fill = function () {
       var b = endmark.getBoundingClientRect();
-      var p = 1 - Math.max(0, Math.min(1, (b.top - innerHeight * 0.25) / (innerHeight * 0.75)));
-      endmark.style.setProperty('--fill', (p * 100).toFixed(1) + '%');
+      /* runs from the moment the word appears to the moment it is fully in
+         view, and is pinned at full once the page bottom is reached */
+      var start = innerHeight, end = innerHeight * 0.42;
+      var p = (start - b.top) / (start - end);
+      var atBottom = (innerHeight + scrollY) >= (doc.documentElement.scrollHeight - 4);
+      if (atBottom) p = 1;
+      endmark.style.setProperty('--fill', (Math.max(0, Math.min(1, p)) * 100).toFixed(1) + '%');
     };
     fill(); onScroll(fill);
+  }
+
+  /* -------------------------------------------------------- hero parallax */
+  var heroIn = doc.querySelector('.hero-in');
+  if (heroIn && !reduce) {
+    var drift = function () {
+      var p = Math.min(1, Math.max(0, scrollY / innerHeight));
+      heroIn.style.transform = 'translate3d(0,' + (p * 90).toFixed(1) + 'px,0)';
+      heroIn.style.opacity = (1 - p * 0.85).toFixed(3);
+    };
+    drift(); onScroll(drift);
+  }
+
+  /* ------------------------------------------- rail: the running index ---
+     Which case is centred, counted out beside the strip. */
+  if (rail && railWrap && !reduce) {
+    var counter = doc.createElement('div');
+    counter.className = 'rail-count';
+    counter.setAttribute('aria-hidden', 'true');
+    counter.innerHTML = '<b>01</b><span class="of">/ 05</span>';
+    var stick = doc.querySelector('.rail-stick');
+    if (stick) {
+      stick.appendChild(counter);
+      var numEl = counter.querySelector('b'),
+          ofEl = counter.querySelector('.of'),
+          last = '01';
+      var readIndex = function () {
+        var cards = rail.children, mid = innerWidth / 2, best = 0, bestD = 1e9;
+        ofEl.textContent = '/ ' + String(cards.length).padStart(2, '0');
+        for (var i = 0; i < cards.length; i++) {
+          var b = cards[i].getBoundingClientRect();
+          var d = Math.abs((b.left + b.width / 2) - mid);
+          if (d < bestD) { bestD = d; best = i; }
+        }
+        var next = String(best + 1).padStart(2, '0');
+        if (next !== last) {
+          last = next;
+          numEl.style.transform = 'translateY(-28%)';
+          setTimeout(function () {
+            numEl.textContent = next;
+            numEl.style.transform = 'translateY(0)';
+          }, 180);
+        }
+      };
+      readIndex(); onScroll(readIndex); on(window, 'resize', readIndex);
+    }
   }
 
   /* ------------------------------------------------------- archive tabs */

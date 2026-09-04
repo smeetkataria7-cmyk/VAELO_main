@@ -373,12 +373,14 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
 .lab.ac{font-variant-ligatures:none}
 
 /* the wordmark, set enormous, filling with accent as the page ends */
-.endmark{position:relative;overflow:hidden;border-top:1px solid var(--line);padding:clamp(30px,5vw,60px) var(--pad) 0;
-  line-height:.78;text-align:center}
-.endmark span{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:clamp(76px,22vw,320px);
-  letter-spacing:-.03em;color:transparent;-webkit-text-stroke:1px rgba(244,242,236,.22);
-  background:linear-gradient(90deg,var(--accent) var(--fill,0%),transparent var(--fill,0%));
-  -webkit-background-clip:text;background-clip:text;display:block}
+.endmark{position:relative;border-top:1px solid var(--line);
+  padding:clamp(34px,5vw,64px) var(--pad) clamp(26px,4vw,52px);text-align:center;line-height:1}
+.endmark span{font-family:var(--display);font-weight:800;text-transform:uppercase;
+  font-size:clamp(64px,20vw,300px);line-height:.92;letter-spacing:-.03em;display:block;
+  padding-bottom:.06em;                      /* room for the baseline, never clipped */
+  color:transparent;-webkit-text-stroke:1px rgba(244,242,236,.22);
+  background:linear-gradient(90deg,var(--accent) var(--fill,0%),rgba(244,242,236,0) var(--fill,0%));
+  -webkit-background-clip:text;background-clip:text}
 
 /* buttons lean toward the pointer */
 .magnet{transition:transform .35s cubic-bezier(.2,.7,.2,1)}
@@ -455,3 +457,34 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
 .rail{transform-origin:center center}
 
 @media(prefers-reduced-motion:reduce){.curtain{display:none}}
+
+/* ==========================================================================
+   THIRD MOTION PASS
+   ========================================================================== */
+
+/* hero headline arrives letter by letter, each on its own delay */
+.js .mask > i > b{display:inline-block;font-weight:inherit;transform:translateY(106%);
+  transition:transform .85s cubic-bezier(.2,.75,.2,1);transition-delay:calc(var(--i) * 26ms)}
+.js body.lit .mask > i > b{transform:none}
+.js .mask > i > b.sp{width:.28em}
+
+/* the hero block drifts and dims as it leaves */
+.hero-in{will-change:transform,opacity}
+
+/* the running index that sits behind the rail */
+.rail-count{position:absolute;right:var(--pad);top:50%;transform:translateY(-50%);z-index:0;
+  font-family:var(--display);font-weight:800;line-height:.78;pointer-events:none;user-select:none;
+  font-size:clamp(90px,17vw,240px);color:transparent;-webkit-text-stroke:1px rgba(244,242,236,.11);
+  font-variant-numeric:tabular-nums;display:flex;align-items:baseline;gap:.06em}
+.rail-count .of{font-size:.3em;-webkit-text-stroke:0;color:var(--dim);letter-spacing:.06em}
+.rail-count b{display:block;transition:transform .45s cubic-bezier(.2,.75,.2,1)}
+@media(max-width:900px){.rail-count{display:none}}
+.rail{position:relative;z-index:1}
+
+/* tile titles shuffle their letters on approach */
+.tile .meta h3{font-variant-ligatures:none}
+
+@media(prefers-reduced-motion:reduce){
+  .js .mask > i > b{transform:none!important}
+  .hero-in{transform:none!important;opacity:1!important}
+}
