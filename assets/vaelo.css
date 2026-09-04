@@ -74,8 +74,18 @@ body.menu .burger i:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;
   padding:110px var(--pad) 56px;overflow:hidden;background:var(--deep)}
 .hero-media{position:absolute;inset:0;z-index:0}
-.hero-media video,.hero-media .slot{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+.hero-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
   filter:saturate(.72) contrast(1.14) brightness(.66)}
+/* Generative backdrop: runs whenever no video file is present, so the hero
+   is never a flat black box. Drawn small and blurred up — cheap on mobile. */
+#heroCanvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  filter:blur(38px) saturate(1.15) contrast(1.06) brightness(.82);transform:scale(1.12)}
+.hero-scan{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.5;
+  background:linear-gradient(180deg,transparent 0%,rgba(214,255,63,.05) 46%,transparent 60%);
+  animation:scan 13s cubic-bezier(.45,0,.55,1) infinite}
+@keyframes scan{0%{transform:translateY(-62%)}100%{transform:translateY(62%)}}
+.hero-bars{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.35;
+  background:repeating-linear-gradient(180deg,rgba(0,0,0,.22) 0 1px,transparent 1px 3px)}
 .hero-tint{position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(150deg,rgba(6,6,4,.74),rgba(6,6,4,.18) 46%,rgba(6,6,4,.86))}
 .hero-vig{position:absolute;inset:0;z-index:1;pointer-events:none;
@@ -258,3 +268,37 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
   *{animation:none!important;transition:none!important}
   .rev{transform:none}.tile .frame{clip-path:none!important}.mask > i{transform:none!important}
 }
+
+/* ==========================================================================
+   WORK ARCHIVE (/work/)
+   ========================================================================== */
+.arch-hd{padding:130px var(--pad) 0}
+.arch-hd h1{font-size:clamp(36px,8vw,120px);line-height:.88}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;padding:34px var(--pad) 0;border-bottom:1px solid var(--line);
+  margin-bottom:clamp(30px,5vw,60px);padding-bottom:22px}
+.tab-btn{font:inherit;font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--dim);
+  background:none;border:1px solid var(--line);border-radius:999px;padding:8px 16px;cursor:pointer;
+  transition:color .25s,border-color .25s,background .25s}
+.tab-btn:hover{color:var(--off);border-color:var(--off)}
+.tab-btn.on{background:var(--accent);border-color:var(--accent);color:var(--black);font-weight:600}
+.tab-btn .c{font-variant-numeric:tabular-nums;opacity:.6;margin-left:6px}
+.arch{padding:0 var(--pad) clamp(70px,10vw,130px);display:grid;grid-template-columns:repeat(2,1fr);
+  gap:clamp(20px,3vw,44px)}
+@media(max-width:760px){.arch{grid-template-columns:1fr}}
+.arch-item{display:block}
+.arch-item .frame{position:relative;overflow:hidden;aspect-ratio:4/3}
+.arch-item .slot{position:absolute;inset:0}
+.arch-item .slot::before{transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.arch-item:hover .slot::before{transform:scale(1.06)}
+.arch-item .veil{position:absolute;inset:0;z-index:1;background:var(--black);opacity:.4;transition:opacity .45s}
+.arch-item:hover .veil{opacity:.14}
+.arch-item .go{position:absolute;right:14px;top:14px;z-index:2;width:40px;height:40px;border:1px solid var(--off);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(10,10,10,.3);
+  transition:background .3s,color .3s,border-color .3s,transform .3s}
+.arch-item:hover .go{background:var(--accent);color:var(--black);border-color:var(--accent);transform:rotate(45deg)}
+.arch-item .meta{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;padding:14px 2px 0}
+.arch-item h3{font-size:clamp(18px,2.2vw,30px);transition:color .3s}
+.arch-item:hover h3{color:var(--accent)}
+.arch-item .cat{font-size:10.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--dim);margin-bottom:6px}
+.arch-item .sum{font-size:13px;color:var(--dim);margin-top:8px;max-width:46ch}
+.arch-item .yr{font-family:var(--display);font-weight:800;font-size:12px;color:var(--dim);font-variant-numeric:tabular-nums}

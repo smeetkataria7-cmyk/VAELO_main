@@ -4,6 +4,7 @@ Static site. No build step for the pages themselves; one small generator for cas
 
 ```
 index.html              home
+work/index.html         work archive with category filter tabs
 work/<slug>.html        one page per case study (generated — do not hand-edit)
 assets/vaelo.css        all styles; brand tokens at the top
 assets/vaelo.js         motion (GSAP + ScrollTrigger)
@@ -18,7 +19,9 @@ wireframes/             audit + exploratory layouts, not part of the site
 2. Run `python3 build-cases.py`.
 3. Commit the regenerated `work/*.html`.
 
-The home page grid renders from the same file, so it updates on its own.
+The home rail and the archive both render from the same file, so they update
+on their own — including the archive's category tabs, which are derived from
+the categories actually present in the data.
 
 ## Brand tokens
 
@@ -38,6 +41,8 @@ Display: Bricolage Grotesque 400–800. Text: Archivo 300–600.
 ## Still needed before launch
 
 - Real imagery for every `.slot` (each carries its target dimensions in `data-spec`)
-- `assets/showreel.mp4` + `assets/hero-poster.jpg` — uncomment the `<video>` in `index.html`
+- `assets/showreel.mp4` + `assets/hero-poster.jpg` — the `<video>` is already wired
+  and takes over the hero the moment the file exists; until then an animated
+  canvas backdrop runs in its place
 - `assets/og.jpg` share card, `assets/favicon.svg`
 - Real email, phone and client names (placeholders in `index.html` and `assets/work.js`)

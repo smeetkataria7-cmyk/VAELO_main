@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Work — Vaelo</title>
+<meta name="description" content="Selected work from Vaelo Creative — brand, content and performance projects across D2C, real estate, fashion, ed-tech and sustainable packaging.">
+<link rel="canonical" href="https://www.vaelocreative.com/work/">
+<meta name="theme-color" content="#0a0a0a">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Vaelo Creative">
+<meta property="og:title" content="Work — Vaelo">
+<meta property="og:description" content="Selected work across D2C, real estate, fashion, ed-tech and sustainable packaging.">
+<meta property="og:url" content="https://www.vaelocreative.com/work/">
+<meta property="og:image" content="https://www.vaelocreative.com/assets/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Work — Vaelo">
+<meta name="twitter:description" content="Selected work across five categories.">
+<meta name="twitter:image" content="https://www.vaelocreative.com/assets/og.jpg">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Archivo:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/vaelo.css">
+</head>
+<body>
+<div class="wipe"></div>
+<div class="cursor" aria-hidden="true"></div>
+
+<nav class="top">
+  <a href="/" class="word">Vaelo</a>
+  <div class="nav-links">
+    <a href="/work/">Work</a><a href="/#capabilities">Services</a><a href="/#process">Process</a><a href="/#studio">Studio</a><a href="/#contact">Contact</a>
+  </div>
+  <button class="burger" aria-label="Menu" aria-expanded="false"><i></i><i></i><i></i></button>
+</nav>
+
+<main>
+  <header class="arch-hd">
+    <p class="lab ac">Archive</p>
+    <h1 style="margin-top:16px"><span class="mask"><i>Every project,</i></span><span class="mask"><i class="out">on the record.</i></span></h1>
+  </header>
+
+  <div class="tabs" role="tablist" aria-label="Filter work by category" id="tabs"></div>
+  <div class="arch" id="arch"></div>
+</main>
+
+<footer>
+  <div>Vaelo Creative LLP, Mumbai, India</div>
+  <div><a href="mailto:hello@vaelocreative.com">hello@vaelocreative.com</a></div>
+  <div>© 2026</div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="/assets/work.js"></script>
+<script>
+/* Tabs and cards both render from assets/work.js — categories are derived,
+   so a new project with a new category adds its own tab automatically. */
+(function () {
+  var W = window.VAELO_WORK, cats = [];
+  W.forEach(function (w) { if (cats.indexOf(w.cat) === -1) cats.push(w.cat); });
+
+  document.getElementById('tabs').innerHTML =
+    '<button class="tab-btn on" role="tab" aria-selected="true" data-cat="all">All<span class="c">' + W.length + '</span></button>' +
+    cats.map(function (c) {
+      var n = W.filter(function (w) { return w.cat === c; }).length;
+      return '<button class="tab-btn" role="tab" aria-selected="false" data-cat="' + c + '">' + c + '<span class="c">' + n + '</span></button>';
+    }).join('');
+
+  document.getElementById('arch').innerHTML = W.map(function (w) {
+    return '<a class="arch-item rev" data-cat="' + w.cat + '" href="/work/' + w.slug + '.html">' +
+      '<div class="frame"><div class="slot" data-spec="Case image"></div><div class="veil"></div><div class="go">↗</div></div>' +
+      '<div class="meta"><div><div class="cat">' + w.cat + ' · ' + w.scope + '</div><h3>' + w.title + '</h3></div>' +
+      '<div class="yr">' + w.year + '</div></div>' +
+      '<p class="sum">' + w.summary + '</p></a>';
+  }).join('');
+})();
+</script>
+<script src="/assets/vaelo.js"></script>
+</body>
+</html>

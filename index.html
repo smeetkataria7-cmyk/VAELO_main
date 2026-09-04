@@ -35,7 +35,7 @@
 <nav class="top">
   <a href="/" class="word">Vaelo</a>
   <div class="nav-links">
-    <a href="#work">Work</a><a href="#capabilities">Services</a><a href="#process">Process</a><a href="#studio">Studio</a><a href="#contact">Contact</a>
+    <a href="/work/">Work</a><a href="#capabilities">Services</a><a href="#process">Process</a><a href="#studio">Studio</a><a href="#contact">Contact</a>
   </div>
   <button class="burger" aria-label="Menu" aria-expanded="false"><i></i><i></i><i></i></button>
 </nav>
@@ -44,11 +44,16 @@
 <!-- ================= HERO ================= -->
 <header class="hero">
   <div class="hero-media">
-    <div class="slot" data-spec="Showreel loop · 1920×1080 · muted, poster required"></div>
-    <!-- Drop the real file in and it takes over automatically:
-    <video id="heroVideo" poster="/assets/hero-poster.jpg" autoplay muted loop playsinline preload="auto">
-      <source src="/assets/showreel.mp4" type="video/mp4"></video> -->
+    <canvas id="heroCanvas" aria-hidden="true"></canvas>
+    <!-- Drop the showreel in at /assets/showreel.mp4 and it takes over the
+         backdrop automatically. If it is missing or refuses to autoplay,
+         the canvas above keeps the hero alive. -->
+    <video id="heroVideo" poster="/assets/hero-poster.jpg" autoplay muted loop playsinline preload="auto" style="display:none">
+      <source src="/assets/showreel.mp4" type="video/mp4">
+    </video>
   </div>
+  <div class="hero-scan"></div>
+  <div class="hero-bars"></div>
   <div class="hero-tint"></div><div class="hero-vig"></div><div class="hero-grain"></div>
   <div class="hero-in">
     <p class="hero-line">Mumbai · Independent, AI-native creative company</p>
@@ -76,7 +81,7 @@
 <section id="work">
   <div class="rail-head">
     <div><p class="lab ac">Selected Work</p><h2 style="margin-top:14px">Five that<br>made the cut</h2></div>
-    <p class="lab tab">2025 — 2026 · 05 projects · scroll →</p>
+    <p class="lab tab">2025 — 2026 · 05 projects · scroll →<br><a href="/work/" style="color:var(--accent)">View the full archive ↗</a></p>
   </div>
   <div class="prog"><i id="prog"></i></div>
   <div class="rail-wrap" id="railWrap">

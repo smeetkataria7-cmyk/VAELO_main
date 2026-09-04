@@ -74,22 +74,75 @@
       .to('.hero-foot, .case-hero .facts', { opacity: 1, duration: .9, ease: 'power1.out' }, 1.0);
   }
 
-  /* ---------- hero video: keep the page whole if it refuses to play ---------- */
+  /* ---------- hero backdrop ----------
+     A real showreel takes over when the file loads. Until then (and whenever
+     autoplay is refused) a generative canvas carries the motion: slow light
+     plumes drifting behind the type. Drawn at 1/6 scale and blurred by CSS,
+     so it costs almost nothing on a phone. */
   var hv = document.getElementById('heroVideo');
+  var canvas = document.getElementById('heroCanvas');
+
   if (hv) {
-    if (reduce) { hv.pause(); }
-    else {
-      var p = hv.play();
-      if (p && p.catch) p.catch(function () { hv.style.display = 'none'; });
+    hv.addEventListener('canplay', function () {
+      hv.style.display = '';
+      if (canvas) canvas.style.display = 'none';
+      var pr = hv.play();
+      if (pr && pr.catch) pr.catch(function () {
+        hv.style.display = 'none';
+        if (canvas) canvas.style.display = '';
+      });
+    });
+    hv.addEventListener('error', function () { hv.style.display = 'none'; });
+    if (reduce) hv.pause();
+  }
+
+  if (canvas && canvas.getContext) {
+    var ctx = canvas.getContext('2d'), W = 0, H = 0, running = true;
+    var plumes = [
+      { x: .30, y: .32, r: .52, hue: 'rgba(214,255,63,',  a: .30, sx: .00021, sy: .00014, p: 0 },
+      { x: .74, y: .62, r: .60, hue: 'rgba(180,178,166,', a: .26, sx: -.00016, sy: .00019, p: 2 },
+      { x: .52, y: .84, r: .46, hue: 'rgba(120,124,110,', a: .30, sx: .00013, sy: -.00021, p: 4 },
+      { x: .12, y: .74, r: .38, hue: 'rgba(244,242,236,', a: .13, sx: .00019, sy: .00011, p: 1 }
+    ];
+    function size() {
+      W = canvas.width = Math.max(1, Math.round(innerWidth / 6));
+      H = canvas.height = Math.max(1, Math.round(innerHeight / 6));
+    }
+    size();
+    addEventListener('resize', size);
+
+    function paint(t) {
+      ctx.fillStyle = '#050505';
+      ctx.fillRect(0, 0, W, H);
+      ctx.globalCompositeOperation = 'lighter';
+      plumes.forEach(function (pl) {
+        var cx = (pl.x + Math.sin(t * pl.sx + pl.p) * 0.16) * W;
+        var cy = (pl.y + Math.cos(t * pl.sy + pl.p) * 0.14) * H;
+        var rad = pl.r * Math.max(W, H) * (0.85 + Math.sin(t * 0.0002 + pl.p) * 0.15);
+        var g = ctx.createRadialGradient(cx, cy, 0, cx, cy, rad);
+        g.addColorStop(0, pl.hue + pl.a + ')');
+        g.addColorStop(1, pl.hue + '0)');
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(cx, cy, rad, 0, Math.PI * 2); ctx.fill();
+      });
+      ctx.globalCompositeOperation = 'source-over';
+    }
+
+    if (reduce) {
+      paint(0);
+    } else {
+      (function frame(t) { if (running) { paint(t); requestAnimationFrame(frame); } })(0);
+      document.addEventListener('visibilitychange', function () {
+        running = !document.hidden;
+        if (running) requestAnimationFrame(function f(t) { if (running) { paint(t); requestAnimationFrame(f); } });
+      });
     }
   }
 
   /* ---------- marquee drift ---------- */
-  var track = document.querySelector('.track');
-  if (track && !reduce) {
-    if (hasGsap) {
-      gsap.to(track, { xPercent: -50, duration: 28, ease: 'none', repeat: -1 });
-    }
+  var track = document.querySelector('.track'), marquee = null;
+  if (track && !reduce && hasGsap) {
+    marquee = gsap.to(track, { xPercent: -50, duration: 28, ease: 'none', repeat: -1 });
   }
 
   /* ---------- work rail: pinned horizontal scroll ---------- */
@@ -184,6 +237,104 @@
           gsap.to(obj, { v: to, duration: 1.4, ease: 'power2.out',
             onUpdate: function () { el.textContent = Math.round(obj.v); } });
         }
+      });
+    });
+  }
+
+  /* ---------- scroll choreography ----------
+     Everything here moves transform or colour only — text is legible even
+     if the script never runs. */
+  if (hasGsap && window.ScrollTrigger && !reduce) {
+
+    /* section headings rise line by line out of their mask */
+    gsap.utils.toArray('.sec-hd, .rail-head').forEach(function (hd) {
+      gsap.from(hd.children, {
+        yPercent: 34, opacity: 0, duration: 1, stagger: .1, ease: 'power3.out',
+        scrollTrigger: { trigger: hd, start: 'top 86%' }
+      });
+    });
+
+    /* eyebrow rules draw themselves in */
+    gsap.utils.toArray('.lab.ac').forEach(function (el) {
+      gsap.from(el, { xPercent: -6, opacity: 0, duration: .7, ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 92%' } });
+    });
+
+    /* service rows sweep in from the left, one after another */
+    gsap.utils.toArray('.svc').forEach(function (row, i) {
+      gsap.from(row, { x: -26, opacity: 0, duration: .75, ease: 'power2.out', delay: (i % 3) * .05,
+        scrollTrigger: { trigger: row, start: 'top 93%' } });
+    });
+
+    /* process cards deal out like a hand of cards */
+    gsap.from('.steps > div', {
+      yPercent: 16, opacity: 0, duration: .8, stagger: .09, ease: 'power3.out',
+      scrollTrigger: { trigger: '.steps', start: 'top 88%' }
+    });
+
+    /* counter strip lifts as a unit, then the numbers run */
+    gsap.from('.strip > div', {
+      yPercent: 22, opacity: 0, duration: .7, stagger: .07, ease: 'power2.out',
+      scrollTrigger: { trigger: '.strip', start: 'top 92%' }
+    });
+
+    /* studio imagery drifts against the page */
+    gsap.utils.toArray('.studio-grid .slot, .sec .slot').forEach(function (s) {
+      gsap.fromTo(s, { yPercent: -6 }, { yPercent: 6, ease: 'none',
+        scrollTrigger: { trigger: s, start: 'top bottom', end: 'bottom top', scrub: true } });
+    });
+
+    /* case-page prose settles paragraph by paragraph */
+    gsap.utils.toArray('.prose p').forEach(function (para) {
+      gsap.from(para, { y: 18, opacity: 0, duration: .8, ease: 'power2.out',
+        scrollTrigger: { trigger: para, start: 'top 90%' } });
+    });
+
+    /* KPI figures count up from a scale-in */
+    gsap.utils.toArray('.kpis > div').forEach(function (k, i) {
+      gsap.from(k, { scale: .94, opacity: 0, duration: .7, delay: i * .07, ease: 'back.out(1.6)',
+        transformOrigin: 'left bottom',
+        scrollTrigger: { trigger: k, start: 'top 92%' } });
+    });
+
+    /* the contact headline is the last thing to land */
+    gsap.from('.end h2', { yPercent: 12, opacity: 0, duration: 1.1, ease: 'power3.out',
+      scrollTrigger: { trigger: '.end', start: 'top 82%' } });
+    gsap.from('.mail, .cbits > div', { y: 16, opacity: 0, duration: .8, stagger: .08, ease: 'power2.out',
+      scrollTrigger: { trigger: '.end', start: 'top 76%' } });
+
+    /* the marquee reacts to scroll direction and speed */
+    if (marquee) {
+      ScrollTrigger.create({
+        trigger: document.body, start: 'top top', end: 'bottom bottom',
+        onUpdate: function (self) {
+          gsap.to(marquee, { timeScale: 1 + Math.min(3, Math.abs(self.getVelocity()) / 900),
+            overwrite: true, duration: .3 });
+        }
+      });
+    }
+  }
+
+  /* ---------- work archive filter tabs ---------- */
+  var tabs = document.querySelectorAll('.tab-btn');
+  if (tabs.length) {
+    tabs.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var cat = btn.dataset.cat;
+        tabs.forEach(function (b) {
+          var on = b === btn;
+          b.classList.toggle('on', on);
+          b.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        document.querySelectorAll('.arch-item').forEach(function (item) {
+          var show = cat === 'all' || item.dataset.cat === cat;
+          item.hidden = !show;
+          if (show && hasGsap && !reduce) {
+            gsap.fromTo(item, { y: 18, opacity: 0 },
+              { y: 0, opacity: 1, duration: .55, ease: 'power2.out' });
+          }
+        });
+        if (hasGsap && window.ScrollTrigger) ScrollTrigger.refresh();
       });
     });
   }
