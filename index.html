@@ -206,10 +206,18 @@
 </footer>
 <script src="assets/work.js"></script>
 <script>
-/* The rail renders from assets/work.js — add a project there, not here. */
+/* The rail renders from assets/work.js — add a project there, not here.
+   A project with an imported hero shows it; one without keeps its slot. */
+function shot(w, label) {
+  var src = w.images && w.images.hero;
+  return src
+    ? '<img class="shot" src="' + src + '" alt="' + w.title.replace(/"/g, '&quot;') +
+      '" loading="lazy" decoding="async" data-par="7">'
+    : '<div class="slot" data-spec="' + label + '" data-par="7"></div>';
+}
 document.getElementById('rail').innerHTML = window.VAELO_WORK.map(function (w, i) {
   return '<a class="tile' + (i % 2 ? ' tall' : '') + '" href="work/' + w.slug + '.html">' +
-    '<div class="frame"><div class="slot" data-spec="Case image" data-par="7"></div><div class="veil"></div><div class="go">↗</div></div>' +
+    '<div class="frame">' + shot(w, 'Case image') + '<div class="veil"></div><div class="go">↗</div></div>' +
     '<div class="meta"><div><div class="cat">' + w.cat + ' · ' + w.scope + '</div><h3>' + w.title + '</h3></div>' +
     '<div class="idx">' + w.idx + '</div></div></a>';
 }).join('');

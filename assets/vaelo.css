@@ -488,3 +488,21 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
   .js .mask > i > b{transform:none!important}
   .hero-in{transform:none!important;opacity:1!important}
 }
+
+/* ==========================================================================
+   REAL MEDIA — takes over the placeholder frames once images are imported
+   ========================================================================== */
+.shot{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;
+  background:#111110;transform:translateY(var(--py,0))}
+.tile .shot,.arch-item .shot{transition:transform .9s cubic-bezier(.2,.7,.2,1),filter .6s ease;
+  filter:grayscale(.45) contrast(1.04)}
+.tile:hover .shot,.arch-item:hover .shot{transform:scale(1.06);filter:grayscale(0) contrast(1.08)}
+.case-hero .shot{filter:saturate(.85) contrast(1.06) brightness(.7)}
+.gal .shot{position:relative;inset:auto;height:auto}
+.gal figure{position:relative;overflow:hidden;margin:0}
+.gal figure.g-full{grid-column:1/13;aspect-ratio:16/9}
+.gal figure.g-half{grid-column:span 6;aspect-ratio:4/5}
+.gal figure.g-third{grid-column:span 4;aspect-ratio:1}
+@media(max-width:760px){.gal figure.g-full,.gal figure.g-half,.gal figure.g-third{grid-column:1/13;aspect-ratio:4/3}}
+.js .gal figure{clip-path:inset(0 0 100% 0);transition:clip-path 1.1s cubic-bezier(.72,0,.16,1)}
+.js .gal.in figure{clip-path:inset(0 0 0 0)}

@@ -60,7 +60,7 @@ TPL = """<!DOCTYPE html>
 
 <main>
 <header class="case-hero">
-  <div class="slot" data-spec="Case hero · 2400×1400" data-par="8"></div>
+  {hero}
   <div class="tint"></div>
   <div class="in">
     <p class="crumb"><a href="index.html">Work</a> <span>/</span> <span>{idx}</span> <span>/</span> <span>{cat}</span></p>
@@ -80,23 +80,14 @@ TPL = """<!DOCTYPE html>
   <div class="prose" data-rev data-stagger><p>{brief}</p></div>
 </section>
 
-<div class="gal" data-rev>
-  <div class="slot g-full" data-par="7" data-spec="Campaign still · 1920×1080"></div>
-  <div class="slot g-half" data-par="9" data-spec="Detail · 1200×1500"></div>
-  <div class="slot g-half" data-par="9" data-spec="Detail · 1200×1500"></div>
-</div>
+{gal1}
 
 <section class="case-body" data-rev style="padding-top:0">
   <div class="stick"><p class="lab ac">What we did</p><h2 style="margin-top:12px">The work<br>itself</h2></div>
   <div class="prose" data-rev data-stagger><p>{did}</p></div>
 </section>
 
-<div class="gal" data-rev>
-  <div class="slot g-third" data-par="6" data-spec="Asset · 1200×1200"></div>
-  <div class="slot g-third" data-par="6" data-spec="Asset · 1200×1200"></div>
-  <div class="slot g-third" data-par="6" data-spec="Asset · 1200×1200"></div>
-  <div class="slot g-full" data-par="7" data-spec="Film still · 1920×1080"></div>
-</div>
+{gal2}
 
 <div class="kpis" data-rev data-stagger>{kpis}</div>
 </main>
@@ -118,13 +109,58 @@ TPL = """<!DOCTYPE html>
 </html>
 """
 
+def media(src, alt, cls, spec, par):
+    """A real file when one was imported, the labelled placeholder when not."""
+    if not src:
+        return '<div class="slot %s" data-par="%s" data-spec="%s"></div>' % (cls, par, spec)
+    a = html.escape(alt, quote=True)
+    if src.lower().endswith((".mp4", ".webm", ".mov", ".m4v")):
+        inner = ('<video class="shot" src="../%s" autoplay muted loop playsinline '
+                 'preload="metadata" data-par="%s"></video>' % (src, par))
+    else:
+        inner = ('<img class="shot" src="../%s" alt="%s" loading="lazy" '
+                 'decoding="async" data-par="%s">' % (src, a, par))
+    return '<figure class="%s">%s</figure>' % (cls, inner) if cls else inner
+
+
+def gallery(items, layout, alt):
+    if not items:
+        return ""
+    cells = []
+    for i, src in enumerate(items):
+        cls = layout[i % len(layout)]
+        spec = "Case image"
+        cells.append(media(src, alt, cls, spec, "7"))
+    return '<div class="gal" data-rev>\n  ' + "\n  ".join(cells) + '\n</div>'
+
+
 out = pathlib.Path("work"); out.mkdir(exist_ok=True)
 for i, w in enumerate(WORK):
     nxt = WORK[(i + 1) % len(WORK)]
     kpis = "".join(
         '<div><div class="v">{}</div><div class="l">{}</div></div>'.format(html.escape(v), html.escape(l))
         for v, l in w["kpis"])
+    imgs = w.get("images") or {}
+    gal = list(imgs.get("gallery") or [])
+    hero_html = media(imgs.get("hero"), w["title"], "", "Case hero · 2400×1400", "8")
+    if not imgs.get("hero"):
+        hero_html = '<div class="slot" data-spec="Case hero · 2400×1400" data-par="8"></div>'
+    first, second = gal[:3], gal[3:7]
+    gal1 = gallery(first, ["g-full", "g-half", "g-half"], w["title"]) or (
+        '<div class="gal" data-rev>\n'
+        '  <div class="slot g-full" data-par="7" data-spec="Campaign still · 1920×1080"></div>\n'
+        '  <div class="slot g-half" data-par="9" data-spec="Detail · 1200×1500"></div>\n'
+        '  <div class="slot g-half" data-par="9" data-spec="Detail · 1200×1500"></div>\n'
+        '</div>')
+    gal2 = gallery(second, ["g-third", "g-third", "g-third", "g-full"], w["title"]) or (
+        '<div class="gal" data-rev>\n'
+        '  <div class="slot g-third" data-par="6" data-spec="Asset · 1200×1200"></div>\n'
+        '  <div class="slot g-third" data-par="6" data-spec="Asset · 1200×1200"></div>\n'
+        '  <div class="slot g-third" data-par="6" data-spec="Asset · 1200×1200"></div>\n'
+        '  <div class="slot g-full" data-par="7" data-spec="Film still · 1920×1080"></div>\n'
+        '</div>')
     page = TPL.format(
+        hero=hero_html, gal1=gal1, gal2=gal2,
         slug=w["slug"], idx=w["idx"], title=html.escape(w["title"]), cat=html.escape(w["cat"]),
         scope=html.escape(w["scope"]), year=w["year"], client=html.escape(w["client"]),
         summary=html.escape(w["summary"], quote=True),

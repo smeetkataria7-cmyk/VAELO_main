@@ -18,6 +18,28 @@ build-cases.py          regenerates work/ from assets/work.js
 wireframes/             audit + exploratory layouts, not part of the site
 ```
 
+## Adding your images
+
+Download the folder of work, then point the importer at it:
+
+```
+python3 import-assets.py ~/Downloads/vaelo-work
+python3 build-cases.py
+```
+
+Every file is copied into `assets/work/<slug>/`, numbered in natural order, and
+written into `assets/work.js` as that project's hero and gallery. The site then
+renders real images wherever they exist and keeps the labelled placeholder
+wherever they don't — so a half-imported folder still looks finished.
+
+Matching is by folder name first (`Launch Not A Rollout/`, `catalogue-at-scale/`,
+`01 Launch/` all find the right project), then by filename prefix. A file named
+*hero*, *cover*, *main* or *01* becomes the hero. Anything it cannot match is
+listed at the end and left untouched — nothing is silently dropped.
+
+Videos (`.mp4`, `.webm`, `.mov`) are imported too and render as muted autoplay
+loops in the galleries.
+
 ## Adding or editing a project
 
 1. Edit the object in `assets/work.js` (slug, title, category, scope, year, copy, KPIs).
@@ -45,7 +67,7 @@ Display: Bricolage Grotesque 400–800. Text: Archivo 300–600.
 
 ## Still needed before launch
 
-- Real imagery for every `.slot` (each carries its target dimensions in `data-spec`)
+- Real imagery — run `import-assets.py`; until then each `.slot` carries its target dimensions in `data-spec`
 - `assets/showreel.mp4` + `assets/hero-poster.jpg` — the `<video>` is already wired
   and takes over the hero the moment the file exists; until then an animated
   canvas backdrop runs in its place

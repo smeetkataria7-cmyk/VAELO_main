@@ -54,6 +54,13 @@
 <script>
 /* Tabs and cards both render from assets/work.js — categories are derived,
    so a new project with a new category adds its own tab automatically. */
+function shot(w) {
+  var src = w.images && w.images.hero;
+  return src
+    ? '<img class="shot" src="../' + src + '" alt="' + w.title.replace(/"/g, '&quot;') +
+      '" loading="lazy" decoding="async" data-par="7">'
+    : '<div class="slot" data-spec="Case image" data-par="7"></div>';
+}
 (function () {
   var W = window.VAELO_WORK, cats = [];
   W.forEach(function (w) { if (cats.indexOf(w.cat) === -1) cats.push(w.cat); });
@@ -67,7 +74,7 @@
 
   document.getElementById('arch').innerHTML = W.map(function (w) {
     return '<a class="arch-item" data-rev data-cat="' + w.cat + '" href="' + w.slug + '.html">' +
-      '<div class="frame"><div class="slot" data-spec="Case image" data-par="7"></div><div class="veil"></div><div class="go">↗</div></div>' +
+      '<div class="frame">' + shot(w) + '<div class="veil"></div><div class="go">↗</div></div>' +
       '<div class="meta"><div><div class="cat">' + w.cat + ' · ' + w.scope + '</div><h3>' + w.title + '</h3></div>' +
       '<div class="yr">' + w.year + '</div></div>' +
       '<p class="sum">' + w.summary + '</p></a>';
