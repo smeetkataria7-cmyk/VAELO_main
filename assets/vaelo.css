@@ -10,6 +10,8 @@
   --pad:5vw;
 }
 *{margin:0;padding:0;box-sizing:border-box}
+/* the script eases scrolling on pointer devices and turns this off; it stays
+   for touch, keyboard-only and reduced-motion users */
 html{scroll-behavior:smooth}
 body{background:var(--black);color:var(--off);font-family:var(--text);font-weight:400;line-height:1.5;
   overflow-x:clip;-webkit-font-smoothing:antialiased}

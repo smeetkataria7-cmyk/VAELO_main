@@ -79,6 +79,102 @@
     });
   }
 
+  /* ------------------------------------------------------- smooth scroll ---
+     Wheel input is captured and eased into the real scroll position rather
+     than a transformed wrapper. That distinction matters here: position:
+     sticky, IntersectionObserver, anchor links and the rail's own maths all
+     read genuine scrollY, so they keep working untouched — a wrapper
+     transform would break the pinned rail outright.
+
+     Only pointer devices are affected. Touch already has momentum of its own
+     and is left alone, as is reduced-motion. */
+  (function () {
+    if (reduce) return;
+    if (!matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+
+    var target = scrollY, current = scrollY, running = false, ease = 0.115;
+
+    var maxScroll = function () {
+      return Math.max(0, doc.documentElement.scrollHeight - innerHeight);
+    };
+
+    /* a wheel inside something that scrolls on its own is left to it */
+    var nativeZone = function (node) {
+      for (var el = node; el && el !== doc.body; el = el.parentElement) {
+        if (el.dataset && el.dataset.nativeScroll !== undefined) return true;
+        var s = getComputedStyle(el);
+        var oy = s.overflowY, ox = s.overflowX;
+        if ((oy === 'auto' || oy === 'scroll') && el.scrollHeight > el.clientHeight + 2) return true;
+        if ((ox === 'auto' || ox === 'scroll') && el.scrollWidth > el.clientWidth + 2) return true;
+        if (/^(textarea|select|input)$/i.test(el.tagName)) return true;
+      }
+      return false;
+    };
+
+    /* what the easing itself last wrote, so anything else that moves the page
+       mid-glide can be told apart from our own writes and handed control —
+       otherwise find-in-page, a scrollbar drag or another script gets dragged
+       back every frame */
+    var lastSet = -1;
+
+    var run = function () {
+      if (lastSet >= 0 && Math.abs(scrollY - lastSet) > 2) {
+        target = current = scrollY;                  /* someone else moved us */
+        running = false; lastSet = -1;
+        return;
+      }
+      var d = target - current;
+      if (Math.abs(d) < 0.4) {
+        current = target; running = false; lastSet = -1;
+        scrollTo(0, Math.round(current));
+        return;
+      }
+      current += d * ease;
+      lastSet = Math.round(current);
+      scrollTo(0, lastSet);
+      requestAnimationFrame(run);
+    };
+    var start = function () {
+      if (!running) { running = true; lastSet = Math.round(scrollY); current = scrollY; requestAnimationFrame(run); }
+    };
+
+    addEventListener('wheel', function (e) {
+      if (e.ctrlKey || e.defaultPrevented) return;      /* pinch-zoom stays native */
+      if (nativeZone(e.target)) return;
+      e.preventDefault();
+      var dy = e.deltaY;
+      if (e.deltaMode === 1) dy *= 16;                  /* lines  */
+      else if (e.deltaMode === 2) dy *= innerHeight;    /* pages  */
+      target = Math.max(0, Math.min(maxScroll(), target + dy));
+      start();
+    }, { passive: false });
+
+    /* anything that moves the page by other means — scrollbar, keyboard,
+       find-in-page — resets the target so the two never disagree */
+    addEventListener('scroll', function () {
+      if (!running) { target = current = scrollY; }
+    }, { passive: true });
+
+    addEventListener('resize', function () {
+      target = current = scrollY;
+    });
+
+    /* in-page links glide instead of jumping, without scroll-behavior fighting us */
+    doc.documentElement.style.scrollBehavior = 'auto';
+    doc.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      on(a, 'click', function (e) {
+        var id = a.getAttribute('href').slice(1);
+        if (!id) return;
+        var el = doc.getElementById(id);
+        if (!el) return;
+        e.preventDefault();
+        target = Math.max(0, Math.min(maxScroll(),
+          el.getBoundingClientRect().top + scrollY - 10));
+        start();
+      });
+    });
+  })();
+
   /* ------------------------------------------------------------ nav state */
   var navBar = doc.querySelector('nav.top');
   if (navBar) {
