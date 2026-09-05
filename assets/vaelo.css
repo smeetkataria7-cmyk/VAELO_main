@@ -506,3 +506,34 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
 @media(max-width:760px){.gal figure.g-full,.gal figure.g-half,.gal figure.g-third{grid-column:1/13;aspect-ratio:4/3}}
 .js .gal figure{clip-path:inset(0 0 100% 0);transition:clip-path 1.1s cubic-bezier(.72,0,.16,1)}
 .js .gal.in figure{clip-path:inset(0 0 0 0)}
+
+/* ==========================================================================
+   FOURTH MOTION PASS — tactility
+   ========================================================================== */
+
+/* tiles tilt toward the pointer, on a real 3D plane */
+.rail,.work,.arch{perspective:1400px}
+.tile .frame,.arch-item .frame{transform-style:preserve-3d;
+  transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.tile.tilt .frame,.arch-item.tilt .frame{transition:transform .12s linear}
+
+/* the rail can be grabbed and thrown */
+.rail-stick{cursor:grab}
+.rail-stick.dragging{cursor:grabbing}
+.rail-stick.dragging .tile .frame{transition:none}
+
+/* a caption that trails the pointer across the rail */
+.rail-hint{position:absolute;left:0;top:0;z-index:5;pointer-events:none;opacity:0;
+  font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--black);
+  background:var(--accent);padding:6px 11px;transform:translate(-50%,-160%);
+  transition:opacity .3s}
+.rail-stick:hover .rail-hint{opacity:1}
+@media(hover:none),(pointer:coarse){.rail-hint{display:none}}
+
+/* scrambling titles keep their box while the glyphs churn */
+.tile .meta h3,.arch-item h3{font-variant-numeric:tabular-nums}
+
+@media(prefers-reduced-motion:reduce){
+  .tile .frame,.arch-item .frame{transform:none!important}
+  .rail-hint{display:none}
+}

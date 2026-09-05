@@ -548,6 +548,107 @@
     }
   }
 
+  /* ------------------------------------------------------------- tilt ---
+     Cards lean toward the pointer on a real perspective plane. Small angles
+     only — the point is that the surface feels physical, not that it spins. */
+  if (matchMedia('(hover:hover)').matches && !reduce) {
+    doc.querySelectorAll('.tile, .arch-item').forEach(function (card) {
+      var frame = card.querySelector('.frame');
+      if (!frame) return;
+      on(card, 'pointermove', function (e) {
+        var b = card.getBoundingClientRect();
+        var x = (e.clientX - b.left) / b.width - 0.5;
+        var y = (e.clientY - b.top) / b.height - 0.5;
+        card.classList.add('tilt');
+        frame.style.transform =
+          'rotateY(' + (x * 7).toFixed(2) + 'deg) rotateX(' + (-y * 7).toFixed(2) + 'deg) ' +
+          'translateZ(14px)';
+      });
+      on(card, 'pointerleave', function () {
+        card.classList.remove('tilt');
+        frame.style.transform = '';
+      });
+    });
+  }
+
+  /* ------------------------------------------------------ scrambled titles ---
+     A title resolves out of noise the first time you touch it. Same glyph set
+     as the eyebrows, so the two effects read as one idea. */
+  if (matchMedia('(hover:hover)').matches && !reduce) {
+    var SET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#%&/\\';
+    doc.querySelectorAll('.tile .meta h3, .arch-item h3, .next h2').forEach(function (el) {
+      var real = el.textContent, busy = false;
+      on(el.closest('a') || el, 'pointerenter', function () {
+        if (busy) return;
+        busy = true;
+        var frame = 0;
+        (function churn() {
+          var out = '', done = frame / 1.8;
+          for (var i = 0; i < real.length; i++) {
+            out += (real[i] === ' ' || i < done) ? real[i]
+                 : SET[(Math.random() * SET.length) | 0];
+          }
+          el.textContent = out;
+          if (done < real.length) { frame++; requestAnimationFrame(churn); }
+          else { el.textContent = real; busy = false; }
+        })();
+      });
+    });
+  }
+
+  /* --------------------------------------------------------- rail dragging ---
+     The strip can be grabbed and thrown, and the page scroll follows, so the
+     pinned section and the drag stay in agreement instead of fighting. */
+  var stickEl = doc.querySelector('.rail-stick');
+  if (stickEl && rail && railWrap && !reduce) {
+    var down = false, startX = 0, startScroll = 0, moved = 0;
+
+    var hint = doc.createElement('div');
+    hint.className = 'rail-hint';
+    hint.textContent = 'Drag';
+    stickEl.appendChild(hint);
+    on(stickEl, 'pointermove', function (e) {
+      var b = stickEl.getBoundingClientRect();
+      hint.style.transform = 'translate(' + (e.clientX - b.left) + 'px,' +
+                             (e.clientY - b.top) + 'px) translate(-50%,-160%)';
+    });
+
+    on(stickEl, 'pointerdown', function (e) {
+      if (innerWidth <= 720) return;             /* narrow uses native scroll */
+      down = true; moved = 0;
+      startX = e.clientX; startScroll = scrollY;
+      stickEl.classList.add('dragging');
+      stickEl.setPointerCapture && stickEl.setPointerCapture(e.pointerId);
+    });
+    on(stickEl, 'pointermove', function (e) {
+      if (!down) return;
+      var dx = e.clientX - startX;
+      moved = Math.max(moved, Math.abs(dx));
+      /* horizontal distance maps back onto page scroll, 1:1 with the rail */
+      var span = railWrap.offsetHeight - innerHeight;
+      var perPx = travelRatio();
+      scrollTo(0, startScroll - dx * perPx);
+      e.preventDefault();
+    });
+    function travelRatio() {
+      var span = railWrap.offsetHeight - innerHeight;
+      var dist = rail.scrollWidth - innerWidth + innerWidth * 0.08;
+      return dist > 0 ? span / dist : 1;
+    }
+    var release = function () {
+      if (!down) return;
+      down = false;
+      stickEl.classList.remove('dragging');
+    };
+    on(stickEl, 'pointerup', release);
+    on(stickEl, 'pointercancel', release);
+    on(stickEl, 'pointerleave', release);
+    /* a drag must not open the project it ended on */
+    on(stickEl, 'click', function (e) {
+      if (moved > 6) { e.preventDefault(); e.stopPropagation(); moved = 0; }
+    }, true);
+  }
+
   /* ------------------------------------------------------- archive tabs */
   var tabs = doc.querySelectorAll('.tab-btn');
   if (tabs.length) {
