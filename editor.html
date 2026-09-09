@@ -148,12 +148,6 @@
           <input type="file" id="picker" multiple accept="image/*,video/*">
         </label>
         <div class="shelf" id="shelf"></div>
-        <div class="savebar">
-          <button type="button" class="btn pri" id="saveFolder">Save into the site folder</button>
-          <button type="button" class="btn" id="saveZip">Download a zip</button>
-          <span class="note" id="saveNote"></span>
-        </div>
-        <div class="bar" id="bar"><i></i></div>
       </div>
 
       <div class="sect">
@@ -172,17 +166,44 @@
     </form>
 
     <div class="sect">
-      <h2>Publish your changes</h2>
+      <h2>Publish live</h2>
+      <p class="ed-sub" style="margin-bottom:16px">
+        Commits every project and file straight to GitHub. A workflow in the repo
+        regenerates the case-study pages automatically — no terminal, no zip, no
+        asking anyone.
+      </p>
+      <div class="field"><label for="ghToken">GitHub token</label>
+        <input id="ghToken" type="password" placeholder="github_pat_…" autocomplete="off">
+        <span class="hint">Stored only in this browser, never sent anywhere but GitHub.
+          <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener" style="color:var(--accent)">Create one</a>
+          scoped to <code>smeetkataria7-cmyk/VAELO_main</code> only, permission
+          <code>Contents: Read and write</code>.</span>
+      </div>
+      <div class="row">
+        <button type="button" class="btn pri" id="publishBtn">Publish live</button>
+        <button type="button" class="btn" id="forgetTokenBtn">Forget token</button>
+      </div>
+      <div class="bar" id="pubBar"><i></i></div>
+      <p class="steps-note" id="pubNote"></p>
+    </div>
+
+    <div class="sect">
+      <h2>Manual fallback</h2>
+      <p class="ed-sub" style="margin-bottom:12px">Only needed if publishing live isn't working.</p>
       <div class="out">
         <textarea id="output" readonly spellcheck="false"></textarea>
       </div>
       <div class="row" style="margin-top:12px">
         <button class="btn pri" id="copyBtn">Copy the file</button>
         <button class="btn" id="dlBtn">Download work.js</button>
+        <button class="btn" id="saveFolder">Save into the site folder</button>
+        <button class="btn" id="saveZip">Download a zip</button>
       </div>
+      <div class="bar" id="bar"><i></i></div>
+      <span class="note" id="saveNote"></span>
       <p class="steps-note">
-        1. Copy or download the file above.<br>
-        2. Replace <code>assets/work.js</code> in the repository with it.<br>
+        1. Copy or download the file above, or save into the folder / as a zip.<br>
+        2. Replace <code>assets/work.js</code> in the repository with it, if not saved directly.<br>
         3. Run <code>python3 build-cases.py</code> — this writes a page for every project.<br>
         4. Commit and push. The home rail, the archive and its category tabs all update themselves.<br><br>
         Images go in <code>assets/work/</code> named after the project address, e.g. <code>assets/work/<span id="imgEcho">your-project</span>-hero.jpg</code>.
@@ -445,6 +466,43 @@
       toast('Zip ready');
     }).catch(function (e) {
       note.textContent = 'Could not build the zip: ' + (e && e.message ? e.message : e);
+    });
+  });
+
+  /* ------------------------------------------------------ publish live */
+  var ghToken = document.getElementById('ghToken'),
+      publishBtn = document.getElementById('publishBtn'),
+      forgetTokenBtn = document.getElementById('forgetTokenBtn'),
+      pubBar = document.getElementById('pubBar'),
+      pubNote = document.getElementById('pubNote');
+
+  ghToken.value = IM.getToken();
+  ghToken.addEventListener('change', function () { IM.setToken(ghToken.value.trim()); });
+
+  forgetTokenBtn.addEventListener('click', function () {
+    IM.forgetToken(); ghToken.value = ''; pubNote.textContent = 'Token forgotten.';
+  });
+
+  publishBtn.addEventListener('click', function () {
+    var token = ghToken.value.trim();
+    if (!token) { pubNote.textContent = 'Paste a GitHub token first.'; ghToken.focus(); return; }
+    IM.setToken(token);
+    renderOutput();
+    publishBtn.disabled = true;
+    pubBar.classList.add('on');
+    pubBar.querySelector('i').style.width = '0%';
+    pubNote.textContent = 'Starting…';
+    IM.publishToGitHub(document.getElementById('output').value, function (done, total, label) {
+      pubBar.querySelector('i').style.width = ((done / total) * 100).toFixed(0) + '%';
+      pubNote.textContent = label + '…';
+    }).then(function () {
+      pubNote.textContent = 'Published — live in about a minute, once GitHub Pages and the page-build workflow finish.';
+      toast('Published live');
+    }).catch(function (e) {
+      pubNote.textContent = 'Could not publish: ' + (e && e.message ? e.message : e);
+    }).then(function () {
+      publishBtn.disabled = false;
+      setTimeout(function () { pubBar.classList.remove('on'); }, 1200);
     });
   });
 

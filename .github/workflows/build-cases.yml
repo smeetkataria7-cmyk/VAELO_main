@@ -1,0 +1,45 @@
+name: Build case pages
+
+# Runs whenever assets/work.js changes on main (including pushes made by the
+# editor's "Publish live" button through the GitHub API) and regenerates the
+# static /work/<slug>.html pages, replacing the manual `python3 build-cases.py`
+# step. Commits the regenerated pages back to main.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "assets/work.js"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-cases-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Regenerate work/*.html from assets/work.js
+        run: python3 build-cases.py
+
+      - name: Commit regenerated pages
+        run: |
+          git config user.name "vaelo-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add work/*.html
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Regenerate case pages from assets/work.js [skip ci]"
+            git push
+          fi

@@ -222,11 +222,128 @@
     });
   }
 
+  /* ------------------------------------------------ publish to GitHub ---
+     Commits assets/work.js and every file added this session straight to
+     the repo through the GitHub REST API, in one atomic commit. A GitHub
+     Action (.github/workflows/build-cases.yml) then regenerates work/*.html
+     on push, so this is the only step needed to go live — no terminal,
+     no local git. Requires a fine-grained PAT scoped to this repo with
+     "Contents: Read and write", entered once and kept in localStorage. */
+  var GH_OWNER = 'smeetkataria7-cmyk', GH_REPO = 'VAELO_main', GH_BRANCH = 'main';
+  var TOKEN_KEY = 'vaelo-gh-token';
+
+  function getToken() { try { return localStorage.getItem(TOKEN_KEY) || ''; } catch (e) { return ''; } }
+  function setToken(t) { try { localStorage.setItem(TOKEN_KEY, t || ''); } catch (e) {} }
+  function forgetToken() { try { localStorage.removeItem(TOKEN_KEY); } catch (e) {} }
+
+  function gh(path, token, opts) {
+    opts = opts || {};
+    return fetch('https://api.github.com' + path, {
+      method: opts.method || 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + token,
+        'Accept': 'application/vnd.github+json',
+        'Content-Type': 'application/json'
+      },
+      body: opts.body ? JSON.stringify(opts.body) : undefined
+    }).then(function (r) {
+      if (r.ok) return r.json();
+      return r.json().catch(function () { return {}; }).then(function (j) {
+        var msg = (j && j.message) || (r.status + ' ' + r.statusText);
+        if (r.status === 401) msg = 'Token rejected — check it was pasted in full and has not expired.';
+        if (r.status === 403) msg = 'Forbidden — the token needs "Contents: Read and write" on ' + GH_OWNER + '/' + GH_REPO + '. (' + msg + ')';
+        if (r.status === 404) msg = 'Repo or branch not found — check the token has access to ' + GH_OWNER + '/' + GH_REPO + '. (' + msg + ')';
+        var err = new Error(msg); err.status = r.status; throw err;
+      });
+    });
+  }
+
+  function blobToBase64(blob) {
+    return new Promise(function (res, rej) {
+      var r = new FileReader();
+      r.onload = function () { res(String(r.result).split(',')[1] || ''); };
+      r.onerror = function () { rej(r.error); };
+      r.readAsDataURL(blob);
+    });
+  }
+
+  function createBlob(token, content, encoding) {
+    return gh('/repos/' + GH_OWNER + '/' + GH_REPO + '/git/blobs', token, {
+      method: 'POST', body: { content: content, encoding: encoding }
+    }).then(function (b) { return b.sha; });
+  }
+
+  /** Publishes assets/work.js plus every file added this session, in one commit. */
+  function publishToGitHub(workJsText, onProgress, attempt) {
+    var token = getToken();
+    if (!token) return Promise.reject(new Error('Paste a GitHub token first.'));
+
+    var mediaJobs = [];
+    Object.keys(files).forEach(function (slug) {
+      files[slug].forEach(function (rec, i) {
+        mediaJobs.push({ path: pathFor(slug, rec, i), blob: rec.blob });
+      });
+    });
+    var total = 1 /* ref */ + 1 /* base commit */ + 1 /* work.js blob */ +
+                mediaJobs.length + 1 /* tree */ + 1 /* commit */ + 1 /* ref update */;
+    var done = 0;
+    function step(label) { done++; if (onProgress) onProgress(done, total, label); }
+
+    var refSha, baseTreeSha;
+    return gh('/repos/' + GH_OWNER + '/' + GH_REPO + '/git/ref/heads/' + GH_BRANCH, token)
+      .then(function (ref) { refSha = ref.object.sha; step('Reading current state'); })
+      .then(function () {
+        return gh('/repos/' + GH_OWNER + '/' + GH_REPO + '/git/commits/' + refSha, token);
+      })
+      .then(function (commit) { baseTreeSha = commit.tree.sha; step('Reading current state'); })
+      .then(function () { return createBlob(token, workJsText, 'utf-8'); })
+      .then(function (sha) {
+        step('Uploading work.js');
+        var treeEntries = [{ path: 'assets/work.js', mode: '100644', type: 'blob', sha: sha }];
+        var chain = Promise.resolve();
+        mediaJobs.forEach(function (job) {
+          chain = chain.then(function () { return blobToBase64(job.blob); })
+            .then(function (b64) { return createBlob(token, b64, 'base64'); })
+            .then(function (sha) {
+              treeEntries.push({ path: job.path, mode: '100644', type: 'blob', sha: sha });
+              step('Uploading ' + job.path.split('/').pop());
+            });
+        });
+        return chain.then(function () { return treeEntries; });
+      })
+      .then(function (treeEntries) {
+        return gh('/repos/' + GH_OWNER + '/' + GH_REPO + '/git/trees', token, {
+          method: 'POST', body: { base_tree: baseTreeSha, tree: treeEntries }
+        });
+      })
+      .then(function (tree) {
+        step('Building commit');
+        return gh('/repos/' + GH_OWNER + '/' + GH_REPO + '/git/commits', token, {
+          method: 'POST',
+          body: { message: 'Publish work update from the editor', tree: tree.sha, parents: [refSha] }
+        });
+      })
+      .then(function (commit) {
+        step('Publishing');
+        return gh('/repos/' + GH_OWNER + '/' + GH_REPO + '/git/refs/heads/' + GH_BRANCH, token, {
+          method: 'PATCH', body: { sha: commit.sha }
+        }).then(function () { step('Done'); return commit; });
+      })
+      .catch(function (err) {
+        /* someone else published in the moment between our ref read and
+           write — refetch and try once more rather than failing outright */
+        if (err.status === 422 && !attempt) return publishToGitHub(workJsText, onProgress, 1);
+        throw err;
+      });
+  }
+
   global.VaeloImages = {
     load: load, add: add, remove: remove, move: move, makeHero: makeHero,
     list: function (slug) { return files[slug] || []; },
     pathsFor: pathsFor, diskName: diskName,
     canWriteDirect: canWriteDirect, saveToFolder: saveToFolder, saveZip: saveZip,
-    pickFolder: function () { return getRoot(true); }
+    pickFolder: function () { return getRoot(true); },
+    getToken: getToken, setToken: setToken, forgetToken: forgetToken,
+    publishToGitHub: publishToGitHub
   };
 })(window);
