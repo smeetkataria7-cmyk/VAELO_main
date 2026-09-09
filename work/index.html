@@ -56,10 +56,11 @@
    so a new project with a new category adds its own tab automatically. */
 function shot(w) {
   var src = w.images && w.images.hero;
-  return src
-    ? '<img class="shot" src="../' + src + '" alt="' + w.title.replace(/"/g, '&quot;') +
-      '" loading="lazy" decoding="async" data-par="7">'
-    : '<div class="slot" data-spec="Case image" data-par="7"></div>';
+  if (!src) return '<div class="slot" data-spec="Case image" data-par="7"></div>';
+  return /\.(mp4|webm|mov|m4v)$/i.test(src)
+    ? '<video class="shot" src="../' + src + '" autoplay muted loop playsinline data-par="7"></video>'
+    : '<img class="shot" src="../' + src + '" alt="' + w.title.replace(/"/g, '&quot;') +
+      '" loading="lazy" decoding="async" data-par="7">';
 }
 (function () {
   var W = window.VAELO_WORK, cats = [];

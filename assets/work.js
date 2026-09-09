@@ -4,6 +4,7 @@
    the pages in /work. Nothing else needs editing.
    ========================================================================== */
 window.VAELO_WORK = [
+
   {
     slug: 'launch-not-a-rollout',
     idx: '01',
@@ -31,7 +32,15 @@ window.VAELO_WORK = [
     brief: 'Marigold Miraaya had reached the point most developments treat as the finish line \u2014 OC received, ready to move in, MahaRERA P51800003669. The category answers that moment with specification: carpet area, configuration, possession date. None of it tells a buyer what living there is actually like, and every competing listing reads the same way.',
     did: 'We shot the building the way residents use it and built the campaign around moments rather than amenities \u2014 carrom in the indoor games room, a couple in the poolside cabana, families in the water at the same hour. The line carries the argument: Evenings Well Spent. Unwind. Together. Something for Everyone. The specification and the RERA number stay on the pack where they belong; the campaign sells the evening.',
     kpis: [['OC', 'Received'], ['P51800003669', 'MahaRERA'], ['Ready', 'To move in']],
-    images: { hero: '', gallery: ['assets/work/marigold-miraaya/film.mp4'] }
+    images: { hero: 'assets/work/marigold-miraaya/photo-01.jpg', gallery: [
+      'assets/work/marigold-miraaya/film.mp4',
+      'assets/work/marigold-miraaya/photo-02.jpg',
+      'assets/work/marigold-miraaya/photo-03.jpg',
+      'assets/work/marigold-miraaya/photo-04.jpg',
+      'assets/work/marigold-miraaya/photo-05.jpg',
+      'assets/work/marigold-miraaya/photo-06.jpg',
+      'assets/work/marigold-miraaya/photo-07.jpg'
+    ] }
   },
   {
     slug: 'catalogue-at-scale',
@@ -74,5 +83,80 @@ window.VAELO_WORK = [
     brief: 'The sustainability claim was real, third-party verified, and buried. It sat below an ingredient list, in a typographic hierarchy that gave equal weight to everything — which is the same as giving weight to nothing.',
     did: 'We rebuilt the pack hierarchy so the claim lands before the ingredient list, with an iconography set that carries the science without a paragraph of explanation. The system was drawn to scale across the full range, including the smallest format, where most pack systems quietly fall apart.',
     kpis: [['3 sec', 'Claim comprehension target'], ['1 system', 'Full range'], ['SKU-min', 'Tested at smallest format']]
+  },
+  {
+    slug: 'simplicare',
+    idx: '06',
+    title: 'Simplicare',
+    cat: 'Healthcare',
+    scope: 'Website + Performance Marketing',
+    year: '2025',
+    client: 'Simplicare',
+    tile: '',
+    summary: 'A healthcare e-commerce brand with a clean site and steady ad spend that wasn\'t turning into sales.',
+    brief: 'Simplicare\'s product and site both looked the part, but the funnel leaked between the ad click and the checkout button. Traffic was healthy; revenue wasn\'t following it.',
+    did: 'We treated it as one conversion problem end to end, not a media problem and a website problem handled by two different people. The site was rebuilt around how a healthcare buyer actually decides, and the Meta campaigns were rebuilt around trust and urgency instead of discounting.',
+    kpis: [['2.9X', 'Return on ad spend'], ['-38%', 'Cost per acquisition'], ['3.2%', 'Site conversion rate']],
+    images: { hero: 'assets/work/simplicare/01.mp4', gallery: ['assets/work/simplicare/02.mp4', 'assets/work/simplicare/03.jpg', 'assets/work/simplicare/04.jpg', 'assets/work/simplicare/05.jpg', 'assets/work/simplicare/06.jpg', 'assets/work/simplicare/07.jpg', 'assets/work/simplicare/08.jpg', 'assets/work/simplicare/09.jpg', 'assets/work/simplicare/10.jpg', 'assets/work/simplicare/11.jpg', 'assets/work/simplicare/12.jpg'] }
+  },
+  {
+    slug: 'tribalzone',
+    idx: '07',
+    title: 'Tribalzone',
+    cat: 'Fashion',
+    scope: 'E-commerce + Social',
+    year: '2025',
+    client: 'Tribalzone',
+    tile: '',
+    summary: 'A streetwear label with a loyal offline following and nowhere online for that following to actually buy.',
+    brief: 'Tribalzone had the harder problem solved — people who wanted the brand. What didn\'t exist yet was a store, a feed, or a paid channel to put in front of them.',
+    did: 'We built the Shopify storefront, stood up the social presence from nothing, and ran Meta ads against the community that already existed rather than one we had to invent.',
+    kpis: [['₹100K', 'Revenue generated'], ['150+', 'Orders'], ['4X', 'ROAS']],
+    images: { hero: 'assets/work/tribalzone/01.mp4', gallery: ['assets/work/tribalzone/02.mp4', 'assets/work/tribalzone/03.mp4', 'assets/work/tribalzone/04.mp4', 'assets/work/tribalzone/05.mp4', 'assets/work/tribalzone/06.jpg', 'assets/work/tribalzone/07.jpg', 'assets/work/tribalzone/08.jpg'] }
+  },
+  {
+    slug: 'dvoc',
+    idx: '08',
+    title: 'DVOC Institute',
+    cat: 'Ed-Tech',
+    scope: 'Brand + Content Systems',
+    year: '2025',
+    client: 'DVOC Institute',
+    tile: '',
+    summary: 'An ed-tech institute competing for attention in a category where every ad looks like the last one.',
+    brief: 'DVOC\'s course outcomes were genuinely strong. None of that showed up in a crowded feed where every competitor runs the same three ad formats at the same three price points.',
+    did: 'Rather than one campaign, we stood up a production line — a new batch of course-focused creative every week — so the media buy always had fresh variants to test instead of fatiguing the same five ads for a quarter.',
+    kpis: [['1,200+', 'Total leads'], ['₹145', 'Cost per lead'], ['8.5%', 'Conversion rate']],
+    images: { hero: 'assets/work/dvoc/01.mp4', gallery: ['assets/work/dvoc/02.mp4', 'assets/work/dvoc/03.mp4', 'assets/work/dvoc/04.mp4', 'assets/work/dvoc/05.mp4', 'assets/work/dvoc/06.mp4', 'assets/work/dvoc/07.mp4', 'assets/work/dvoc/08.mp4'] }
+  },
+  {
+    slug: 'zerolys',
+    idx: '09',
+    title: 'Zerolys',
+    cat: 'Sustainable Packaging',
+    scope: 'Website + Social Launch',
+    year: '2025',
+    client: 'Zerolys',
+    tile: '',
+    summary: 'A sustainable packaging product with real science behind it and no way for anyone to find it.',
+    brief: 'The product was ahead of the category. The digital presence didn\'t exist yet, which meant the brands and consumers most likely to care about it had no way to discover it.',
+    did: 'We built the site and launched the social presence together, with a cinematic intro film carrying the mission in a category that usually explains itself with a paragraph of ingredient science.',
+    kpis: [['3.5X', 'Traffic growth'], ['4.8%', 'Engagement rate'], ['+62%', 'Form submissions']],
+    images: { hero: 'assets/work/zerolys/01.mp4', gallery: ['assets/work/zerolys/02.mp4', 'assets/work/zerolys/03.mp4', 'assets/work/zerolys/04.mp4', 'assets/work/zerolys/05.mp4', 'assets/work/zerolys/06.mp4', 'assets/work/zerolys/07.jpg', 'assets/work/zerolys/08.jpg', 'assets/work/zerolys/09.jpg', 'assets/work/zerolys/10.jpg', 'assets/work/zerolys/11.jpg', 'assets/work/zerolys/12.jpg', 'assets/work/zerolys/13.jpg', 'assets/work/zerolys/14.jpg', 'assets/work/zerolys/15.jpg', 'assets/work/zerolys/16.jpg', 'assets/work/zerolys/17.jpg', 'assets/work/zerolys/18.jpg', 'assets/work/zerolys/19.jpg', 'assets/work/zerolys/20.jpg', 'assets/work/zerolys/21.jpg', 'assets/work/zerolys/22.jpg', 'assets/work/zerolys/23.jpg', 'assets/work/zerolys/24.jpg', 'assets/work/zerolys/25.jpg', 'assets/work/zerolys/26.jpg', 'assets/work/zerolys/27.jpg', 'assets/work/zerolys/28.jpg', 'assets/work/zerolys/29.jpg', 'assets/work/zerolys/30.jpg', 'assets/work/zerolys/31.jpg'] }
+  },
+  {
+    slug: 'conceptual',
+    idx: '10',
+    title: 'Conceptual',
+    cat: 'AI Production',
+    scope: 'AI Production Reel',
+    year: '2025',
+    client: 'Vaelo Creative — internal showcase',
+    tile: '',
+    summary: 'A concept reel produced entirely inside the AI production stack, with no traditional shoot day at all.',
+    brief: 'Most of what a production line does can\'t be shown in a portfolio without shooting it again. This reel exists to show the stack itself — what it can produce before a client brief even asks for it.',
+    did: 'Six concepts, generated and finished end to end through the AI pipeline — no camera, no set, no shoot day. The point isn\'t any single concept; it\'s the production speed that let all six exist.',
+    kpis: [['6', 'Concepts produced'], ['0', 'Shoot days'], ['100%', 'AI-native production']],
+    images: { hero: 'assets/work/conceptual/01.mp4', gallery: ['assets/work/conceptual/02.mp4', 'assets/work/conceptual/03.mp4', 'assets/work/conceptual/04.mp4', 'assets/work/conceptual/05.mp4', 'assets/work/conceptual/06.mp4'] }
   }
 ];

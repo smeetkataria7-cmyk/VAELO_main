@@ -145,7 +145,7 @@ for i, w in enumerate(WORK):
     hero_html = media(imgs.get("hero"), w["title"], "", "Case hero · 2400×1400", "8")
     if not imgs.get("hero"):
         hero_html = '<div class="slot" data-spec="Case hero · 2400×1400" data-par="8"></div>'
-    first, second = gal[:3], gal[3:7]
+    first, second = gal[:3], gal[3:]  # second carries everything past the first three
     gal1 = gallery(first, ["g-full", "g-half", "g-half"], w["title"]) or (
         '<div class="gal" data-rev>\n'
         '  <div class="slot g-full" data-par="7" data-spec="Campaign still · 1920×1080"></div>\n'
