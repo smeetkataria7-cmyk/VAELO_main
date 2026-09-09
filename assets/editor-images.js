@@ -127,6 +127,11 @@
 
   function ensurePermission(handle) {
     var opts = { mode: 'readwrite' };
+    if (typeof handle.queryPermission !== 'function') {
+      return typeof handle.requestPermission === 'function'
+        ? handle.requestPermission(opts)
+        : Promise.resolve('granted');
+    }
     return handle.queryPermission(opts).then(function (p) {
       return p === 'granted' ? 'granted' : handle.requestPermission(opts);
     });

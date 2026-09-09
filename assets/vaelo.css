@@ -473,14 +473,6 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
 /* the hero block drifts and dims as it leaves */
 .hero-in{will-change:transform,opacity}
 
-/* the running index that sits behind the rail */
-.rail-count{position:absolute;right:var(--pad);top:50%;transform:translateY(-50%);z-index:0;
-  font-family:var(--display);font-weight:800;line-height:.78;pointer-events:none;user-select:none;
-  font-size:clamp(90px,17vw,240px);color:transparent;-webkit-text-stroke:1px rgba(244,242,236,.11);
-  font-variant-numeric:tabular-nums;display:flex;align-items:baseline;gap:.06em}
-.rail-count .of{font-size:.3em;-webkit-text-stroke:0;color:var(--dim);letter-spacing:.06em}
-.rail-count b{display:block;transition:transform .45s cubic-bezier(.2,.75,.2,1)}
-@media(max-width:900px){.rail-count{display:none}}
 .rail{position:relative;z-index:1}
 
 /* tile titles shuffle their letters on approach */
@@ -524,18 +516,9 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
 .rail-stick.dragging{cursor:grabbing}
 .rail-stick.dragging .tile .frame{transition:none}
 
-/* a caption that trails the pointer across the rail */
-.rail-hint{position:absolute;left:0;top:0;z-index:5;pointer-events:none;opacity:0;
-  font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--black);
-  background:var(--accent);padding:6px 11px;transform:translate(-50%,-160%);
-  transition:opacity .3s}
-.rail-stick:hover .rail-hint{opacity:1}
-@media(hover:none),(pointer:coarse){.rail-hint{display:none}}
-
 /* scrambling titles keep their box while the glyphs churn */
 .tile .meta h3,.arch-item h3{font-variant-numeric:tabular-nums}
 
 @media(prefers-reduced-motion:reduce){
   .tile .frame,.arch-item .frame{transform:none!important}
-  .rail-hint{display:none}
 }

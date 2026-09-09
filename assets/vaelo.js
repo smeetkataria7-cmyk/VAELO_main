@@ -609,41 +609,6 @@
     drift(); onScroll(drift);
   }
 
-  /* ------------------------------------------- rail: the running index ---
-     Which case is centred, counted out beside the strip. */
-  if (rail && railWrap && !reduce) {
-    var counter = doc.createElement('div');
-    counter.className = 'rail-count';
-    counter.setAttribute('aria-hidden', 'true');
-    counter.innerHTML = '<b>01</b><span class="of">/ 05</span>';
-    var stick = doc.querySelector('.rail-stick');
-    if (stick) {
-      stick.appendChild(counter);
-      var numEl = counter.querySelector('b'),
-          ofEl = counter.querySelector('.of'),
-          last = '01';
-      var readIndex = function () {
-        var cards = rail.children, mid = innerWidth / 2, best = 0, bestD = 1e9;
-        ofEl.textContent = '/ ' + String(cards.length).padStart(2, '0');
-        for (var i = 0; i < cards.length; i++) {
-          var b = cards[i].getBoundingClientRect();
-          var d = Math.abs((b.left + b.width / 2) - mid);
-          if (d < bestD) { bestD = d; best = i; }
-        }
-        var next = String(best + 1).padStart(2, '0');
-        if (next !== last) {
-          last = next;
-          numEl.style.transform = 'translateY(-28%)';
-          setTimeout(function () {
-            numEl.textContent = next;
-            numEl.style.transform = 'translateY(0)';
-          }, 180);
-        }
-      };
-      readIndex(); onScroll(readIndex); on(window, 'resize', readIndex);
-    }
-  }
-
   /* ------------------------------------------------------------- tilt ---
      Cards lean toward the pointer on a real perspective plane. Small angles
      only — the point is that the surface feels physical, not that it spins. */
@@ -698,16 +663,6 @@
   var stickEl = doc.querySelector('.rail-stick');
   if (stickEl && rail && railWrap && !reduce) {
     var down = false, startX = 0, startScroll = 0, moved = 0;
-
-    var hint = doc.createElement('div');
-    hint.className = 'rail-hint';
-    hint.textContent = 'Drag';
-    stickEl.appendChild(hint);
-    on(stickEl, 'pointermove', function (e) {
-      var b = stickEl.getBoundingClientRect();
-      hint.style.transform = 'translate(' + (e.clientX - b.left) + 'px,' +
-                             (e.clientY - b.top) + 'px) translate(-50%,-160%)';
-    });
 
     on(stickEl, 'pointerdown', function (e) {
       if (innerWidth <= 720) return;             /* narrow uses native scroll */
