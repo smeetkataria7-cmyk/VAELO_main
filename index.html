@@ -208,13 +208,20 @@
 <script>
 /* The rail renders from assets/work.js — add a project there, not here.
    A project with an imported hero shows it; one without keeps its slot. */
+/* A video hero shows its poster frame here as a plain <img> - a rail of
+   several simultaneously autoplaying videos is heavy enough to make the
+   page feel unresponsive. The real video only plays on the case page. */
 function shot(w, label) {
   var src = w.images && w.images.hero;
+  var poster = w.images && w.images.heroPoster;
   if (!src) return '<div class="slot" data-spec="' + label + '" data-par="7"></div>';
-  return /\.(mp4|webm|mov|m4v)$/i.test(src)
-    ? '<video class="shot" src="' + src + '" autoplay muted loop playsinline data-par="7"></video>'
-    : '<img class="shot" src="' + src + '" alt="' + w.title.replace(/"/g, '&quot;') +
-      '" loading="lazy" decoding="async" data-par="7">';
+  var isVideo = /\.(mp4|webm|mov|m4v)$/i.test(src);
+  if (isVideo && !poster) {
+    return '<video class="shot" src="' + src + '" muted playsinline preload="metadata" data-par="7"></video>';
+  }
+  var img = isVideo ? poster : src;
+  return '<img class="shot" src="' + img + '" alt="' + w.title.replace(/"/g, '&quot;') +
+    '" loading="lazy" decoding="async" data-par="7">';
 }
 document.getElementById('rail').innerHTML = window.VAELO_WORK.map(function (w, i) {
   return '<a class="tile' + (i % 2 ? ' tall' : '') + '" href="work/' + w.slug + '.html">' +
