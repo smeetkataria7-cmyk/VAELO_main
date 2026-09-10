@@ -662,19 +662,25 @@
      pinned section and the drag stay in agreement instead of fighting. */
   var stickEl = doc.querySelector('.rail-stick');
   if (stickEl && rail && railWrap && !reduce) {
-    var down = false, startX = 0, startScroll = 0, moved = 0;
+    var down = false, startX = 0, startScroll = 0, moved = 0, pid = null;
 
     on(stickEl, 'pointerdown', function (e) {
       if (innerWidth <= 720) return;             /* narrow uses native scroll */
-      down = true; moved = 0;
+      down = true; moved = 0; pid = e.pointerId;
       startX = e.clientX; startScroll = scrollY;
       stickEl.classList.add('dragging');
-      stickEl.setPointerCapture && stickEl.setPointerCapture(e.pointerId);
+      /* Capture is only claimed once an actual drag starts (see pointermove) -
+         claiming it here unconditionally would redirect every plain tap's
+         click event to stickEl instead of the link underneath it, which is
+         exactly what silently broke every tile/card link on this rail. */
     });
     on(stickEl, 'pointermove', function (e) {
       if (!down) return;
       var dx = e.clientX - startX;
       moved = Math.max(moved, Math.abs(dx));
+      if (moved > 6 && stickEl.setPointerCapture) {
+        try { stickEl.setPointerCapture(pid); } catch (err) {}
+      }
       /* horizontal distance maps back onto page scroll, 1:1 with the rail */
       var span = railWrap.offsetHeight - innerHeight;
       var perPx = travelRatio();
@@ -690,6 +696,10 @@
       if (!down) return;
       down = false;
       stickEl.classList.remove('dragging');
+      if (pid != null && stickEl.releasePointerCapture) {
+        try { stickEl.releasePointerCapture(pid); } catch (err) {}
+      }
+      pid = null;
     };
     on(stickEl, 'pointerup', release);
     on(stickEl, 'pointercancel', release);
