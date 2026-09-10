@@ -17,7 +17,20 @@ window.VAELO_WORK = [
     summary: 'A new range with a fixed launch date, no existing audience, and a category where everything looks the same on shelf and identical in feed.',
     brief: 'The client had a finished product, a hard launch date and no audience. The category is crowded with brands that all resolved to the same visual language — soft pastels, sans-serif wordmark, a claim nobody reads. A staged rollout would have burned the launch window before anyone noticed the product existed.',
     did: 'We built the identity and the packaging system first, because the pack is the ad in a category people meet on a shelf. Then the full launch asset library was produced in-house — product, lifestyle and UGC-style video — so the Meta buy launched against creative we made ourselves. One team held the positioning from the first sketch to the third round of ad iterations, which is why the test loop closed in days rather than weeks.',
-    kpis: [['240', 'Assets shipped'], ['9 days', 'Concept to live'], ['4', 'Channels at launch']]
+    kpis: [['240', 'Assets shipped'], ['9 days', 'Concept to live'], ['4', 'Channels at launch']],
+    images: { hero: 'assets/work/launch-not-a-rollout/01.mp4', gallery: [
+      'assets/work/launch-not-a-rollout/02.mp4',
+      'assets/work/launch-not-a-rollout/03.jpg',
+      'assets/work/launch-not-a-rollout/04.jpg',
+      'assets/work/launch-not-a-rollout/05.jpg',
+      'assets/work/launch-not-a-rollout/06.jpg',
+      'assets/work/launch-not-a-rollout/07.jpg',
+      'assets/work/launch-not-a-rollout/08.jpg',
+      'assets/work/launch-not-a-rollout/09.jpg',
+      'assets/work/launch-not-a-rollout/10.jpg',
+      'assets/work/launch-not-a-rollout/11.jpg',
+      'assets/work/launch-not-a-rollout/12.jpg'
+    ] }
   },
   {
     slug: 'marigold-miraaya',
@@ -54,7 +67,16 @@ window.VAELO_WORK = [
     summary: 'A catalogue too large to shoot conventionally inside the season it was meant to sell in.',
     brief: 'Hundreds of SKUs, a season that would be over before a traditional shoot schedule finished, and a brand team who would reject anything that looked synthetic. The constraint was never cost — it was calendar.',
     did: 'We stood up an AI production pipeline for product and lifestyle imagery with a consistency specification tight enough to pass the brand team\'s own review: fixed lighting logic, a locked colour response, and a per-SKU checklist. Everything that failed review went back through the pipeline rather than into a reshoot.',
-    kpis: [['1 season', 'Delivered in-window'], ['100%', 'Brand-review pass'], ['0', 'Reshoots']]
+    kpis: [['1 season', 'Delivered in-window'], ['100%', 'Brand-review pass'], ['0', 'Reshoots']],
+    images: { hero: 'assets/work/catalogue-at-scale/01.mp4', gallery: [
+      'assets/work/catalogue-at-scale/02.mp4',
+      'assets/work/catalogue-at-scale/03.mp4',
+      'assets/work/catalogue-at-scale/04.mp4',
+      'assets/work/catalogue-at-scale/05.mp4',
+      'assets/work/catalogue-at-scale/06.jpg',
+      'assets/work/catalogue-at-scale/07.jpg',
+      'assets/work/catalogue-at-scale/08.jpg'
+    ] }
   },
   {
     slug: 'built-to-enroll',
@@ -68,7 +90,16 @@ window.VAELO_WORK = [
     summary: 'Strong course outcomes, and a content operation that could not keep pace with the enrolment calendar.',
     brief: 'Enrolment runs to a calendar that does not move. The content operation did move — deadlines slipped, approvals stalled in inboxes, and trend-driven swaps arrived too late to make the window they were meant to catch.',
     did: 'We designed the system before producing anything: a content calendar with real stage gates, an approval flow with named owners, and a change log so a trend swap is a recorded decision rather than a lost message. Then we produced against it through two full intake cycles to prove it held under load.',
-    kpis: [['2', 'Intake cycles run'], ['7 stages', 'Idea to posted'], ['0', 'Missed windows']]
+    kpis: [['2', 'Intake cycles run'], ['7 stages', 'Idea to posted'], ['0', 'Missed windows']],
+    images: { hero: 'assets/work/built-to-enroll/01.mp4', gallery: [
+      'assets/work/built-to-enroll/02.mp4',
+      'assets/work/built-to-enroll/03.mp4',
+      'assets/work/built-to-enroll/04.mp4',
+      'assets/work/built-to-enroll/05.mp4',
+      'assets/work/built-to-enroll/06.mp4',
+      'assets/work/built-to-enroll/07.mp4',
+      'assets/work/built-to-enroll/08.mp4'
+    ] }
   },
   {
     slug: 'make-the-science-legible',
@@ -82,7 +113,39 @@ window.VAELO_WORK = [
     summary: 'A genuinely sustainable material story that customers could not read off the pack in three seconds.',
     brief: 'The sustainability claim was real, third-party verified, and buried. It sat below an ingredient list, in a typographic hierarchy that gave equal weight to everything — which is the same as giving weight to nothing.',
     did: 'We rebuilt the pack hierarchy so the claim lands before the ingredient list, with an iconography set that carries the science without a paragraph of explanation. The system was drawn to scale across the full range, including the smallest format, where most pack systems quietly fall apart.',
-    kpis: [['3 sec', 'Claim comprehension target'], ['1 system', 'Full range'], ['SKU-min', 'Tested at smallest format']]
+    kpis: [['3 sec', 'Claim comprehension target'], ['1 system', 'Full range'], ['SKU-min', 'Tested at smallest format']],
+    images: { hero: 'assets/work/make-the-science-legible/01.mp4', gallery: [
+      'assets/work/make-the-science-legible/02.mp4',
+      'assets/work/make-the-science-legible/03.mp4',
+      'assets/work/make-the-science-legible/04.mp4',
+      'assets/work/make-the-science-legible/05.mp4',
+      'assets/work/make-the-science-legible/06.mp4',
+      'assets/work/make-the-science-legible/07.jpg',
+      'assets/work/make-the-science-legible/08.jpg',
+      'assets/work/make-the-science-legible/09.jpg',
+      'assets/work/make-the-science-legible/10.jpg',
+      'assets/work/make-the-science-legible/11.jpg',
+      'assets/work/make-the-science-legible/12.jpg',
+      'assets/work/make-the-science-legible/13.jpg',
+      'assets/work/make-the-science-legible/14.jpg',
+      'assets/work/make-the-science-legible/15.jpg',
+      'assets/work/make-the-science-legible/16.jpg',
+      'assets/work/make-the-science-legible/17.jpg',
+      'assets/work/make-the-science-legible/18.jpg',
+      'assets/work/make-the-science-legible/19.jpg',
+      'assets/work/make-the-science-legible/20.jpg',
+      'assets/work/make-the-science-legible/21.jpg',
+      'assets/work/make-the-science-legible/22.jpg',
+      'assets/work/make-the-science-legible/23.jpg',
+      'assets/work/make-the-science-legible/24.jpg',
+      'assets/work/make-the-science-legible/25.jpg',
+      'assets/work/make-the-science-legible/26.jpg',
+      'assets/work/make-the-science-legible/27.jpg',
+      'assets/work/make-the-science-legible/28.jpg',
+      'assets/work/make-the-science-legible/29.jpg',
+      'assets/work/make-the-science-legible/30.jpg',
+      'assets/work/make-the-science-legible/31.jpg'
+    ] }
   },
   {
     slug: 'conceptual',
