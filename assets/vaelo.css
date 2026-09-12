@@ -140,7 +140,7 @@ body.menu .burger i:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 .rail{display:flex;gap:clamp(14px,2vw,28px);padding:0 var(--pad);will-change:transform}
 .tile{flex:none;display:block;width:min(56vw,700px)}
 .tile.tall{width:min(33vw,400px)}
-.tile .frame{position:relative;overflow:hidden;aspect-ratio:4/3}
+.tile .frame{position:relative;overflow:hidden;aspect-ratio:4/3;border-radius:18px}
 .tile.tall .frame{aspect-ratio:3/4}
 /* Real media sizes the card by its own shape instead of being cropped into
    a fixed box - a portrait phone clip and a landscape still both show in
@@ -159,10 +159,14 @@ body.menu .burger i:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
   transition:background .35s,color .35s,border-color .35s,transform .35s}
 .tile:hover .go{background:var(--accent);color:var(--black);border-color:var(--accent);transform:rotate(45deg)}
 .tile .meta{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;padding:15px 2px 0}
-.tile .meta h3{font-size:clamp(17px,2vw,28px);transition:color .3s}
+.tile .meta h3{font-size:clamp(17px,2vw,28px);transition:color .3s;margin-bottom:10px}
 .tile:hover .meta h3{color:var(--accent)}
-.tile .cat{font-size:10.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--dim);margin-bottom:6px}
 .tile .idx{font-family:var(--display);font-weight:800;font-size:12px;color:var(--dim);font-variant-numeric:tabular-nums}
+.tags{display:flex;flex-wrap:wrap;gap:7px}
+.pill{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--dim);
+  border:1px solid var(--line);border-radius:999px;padding:4px 11px;white-space:nowrap;
+  transition:color .3s,border-color .3s}
+.tile:hover .pill,.arch-item:hover .pill{color:var(--off);border-color:rgba(244,242,236,.3)}
 
 /* narrow: swipeable strip, no pinning */
 @media(max-width:720px){
@@ -335,7 +339,7 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
   gap:clamp(20px,3vw,44px)}
 @media(max-width:760px){.arch{grid-template-columns:1fr}}
 .arch-item{display:block}
-.arch-item .frame{position:relative;overflow:hidden;aspect-ratio:4/3}
+.arch-item .frame{position:relative;overflow:hidden;aspect-ratio:4/3;border-radius:18px}
 .arch-item .frame:has(.shot){aspect-ratio:auto}
 .arch-item .frame:has(.shot) .shot{position:static;width:100%;height:auto}
 .arch-item .slot{position:absolute;inset:0}
@@ -348,9 +352,8 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
   transition:background .3s,color .3s,border-color .3s,transform .3s}
 .arch-item:hover .go{background:var(--accent);color:var(--black);border-color:var(--accent);transform:rotate(45deg)}
 .arch-item .meta{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;padding:14px 2px 0}
-.arch-item h3{font-size:clamp(18px,2.2vw,30px);transition:color .3s}
+.arch-item h3{font-size:clamp(18px,2.2vw,30px);transition:color .3s;margin-bottom:10px}
 .arch-item:hover h3{color:var(--accent)}
-.arch-item .cat{font-size:10.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--dim);margin-bottom:6px}
 .arch-item .sum{font-size:13px;color:var(--dim);margin-top:8px;max-width:46ch}
 .arch-item .yr{font-family:var(--display);font-weight:800;font-size:12px;color:var(--dim);font-variant-numeric:tabular-nums}
 

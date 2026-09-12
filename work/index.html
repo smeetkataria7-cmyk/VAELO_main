@@ -79,10 +79,16 @@ function shot(w) {
       return '<button class="tab-btn" role="tab" aria-selected="false" data-cat="' + c + '">' + c + '<span class="c">' + n + '</span></button>';
     }).join('');
 
+  function tags(w) {
+    var list = [w.cat].concat(w.scope.split('+').map(function (s) { return s.trim(); }));
+    var seen = {};
+    return list.filter(function (t) { return t && !seen[t.toLowerCase()] && (seen[t.toLowerCase()] = 1); })
+      .map(function (t) { return '<span class="pill">' + t + '</span>'; }).join('');
+  }
   document.getElementById('arch').innerHTML = W.map(function (w) {
     return '<a class="arch-item" data-rev data-cat="' + w.cat + '" href="' + w.slug + '.html">' +
       '<div class="frame">' + shot(w) + '<div class="veil"></div><div class="go">↗</div></div>' +
-      '<div class="meta"><div><div class="cat">' + w.cat + ' · ' + w.scope + '</div><h3>' + w.title + '</h3></div>' +
+      '<div class="meta"><div><h3>' + w.title + '</h3><div class="tags">' + tags(w) + '</div></div>' +
       '<div class="yr">' + w.year + '</div></div>' +
       '<p class="sum">' + w.summary + '</p></a>';
   }).join('');

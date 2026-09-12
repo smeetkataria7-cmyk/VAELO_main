@@ -225,10 +225,19 @@ function shot(w, label) {
   return '<img class="shot" src="' + img + '" alt="' + w.title.replace(/"/g, '&quot;') +
     '" loading="lazy" decoding="async" data-par="7">';
 }
+/* One pill per discipline touched - the category plus each "+"-joined
+   part of the scope - deduped, so a reader sees at a glance everything
+   a project drew on without reading a sentence to find out. */
+function tags(w) {
+  var list = [w.cat].concat(w.scope.split('+').map(function (s) { return s.trim(); }));
+  var seen = {};
+  return list.filter(function (t) { return t && !seen[t.toLowerCase()] && (seen[t.toLowerCase()] = 1); })
+    .map(function (t) { return '<span class="pill">' + t + '</span>'; }).join('');
+}
 document.getElementById('rail').innerHTML = window.VAELO_WORK.map(function (w, i) {
   return '<a class="tile' + (i % 2 ? ' tall' : '') + '" href="work/' + w.slug + '.html">' +
     '<div class="frame">' + shot(w, 'Case image') + '<div class="veil"></div><div class="go">↗</div></div>' +
-    '<div class="meta"><div><div class="cat">' + w.cat + ' · ' + w.scope + '</div><h3>' + w.title + '</h3></div>' +
+    '<div class="meta"><div><h3>' + w.title + '</h3><div class="tags">' + tags(w) + '</div></div>' +
     '<div class="idx">' + w.idx + '</div></div></a>';
 }).join('');
 </script>
