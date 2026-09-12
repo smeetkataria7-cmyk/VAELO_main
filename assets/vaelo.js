@@ -509,14 +509,6 @@
     }
   }
 
-  /* -------------------------------------------------------- accordions */
-  doc.querySelectorAll('.svc-hd').forEach(function (hd) {
-    on(hd, 'click', function () {
-      var open = hd.parentElement.classList.toggle('open');
-      hd.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-  });
-
   /* ------------------------------------------------------ scroll progress */
   var sprog = doc.createElement('div');
   sprog.className = 'sprog';

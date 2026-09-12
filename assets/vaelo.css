@@ -22,6 +22,9 @@ img{max-width:100%;display:block}
 h1,h2,h3,.disp{font-family:var(--display);font-weight:700;letter-spacing:-.02em;text-transform:uppercase;text-wrap:balance}
 .out{color:transparent;-webkit-text-stroke:1.4px var(--off)}
 @media(max-width:700px){.out{-webkit-text-stroke-width:1px}}
+/* The hero's one keyword goes bolder still - a solid accent fill rather
+   than an outline, so it reads as the loudest thing on the page. */
+.out.fill{color:var(--accent);-webkit-text-stroke:0}
 .lab{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim)}
 .lab.ac{color:var(--accent)}
 .tab{font-variant-numeric:tabular-nums}
@@ -176,28 +179,27 @@ body.menu .burger i:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
   letter-spacing:.1em;color:var(--dim)}
 @media(max-width:720px){.swipe-hint{display:block}}
 
-/* ---------- services: accordions ---------- */
-.svc{border-bottom:1px solid var(--line)}
-.svc:first-of-type{border-top:1px solid var(--line)}
-.svc-hd{display:flex;align-items:center;gap:18px;width:100%;padding:26px 0;background:none;border:0;color:inherit;
-  font:inherit;text-align:left;cursor:pointer;transition:padding-left .35s cubic-bezier(.2,.7,.2,1)}
-.svc:hover .svc-hd,.svc.open .svc-hd{padding-left:14px}
-.svc-hd .no{font-size:11px;color:var(--dim);letter-spacing:.06em;font-variant-numeric:tabular-nums;flex:none}
-.svc-hd .name{font-family:var(--display);font-weight:600;text-transform:uppercase;letter-spacing:-.01em;
-  font-size:clamp(20px,3.4vw,38px);flex:1;transition:color .3s}
-.svc.open .svc-hd .name{color:var(--accent)}
-.svc-hd .plus{width:22px;height:22px;position:relative;flex:none}
-.svc-hd .plus::before,.svc-hd .plus::after{content:'';position:absolute;inset:50% 0 auto;height:1px;background:currentColor;transition:transform .35s}
-.svc-hd .plus::after{transform:rotate(90deg)}
-.svc.open .svc-hd .plus::after{transform:rotate(0)}
-.svc-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.2,.7,.2,1)}
-.svc.open .svc-body{grid-template-rows:1fr}
-.svc-body > div{overflow:hidden}
-.svc-in{display:grid;grid-template-columns:1fr 1fr;gap:30px;padding:0 0 30px;font-size:14px;color:var(--dim);max-width:900px}
-@media(max-width:700px){.svc-in{grid-template-columns:1fr;gap:16px}}
-.svc-in ul{list-style:none;display:flex;flex-direction:column;gap:8px}
-.svc-in li{padding-left:16px;position:relative}
-.svc-in li::before{content:'';position:absolute;left:0;top:9px;width:6px;height:1px;background:var(--accent)}
+/* ---------- services: cards ---------- */
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+@media(max-width:900px){.svc-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.svc-grid{grid-template-columns:1fr}}
+.svc-card{display:flex;flex-direction:column;background:var(--black);padding:clamp(24px,2.6vw,34px);
+  transition:background .3s}
+.svc-card:hover{background:#0f0f0e}
+.svc-card .no{font-size:11px;color:var(--dim);letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.svc-card .name{font-family:var(--display);font-weight:600;text-transform:uppercase;letter-spacing:-.01em;
+  font-size:clamp(19px,2.2vw,25px);margin:14px 0 12px;transition:color .3s}
+.svc-card:hover .name{color:var(--accent)}
+.svc-card p{font-size:14px;color:var(--dim);line-height:1.6;margin-bottom:16px}
+.svc-card ul{list-style:none;display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--dim);
+  margin-bottom:24px}
+.svc-card li{padding-left:16px;position:relative}
+.svc-card li::before{content:'';position:absolute;left:0;top:9px;width:6px;height:1px;background:var(--accent)}
+.svc-card .more{margin-top:auto;display:inline-flex;align-items:center;gap:8px;font-size:12.5px;
+  text-transform:uppercase;letter-spacing:.07em;color:var(--off);transition:gap .3s,color .3s}
+.svc-card:hover .more{gap:12px;color:var(--accent)}
+.svc-card .more .arrow{font-style:normal;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.svc-card:hover .more .arrow{transform:translate(3px,-3px)}
 
 /* ---------- process ---------- */
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--soft);border:1px solid var(--line)}
@@ -424,14 +426,6 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
 .mail::after{content:'';position:absolute;left:0;bottom:0;height:1px;width:100%;background:var(--accent);
   transform:scaleX(0);transform-origin:right;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
 .mail:hover::after{transform:scaleX(1);transform-origin:left}
-
-/* service rows: the number leads, an accent rule follows underneath */
-.svc{position:relative}
-.svc-hd .no{transition:color .3s,transform .35s cubic-bezier(.2,.7,.2,1)}
-.svc:hover .svc-hd .no,.svc.open .svc-hd .no{color:var(--accent);transform:translateX(4px)}
-.svc::after{content:'';position:absolute;left:0;bottom:-1px;height:1px;width:100%;background:var(--accent);
-  transform:scaleX(0);transform-origin:left;transition:transform .55s cubic-bezier(.2,.7,.2,1)}
-.svc:hover::after,.svc.open::after{transform:scaleX(1)}
 
 @media(prefers-reduced-motion:reduce){
   .js .gal .slot{clip-path:none!important}
