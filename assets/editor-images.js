@@ -116,7 +116,12 @@
     return rec.type.indexOf('video') === 0 ? '.mp4' : '.jpg';
   }
   function diskName(rec, i) { return String(i + 1).padStart(2, '0') + ext(rec); }
-  function pathFor(slug, rec, i) { return 'assets/work/' + slug + '/' + diskName(rec, i); }
+  /* "site" is reserved for generic page images (the Site Manager's image
+     swaps) that don't belong to any one work project. */
+  function pathFor(slug, rec, i) {
+    var base = slug === 'site' ? 'assets/site' : 'assets/work/' + slug;
+    return base + '/' + diskName(rec, i);
+  }
 
   function pathsFor(slug) {
     return (files[slug] || []).map(function (r, i) { return pathFor(slug, r, i); });

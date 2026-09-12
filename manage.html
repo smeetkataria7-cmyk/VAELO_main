@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Site Manager — Vaelo</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Archivo:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/vaelo.css">
+<style>
+  body{overflow:hidden}
+  /* ------------------------------------------------------------ login */
+  .gate{position:fixed;inset:0;z-index:1000;background:var(--black);display:flex;
+    align-items:center;justify-content:center;padding:24px}
+  .gate-box{width:100%;max-width:360px}
+  .gate-box h1{font-size:22px;margin-bottom:6px}
+  .gate-box p{font-size:12.5px;color:var(--dim);margin-bottom:26px;line-height:1.6}
+  .field{display:flex;flex-direction:column;gap:7px;margin-bottom:16px}
+  .field label{font-size:10.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--dim)}
+  input{font:inherit;font-size:14px;color:var(--off);background:#111110;
+    border:1px solid var(--line);padding:11px 13px;width:100%;border-radius:0}
+  input:focus{outline:none;border-color:var(--accent)}
+  .btn{font:inherit;font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;padding:10px 16px;cursor:pointer;
+    background:none;color:var(--off);border:1px solid var(--line);transition:border-color .2s,color .2s,background .2s}
+  .btn:hover{border-color:var(--accent);color:var(--accent)}
+  .btn.pri{background:var(--accent);border-color:var(--accent);color:var(--black);font-weight:600}
+  .btn.pri:hover{filter:brightness(1.08);color:var(--black)}
+  .btn:disabled{opacity:.5;cursor:default}
+  .err{font-size:12px;color:#ff8a70;margin-top:10px;min-height:16px}
+
+  /* -------------------------------------------------------------- app */
+  .app{display:none;height:100svh;grid-template-rows:auto 1fr}
+  .toolbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:12px 20px;
+    border-bottom:1px solid var(--line);background:var(--deep);z-index:2}
+  .toolbar h1{font-size:15px;flex:none}
+  .toolbar select{font:inherit;font-size:12.5px;background:#111110;color:var(--off);
+    border:1px solid var(--line);padding:8px 10px}
+  .toolbar .sp{flex:1}
+  .toolbar input[type=password]{width:200px;font-size:12.5px;padding:8px 10px}
+  .pill-status{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--dim);padding:0 6px}
+  .pill-status.editing{color:var(--accent)}
+  .frame-wrap{position:relative;overflow:hidden;background:var(--black)}
+  iframe{width:100%;height:100%;border:0;display:block;background:var(--black)}
+  .hint-bar{padding:8px 20px;font-size:11.5px;color:var(--dim);border-bottom:1px solid var(--line);
+    background:var(--deep);display:none}
+  .hint-bar.on{display:block}
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);opacity:0;
+    background:var(--accent);color:var(--black);font-size:12px;font-weight:600;text-transform:uppercase;
+    letter-spacing:.06em;padding:11px 20px;pointer-events:none;transition:opacity .3s,transform .3s;z-index:2000}
+  .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+
+<div class="gate" id="gate">
+  <div class="gate-box">
+    <h1>Site Manager</h1>
+    <p>Admins only. This screen keeps casual visitors out — the GitHub token
+      you enter afterward is the real permission check for actually publishing
+      anything.</p>
+    <div class="field"><label for="gUser">Username</label><input id="gUser" autocomplete="username"></div>
+    <div class="field"><label for="gPass">Password</label><input id="gPass" type="password" autocomplete="current-password"></div>
+    <button class="btn pri" id="gBtn" style="width:100%">Sign in</button>
+    <p class="err" id="gErr"></p>
+  </div>
+</div>
+
+<div class="app" id="app">
+  <div class="toolbar">
+    <h1>Site Manager</h1>
+    <select id="pageSel">
+      <option value="index.html">Home</option>
+    </select>
+    <button type="button" class="btn" id="editToggle">Turn on editing</button>
+    <span class="pill-status" id="statusPill">Viewing</span>
+    <div class="sp"></div>
+    <input type="password" id="ghToken" placeholder="GitHub token to publish…" autocomplete="off">
+    <button type="button" class="btn pri" id="saveBtn">Publish changes</button>
+    <a href="editor.html" class="btn" style="text-decoration:none">Work / Blog editor →</a>
+  </div>
+  <div class="hint-bar" id="hintBar">
+    Click any text to edit it. Hover a service card for controls to reorder, duplicate or remove it,
+    or hover an image below to replace it. The work rail and blog list aren't editable here —
+    use the <a href="editor.html" style="color:var(--accent)">Work / Blog editor</a> for those, since
+    they're generated from data, not fixed page content.
+  </div>
+  <div class="frame-wrap">
+    <iframe id="frame" src="index.html"></iframe>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="assets/editor-images.js"></script>
+<script>
+(function () {
+  /* ---------------------------------------------------------------
+     Soft login gate. NOT real security - anyone with dev tools can
+     read this and bypass it. It exists purely to keep casual visitors
+     from wandering in; the GitHub token below is the real permission
+     boundary, same as the Work/Blog editor. Session-only, so closing
+     the tab means signing in again. */
+  var USER = 'vaelo', PASS = 'castshadow26';
+  var SESSION_KEY = 'vaelo-manager-session';
+
+  function toast(msg) {
+    var t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('on');
+    setTimeout(function () { t.classList.remove('on'); }, 1800);
+  }
+
+  function showApp() {
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('app').style.display = 'grid';
+  }
+
+  if (sessionStorage.getItem(SESSION_KEY) === '1') showApp();
+
+  document.getElementById('gBtn').addEventListener('click', function () {
+    var u = document.getElementById('gUser').value.trim();
+    var p = document.getElementById('gPass').value;
+    if (u === USER && p === PASS) {
+      sessionStorage.setItem(SESSION_KEY, '1');
+      showApp();
+    } else {
+      document.getElementById('gErr').textContent = 'Wrong username or password.';
+    }
+  });
+  document.getElementById('gPass').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') document.getElementById('gBtn').click();
+  });
+
+  /* ------------------------------------------------------------ editing */
+  var frame = document.getElementById('frame');
+  var editing = false;
+  var IM = window.VaeloImages;
+  var UPLOAD_SLUG = 'site'; // generic bucket for images swapped from this editor
+
+  var TEXT_SELECTOR = 'h1,h2,h3,p,li,span.lab,a.mail,.pitem .t';
+  // never make these editable - they're structural, or JS-generated per page load
+  function isEditableCandidate(el) {
+    if (el.closest('#rail, .rail-stick, script, style, nav, .burger, .cursor, .wipe, .mask')) return false;
+    if (el.querySelector(TEXT_SELECTOR)) return false; // only leaf-most text nodes
+    if (!el.textContent || !el.textContent.trim()) return false;
+    return true;
+  }
+
+  /* The hero heading runs through a letter-by-letter reveal animation that
+     rebuilds each line as nested <span>/<b> elements - editing that DOM
+     directly with contenteditable would mangle it. Each line keeps its
+     real text in an aria-label (vaelo.js sets this itself for screen
+     readers), so editing swaps the line back to plain text on focus and
+     re-splits it on blur, and the save step always restores plain text
+     before serializing regardless of focus state. */
+  function wireMaskLines(doc) {
+    doc.querySelectorAll('.mask > i').forEach(function (line) {
+      if (line.dataset.vaeloWired) return;
+      line.dataset.vaeloWired = '1';
+      line.setAttribute('contenteditable', 'true');
+      line.setAttribute('data-vaelo-editable', '1');
+      line.setAttribute('data-vaelo-mask-line', '1');
+      line.addEventListener('focus', function () {
+        var label = line.getAttribute('aria-label');
+        if (label != null) line.textContent = label;
+        onFocus({ target: line });
+      });
+      line.addEventListener('blur', function () {
+        onBlur({ target: line });
+        resplitMaskLine(doc, line);
+      });
+    });
+  }
+  function resplitMaskLine(doc, line) {
+    var text = line.textContent, n = 0;
+    line.setAttribute('aria-label', text);
+    line.textContent = '';
+    var word = null;
+    text.split('').forEach(function (ch) {
+      var b = doc.createElement('b');
+      b.setAttribute('aria-hidden', 'true');
+      b.style.transform = 'none'; // page already "lit" in the editor - skip the reveal
+      if (ch === ' ') { b.className = 'sp'; b.innerHTML = '&nbsp;'; line.appendChild(b); word = null; }
+      else {
+        b.textContent = ch;
+        if (!word) { word = doc.createElement('span'); word.className = 'wgrp'; line.appendChild(word); }
+        word.appendChild(b);
+      }
+    });
+  }
+  function plainTextMaskLines(doc) {
+    /* Used right before saving. A line that's still split (has .wgrp/<b>
+       children) trusts its aria-label as the real text, since the split
+       process joins words with a non-breaking space rather than a plain
+       one - reading textContent back off the split DOM would silently
+       swap that character in. A line saved mid-edit (focused, already
+       collapsed to plain text by the focus handler, never re-split by a
+       blur that hasn't happened yet) has no such element - there,
+       textContent already IS the live edit, so it's left untouched. */
+    doc.querySelectorAll('.mask > i').forEach(function (line) {
+      if (line.querySelector('.wgrp, b')) {
+        var label = line.getAttribute('aria-label');
+        if (label != null) line.textContent = label;
+      }
+      line.removeAttribute('aria-label');
+    });
+  }
+
+  function enableEditing() {
+    var doc = frame.contentDocument;
+    doc.querySelectorAll(TEXT_SELECTOR).forEach(function (el) {
+      if (!isEditableCandidate(el)) return;
+      el.setAttribute('contenteditable', 'true');
+      el.setAttribute('data-vaelo-editable', '1');
+      el.style.outline = '1px dashed transparent';
+      el.addEventListener('focus', onFocus);
+      el.addEventListener('blur', onBlur);
+    });
+    wireMaskLines(doc);
+    wireServiceCards(doc);
+    wireImages(doc);
+    var style = doc.createElement('style');
+    style.id = 'vaelo-edit-style';
+    style.textContent =
+      '[data-vaelo-editable]:hover{outline-color:rgba(214,255,63,.55)!important;cursor:text}' +
+      '.vaelo-imgwrap{position:relative}' +
+      '.vaelo-imgwrap:hover .vaelo-imgbtn{opacity:1}' +
+      '.vaelo-imgbtn{position:absolute;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;' +
+      'background:rgba(10,10,10,.55);color:#f4f2ec;font:600 11px/1 Archivo,sans-serif;text-transform:uppercase;' +
+      'letter-spacing:.07em;opacity:0;transition:opacity .2s;cursor:pointer;border:0}' +
+      '.vaelo-card-ctl{position:absolute;top:8px;right:8px;z-index:50;display:flex;gap:4px}' +
+      '.vaelo-card-ctl button{width:26px;height:26px;border:1px solid rgba(244,242,236,.3);background:rgba(10,10,10,.7);' +
+      'color:#f4f2ec;cursor:pointer;font-size:13px;line-height:1}' +
+      '.vaelo-card-ctl button:hover{border-color:#d6ff3f;color:#d6ff3f}';
+    doc.head.appendChild(style);
+  }
+  function onFocus(e) { e.target.style.outline = '1px solid var(--accent)'; }
+  function onBlur(e) { e.target.style.outline = ''; }
+
+  function disableEditing() {
+    var doc = frame.contentDocument;
+    if (!doc) return;
+    doc.querySelectorAll('[data-vaelo-editable]').forEach(function (el) {
+      el.removeAttribute('contenteditable');
+      el.removeAttribute('data-vaelo-editable');
+      el.removeAttribute('data-vaelo-mask-line');
+      el.style.outline = '';
+    });
+    doc.querySelectorAll('.vaelo-card-ctl, .vaelo-imgbtn').forEach(function (el) { el.remove(); });
+    doc.querySelectorAll('.vaelo-imgwrap').forEach(function (el) { el.classList.remove('vaelo-imgwrap'); });
+    var style = doc.getElementById('vaelo-edit-style');
+    if (style) style.remove();
+  }
+
+  /* ------------------------------------------------- undo runtime state ---
+     Before saving, the live DOM carries a lot that must never be written
+     back to the file: the work rail's JS-rendered tiles, scroll-driven
+     inline transforms on the converge cards, and classes the page's own
+     script adds at runtime (none of which exist in the real source). Skip
+     any of this and "Publish" would freeze whatever moment the page
+     happened to be in when you clicked it. */
+  function cleanForSave(doc) {
+    plainTextMaskLines(doc);
+    var rail = doc.getElementById('rail');
+    if (rail) rail.innerHTML = '';
+    doc.querySelectorAll('.conv-item').forEach(function (el) { el.style.transform = ''; el.style.opacity = ''; });
+    var wash = doc.querySelector('.conv-wash');
+    if (wash) wash.style.opacity = '';
+    doc.documentElement.className = '';
+    doc.body.className = '';
+    doc.querySelectorAll('[style=""]').forEach(function (el) { el.removeAttribute('style'); });
+  }
+
+  function wireServiceCards(doc) {
+    var grid = doc.querySelector('.svc-grid');
+    if (!grid) return;
+    Array.prototype.slice.call(grid.children).forEach(function (card) {
+      if (card.querySelector('.vaelo-card-ctl')) return;
+      card.style.position = card.style.position || 'relative';
+      var ctl = doc.createElement('div');
+      ctl.className = 'vaelo-card-ctl';
+      ctl.innerHTML =
+        '<button type="button" data-a="up" title="Move earlier">↑</button>' +
+        '<button type="button" data-a="down" title="Move later">↓</button>' +
+        '<button type="button" data-a="dup" title="Duplicate">⎘</button>' +
+        '<button type="button" data-a="rm" title="Remove">✕</button>';
+      card.appendChild(ctl);
+      ctl.querySelectorAll('button').forEach(function (b) {
+        b.addEventListener('click', function (ev) {
+          ev.preventDefault(); ev.stopPropagation();
+          var a = b.dataset.a;
+          if (a === 'rm') { if (confirm('Remove this card?')) card.remove(); }
+          else if (a === 'dup') { var clone = card.cloneNode(true); grid.insertBefore(clone, card.nextSibling); wireServiceCards(doc); }
+          else if (a === 'up' && card.previousElementSibling) grid.insertBefore(card, card.previousElementSibling);
+          else if (a === 'down' && card.nextElementSibling) grid.insertBefore(card.nextElementSibling, card);
+        });
+      });
+    });
+  }
+
+  function wireImages(doc) {
+    doc.querySelectorAll('.conv-item img, .studio-grid img').forEach(function (img) {
+      var wrap = img.parentElement;
+      wrap.classList.add('vaelo-imgwrap');
+      if (wrap.querySelector('.vaelo-imgbtn')) return;
+      var btn = doc.createElement('button');
+      btn.type = 'button'; btn.className = 'vaelo-imgbtn'; btn.textContent = 'Replace image';
+      wrap.appendChild(btn);
+      btn.addEventListener('click', function (ev) {
+        ev.preventDefault(); ev.stopPropagation();
+        var input = document.createElement('input');
+        input.type = 'file'; input.accept = 'image/*';
+        input.onchange = function () {
+          if (!input.files || !input.files[0]) return;
+          var file = input.files[0];
+          IM.add(UPLOAD_SLUG, input.files).then(function (list) {
+            var rec = list[list.length - 1];
+            var i = list.length - 1;
+            var path = IM.pathsFor(UPLOAD_SLUG)[i];
+            img.src = URL.createObjectURL(file);
+            img.setAttribute('data-vaelo-new-src', path);
+            toast('Image staged — publish to make it live');
+          });
+        };
+        input.click();
+      });
+    });
+  }
+
+  document.getElementById('editToggle').addEventListener('click', function () {
+    editing = !editing;
+    this.textContent = editing ? 'Turn off editing' : 'Turn on editing';
+    document.getElementById('statusPill').textContent = editing ? 'Editing' : 'Viewing';
+    document.getElementById('statusPill').classList.toggle('editing', editing);
+    document.getElementById('hintBar').classList.toggle('on', editing);
+    if (editing) enableEditing(); else disableEditing();
+  });
+
+  frame.addEventListener('load', function () {
+    editing = false;
+    document.getElementById('editToggle').textContent = 'Turn on editing';
+    document.getElementById('statusPill').textContent = 'Viewing';
+    document.getElementById('statusPill').classList.remove('editing');
+    document.getElementById('hintBar').classList.remove('on');
+  });
+
+  /* ------------------------------------------------------------ publish */
+  var ghToken = document.getElementById('ghToken');
+  ghToken.value = IM.getToken();
+  ghToken.addEventListener('change', function () { IM.setToken(ghToken.value.trim()); });
+
+  document.getElementById('saveBtn').addEventListener('click', function () {
+    var token = ghToken.value.trim();
+    if (!token) { toast('Paste a GitHub token first'); ghToken.focus(); return; }
+    IM.setToken(token);
+
+    var doc = frame.contentDocument;
+    var pagePath = document.getElementById('pageSel').value;
+
+    // apply staged image swaps to actual src before serializing
+    doc.querySelectorAll('img[data-vaelo-new-src]').forEach(function (img) {
+      img.setAttribute('src', img.getAttribute('data-vaelo-new-src'));
+      img.removeAttribute('data-vaelo-new-src');
+    });
+    disableEditing();
+    cleanForSave(doc);
+
+    var html = '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
+    var btn = this;
+    btn.disabled = true; btn.textContent = 'Publishing…';
+
+    IM.publishToGitHub([{ path: pagePath, content: html }], function (done, total, label) {
+      btn.textContent = label + '…';
+    }).then(function () {
+      toast('Published — live in about a minute');
+      btn.textContent = 'Publish changes';
+      btn.disabled = false;
+      frame.contentWindow.location.reload();
+    }).catch(function (e) {
+      toast('Could not publish: ' + (e && e.message ? e.message : e));
+      btn.textContent = 'Publish changes';
+      btn.disabled = false;
+    });
+  });
+})();
+</script>
+</body>
+</html>
