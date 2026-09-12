@@ -75,6 +75,14 @@ body.menu .burger i:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
     padding:0 var(--pad);font-family:var(--display);font-weight:700;font-size:clamp(30px,10vw,58px);letter-spacing:-.02em;
     clip-path:inset(0 0 100% 0);transition:clip-path .6s cubic-bezier(.72,0,.16,1);z-index:190}
   body.menu .nav-links{clip-path:inset(0 0 0 0)}
+  /* backdrop-filter on nav.top creates a new containing block for any
+     position:fixed descendant, so .nav-links's inset:0 was sizing itself
+     to the ~60px nav bar instead of the viewport whenever the page had
+     scrolled - which is effectively always, since that's the normal state
+     when someone actually taps the menu button. Drop the filter while the
+     menu is open; the full-bleed .nav-links background covers the nav bar
+     itself, so there's nothing left for the blur to sit behind anyway. */
+  body.menu nav.top{backdrop-filter:none}
 }
 
 /* ---------- hero ---------- */
