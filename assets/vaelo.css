@@ -481,7 +481,7 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
    ========================================================================== */
 
 /* hero headline arrives letter by letter, each on its own delay */
-.js .mask > i .word{display:inline-block}
+.js .mask > i .wgrp{display:inline-block}
 .js .mask > i b{display:inline-block;font-weight:inherit;transform:translateY(106%);
   transition:transform .85s cubic-bezier(.2,.75,.2,1);transition-delay:calc(var(--i) * 26ms)}
 .js body.lit .mask > i b{transform:none}

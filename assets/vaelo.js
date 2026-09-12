@@ -221,7 +221,7 @@
           word = null;
         } else {
           b.textContent = ch;
-          if (!word) { word = doc.createElement('span'); word.className = 'word'; line.appendChild(word); }
+          if (!word) { word = doc.createElement('span'); word.className = 'wgrp'; line.appendChild(word); }
           word.appendChild(b);
         }
       });
