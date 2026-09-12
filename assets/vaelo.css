@@ -22,9 +22,6 @@ img{max-width:100%;display:block}
 h1,h2,h3,.disp{font-family:var(--display);font-weight:700;letter-spacing:-.02em;text-transform:uppercase;text-wrap:balance}
 .out{color:transparent;-webkit-text-stroke:1.4px var(--off)}
 @media(max-width:700px){.out{-webkit-text-stroke-width:1px}}
-/* The hero's one keyword goes bolder still - a solid accent fill rather
-   than an outline, so it reads as the loudest thing on the page. */
-.out.fill{color:var(--accent);-webkit-text-stroke:0}
 .lab{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim)}
 .lab.ac{color:var(--accent)}
 .tab{font-variant-numeric:tabular-nums}
