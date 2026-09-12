@@ -86,8 +86,12 @@
 <body>
 <div class="ed">
   <aside class="ed-list">
-    <h1>Work Editor</h1>
-    <p class="ed-sub">Your portfolio, edited here.</p>
+    <h1 id="edTitle">Work Editor</h1>
+    <p class="ed-sub" id="edSub">Your portfolio, edited here.</p>
+    <div class="row" style="margin-bottom:16px">
+      <button type="button" class="btn pri" id="modeWork" style="flex:1">Work</button>
+      <button type="button" class="btn" id="modeBlog" style="flex:1">Blog</button>
+    </div>
     <button class="btn pri" id="addBtn" style="width:100%">+ Add a project</button>
     <div class="plist" id="plist"></div>
     <div class="row">
@@ -165,6 +169,36 @@
       </div>
     </form>
 
+    <form id="blogForm" autocomplete="off" style="display:none">
+      <div class="sect" style="border-top:0;padding-top:0">
+        <h2>The post</h2>
+        <div class="grid2">
+          <div class="field"><label for="bTitle">Post title</label>
+            <input id="bTitle" required placeholder="Welcome to the Vaelo Blog"></div>
+          <div class="field"><label for="bSlug">Page address</label>
+            <input id="bSlug" placeholder="welcome-to-the-vaelo-blog">
+            <span class="hint">Becomes /blog/<span id="bSlugEcho">your-post</span>.html</span></div>
+        </div>
+        <div class="grid3">
+          <div class="field"><label for="bTag">Tag</label>
+            <input id="bTag" placeholder="Studio" list="bTags"><datalist id="bTags"></datalist></div>
+          <div class="field"><label for="bDate">Date</label>
+            <input id="bDate" type="date"></div>
+          <div class="field"><label for="bAuthor">Author</label>
+            <input id="bAuthor" placeholder="Vaelo Creative"></div>
+        </div>
+        <div class="field"><label for="bExcerpt">One-line excerpt</label>
+          <textarea id="bExcerpt" style="min-height:60px" placeholder="Shown on the blog listing card and in the share preview."></textarea></div>
+        <div class="field"><label for="bBody">Post body</label>
+          <textarea id="bBody" style="min-height:280px" placeholder="Write the post here. Leave a blank line between paragraphs - each becomes its own paragraph."></textarea>
+          <span class="hint">Plain text only. A blank line starts a new paragraph.</span></div>
+      </div>
+      <div class="row" style="margin:24px 0 34px">
+        <button type="submit" class="btn pri">Save post</button>
+        <button type="button" class="btn danger" id="bDelBtn">Delete this post</button>
+      </div>
+    </form>
+
     <div class="sect">
       <h2>Publish live</h2>
       <p class="ed-sub" style="margin-bottom:16px">
@@ -208,6 +242,18 @@
         4. Commit and push. The home rail, the archive and its category tabs all update themselves.<br><br>
         Images go in <code>assets/work/</code> named after the project address, e.g. <code>assets/work/<span id="imgEcho">your-project</span>-hero.jpg</code>.
       </p>
+
+      <div class="out" style="margin-top:26px">
+        <textarea id="blogOutput" readonly spellcheck="false"></textarea>
+      </div>
+      <div class="row" style="margin-top:12px">
+        <button class="btn pri" id="blogCopyBtn">Copy the file</button>
+        <button class="btn" id="blogDlBtn">Download blog.js</button>
+      </div>
+      <p class="steps-note">
+        Same idea for posts: copy or download the file above, replace <code>assets/blog.js</code>,
+        run <code>python3 build-posts.py</code>, then commit and push.
+      </p>
     </div>
   </main>
 </div>
@@ -215,20 +261,30 @@
 <div class="toast" id="toast">Saved</div>
 
 <script src="assets/work.js"></script>
+<script src="assets/blog.js"></script>
 <script src="assets/editor-images.js"></script>
 <script>
 (function () {
-  var KEY = 'vaelo-work-draft';
+  var KEY = 'vaelo-work-draft', BLOG_KEY = 'vaelo-blog-draft';
   var work = [], idx = 0;
+  var blog = [], bidx = 0;
+  var mode = 'work';
 
   function load() {
     var saved = null;
     try { saved = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) {}
     work = saved && saved.length ? saved : JSON.parse(JSON.stringify(window.VAELO_WORK));
+    var bsaved = null;
+    try { bsaved = JSON.parse(localStorage.getItem(BLOG_KEY) || 'null'); } catch (e) {}
+    blog = bsaved && bsaved.length ? bsaved : JSON.parse(JSON.stringify(window.VAELO_BLOG || []));
   }
   function persist() {
     try { localStorage.setItem(KEY, JSON.stringify(work)); } catch (e) {}
     renderList(); renderOutput();
+  }
+  function persistBlog() {
+    try { localStorage.setItem(BLOG_KEY, JSON.stringify(blog)); } catch (e) {}
+    renderList(); renderBlogOutput();
   }
   function slugify(s) {
     return String(s).toLowerCase().replace(/['’]/g, '').replace(/[^a-z0-9]+/g, '-')
@@ -241,13 +297,14 @@
   }
 
   function renderList() {
+    if (mode === 'blog') { renderBlogList(); return; }
     document.getElementById('plist').innerHTML = work.map(function (w, i) {
       return '<button type="button" class="pitem' + (i === idx ? ' on' : '') + '" data-i="' + i + '">' +
         '<span class="n">' + String(i + 1).padStart(2, '0') + '</span>' +
         '<span class="t">' + (w.title || 'Untitled') + '</span>' +
         '<span class="c">' + (w.cat || '') + '</span></button>';
     }).join('');
-    document.querySelectorAll('.pitem').forEach(function (b) {
+    document.querySelectorAll('#plist .pitem').forEach(function (b) {
       b.addEventListener('click', function () {
         idx = +b.dataset.i; fill(); renderList();
         IM.load(slugNow()).then(renderShelf);
@@ -257,6 +314,37 @@
     work.forEach(function (w) { if (w.cat && cats.indexOf(w.cat) === -1) cats.push(w.cat); });
     document.getElementById('cats').innerHTML = cats.map(function (c) { return '<option value="' + c + '">'; }).join('');
   }
+
+  function renderBlogList() {
+    document.getElementById('plist').innerHTML = blog.map(function (p, i) {
+      return '<button type="button" class="pitem' + (i === bidx ? ' on' : '') + '" data-i="' + i + '">' +
+        '<span class="n">' + String(i + 1).padStart(2, '0') + '</span>' +
+        '<span class="t">' + (p.title || 'Untitled') + '</span>' +
+        '<span class="c">' + (p.tag || '') + '</span></button>';
+    }).join('');
+    document.querySelectorAll('#plist .pitem').forEach(function (b) {
+      b.addEventListener('click', function () { bidx = +b.dataset.i; fillBlog(); renderList(); });
+    });
+    var tags = [];
+    blog.forEach(function (p) { if (p.tag && tags.indexOf(p.tag) === -1) tags.push(p.tag); });
+    document.getElementById('bTags').innerHTML = tags.map(function (t) { return '<option value="' + t + '">'; }).join('');
+  }
+
+  function setMode(m) {
+    mode = m;
+    var isBlog = m === 'blog';
+    document.getElementById('form').style.display = isBlog ? 'none' : '';
+    document.getElementById('blogForm').style.display = isBlog ? '' : 'none';
+    document.getElementById('modeWork').classList.toggle('pri', !isBlog);
+    document.getElementById('modeBlog').classList.toggle('pri', isBlog);
+    document.getElementById('addBtn').textContent = isBlog ? '+ Add a post' : '+ Add a project';
+    document.getElementById('edTitle').textContent = isBlog ? 'Blog Editor' : 'Work Editor';
+    document.getElementById('edSub').textContent = isBlog ? 'Your posts, edited here.' : 'Your portfolio, edited here.';
+    if (isBlog) { fillBlog(); } else { fill(); IM.load(slugNow()).then(renderShelf); }
+    renderList();
+  }
+  document.getElementById('modeWork').addEventListener('click', function () { setMode('work'); });
+  document.getElementById('modeBlog').addEventListener('click', function () { setMode('blog'); });
 
   var F = ['title','slug','cat','scope','year','client','summary','brief','did'];
   function fill() {
@@ -306,6 +394,13 @@
   });
 
   document.getElementById('addBtn').addEventListener('click', function () {
+    if (mode === 'blog') {
+      blog.push({ title: '', slug: '', tag: '', date: new Date().toISOString().slice(0, 10),
+                  author: 'Vaelo Creative', excerpt: '', body: [] });
+      bidx = blog.length - 1; renderList(); fillBlog();
+      document.getElementById('bTitle').focus();
+      return;
+    }
     work.push({ title: '', slug: '', cat: '', scope: '', year: String(new Date().getFullYear()),
                 client: '', summary: '', brief: '', did: '', kpis: [] });
     idx = work.length - 1; renderList(); fill();
@@ -321,9 +416,99 @@
   });
 
   document.getElementById('resetBtn').addEventListener('click', function () {
+    if (mode === 'blog') {
+      if (!confirm('Discard every change made in this browser and go back to the published posts?')) return;
+      try { localStorage.removeItem(BLOG_KEY); } catch (e) {}
+      load(); bidx = 0; renderList(); fillBlog(); renderBlogOutput(); toast('Reset');
+      return;
+    }
     if (!confirm('Discard every change made in this browser and go back to the published work?')) return;
     try { localStorage.removeItem(KEY); } catch (e) {}
     load(); idx = 0; renderList(); fill(); renderOutput(); toast('Reset');
+  });
+
+  /* --------------------------------------------------------------- blog */
+  function fillBlog() {
+    var p = blog[bidx] || {};
+    document.getElementById('bTitle').value = p.title || '';
+    document.getElementById('bSlug').value = p.slug || '';
+    document.getElementById('bTag').value = p.tag || '';
+    document.getElementById('bDate').value = p.date || '';
+    document.getElementById('bAuthor').value = p.author || '';
+    document.getElementById('bExcerpt').value = p.excerpt || '';
+    document.getElementById('bBody').value = (p.body || []).join('\n\n');
+    previewBlog();
+  }
+  function previewBlog() {
+    var t = document.getElementById('bTitle').value || 'your-post';
+    var sl = document.getElementById('bSlug').value || slugify(t) || 'your-post';
+    document.getElementById('bSlugEcho').textContent = sl;
+  }
+  document.getElementById('blogForm').addEventListener('input', previewBlog);
+  document.getElementById('bTitle').addEventListener('blur', function () {
+    var s = document.getElementById('bSlug');
+    if (!s.value) { s.value = slugify(this.value); previewBlog(); }
+  });
+
+  document.getElementById('blogForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var p = blog[bidx] || {};
+    p.title = document.getElementById('bTitle').value.trim();
+    p.slug = document.getElementById('bSlug').value.trim() || slugify(p.title);
+    p.tag = document.getElementById('bTag').value.trim();
+    p.date = document.getElementById('bDate').value || new Date().toISOString().slice(0, 10);
+    p.author = document.getElementById('bAuthor').value.trim();
+    p.excerpt = document.getElementById('bExcerpt').value.trim();
+    p.body = document.getElementById('bBody').value.split(/\n\s*\n/).map(function (s) { return s.trim(); }).filter(Boolean);
+    blog[bidx] = p;
+    persistBlog(); toast('Post saved');
+  });
+
+  document.getElementById('bDelBtn').addEventListener('click', function () {
+    if (!blog.length) return;
+    if (!confirm('Delete "' + (blog[bidx].title || 'this post') + '"? You can still undo by choosing Reset to saved.')) return;
+    blog.splice(bidx, 1);
+    bidx = Math.max(0, bidx - 1);
+    persistBlog(); fillBlog(); toast('Post deleted');
+  });
+
+  function escB(s) { return String(s || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'"); }
+  function renderBlogOutput() {
+    var body = blog.map(function (p) {
+      var paras = (p.body || []).map(function (b) { return "'" + escB(b) + "'"; }).join(',\n      ');
+      return "  {\n" +
+        "    slug: '" + escB(p.slug) + "',\n" +
+        "    title: '" + escB(p.title) + "',\n" +
+        "    date: '" + escB(p.date) + "',\n" +
+        "    author: '" + escB(p.author) + "',\n" +
+        "    tag: '" + escB(p.tag) + "',\n" +
+        "    excerpt: '" + escB(p.excerpt) + "',\n" +
+        "    body: [\n      " + paras + "\n    ]\n  }";
+    }).join(',\n');
+    document.getElementById('blogOutput').value =
+      "/* ==========================================================================\n" +
+      "   VAELO — blog data. One object per post.\n" +
+      "   Generated by the Blog Editor. After replacing this file, run\n" +
+      "   `python3 build-posts.py` to regenerate the pages in /blog.\n" +
+      "   ========================================================================== */\n" +
+      "window.VAELO_BLOG = [\n" + body + "\n];\n";
+  }
+
+  document.getElementById('blogCopyBtn').addEventListener('click', function () {
+    var ta = document.getElementById('blogOutput');
+    ta.select();
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(ta.value).then(function () { toast('Copied — paste into assets/blog.js'); },
+        function () { document.execCommand('copy'); toast('Copied'); });
+    } else { document.execCommand('copy'); toast('Copied'); }
+  });
+
+  document.getElementById('blogDlBtn').addEventListener('click', function () {
+    var blob = new Blob([document.getElementById('blogOutput').value], { type: 'text/javascript' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = 'blog.js';
+    document.body.appendChild(a); a.click(); a.remove();
+    toast('Downloaded');
   });
 
   function esc(s) { return String(s || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'"); }
@@ -487,12 +672,16 @@
     var token = ghToken.value.trim();
     if (!token) { pubNote.textContent = 'Paste a GitHub token first.'; ghToken.focus(); return; }
     IM.setToken(token);
-    renderOutput();
+    renderOutput(); renderBlogOutput();
     publishBtn.disabled = true;
     pubBar.classList.add('on');
     pubBar.querySelector('i').style.width = '0%';
     pubNote.textContent = 'Starting…';
-    IM.publishToGitHub(document.getElementById('output').value, function (done, total, label) {
+    var textFiles = [
+      { path: 'assets/work.js', content: document.getElementById('output').value },
+      { path: 'assets/blog.js', content: document.getElementById('blogOutput').value }
+    ];
+    IM.publishToGitHub(textFiles, function (done, total, label) {
       pubBar.querySelector('i').style.width = ((done / total) * 100).toFixed(0) + '%';
       pubNote.textContent = label + '…';
     }).then(function () {
@@ -506,7 +695,7 @@
     });
   });
 
-  load(); renderList(); fill(); renderOutput();
+  load(); renderList(); fill(); renderOutput(); renderBlogOutput(); setMode('work');
 })();
 </script>
 </body>

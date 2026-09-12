@@ -273,8 +273,10 @@
     }).then(function (b) { return b.sha; });
   }
 
-  /** Publishes assets/work.js plus every file added this session, in one commit. */
-  function publishToGitHub(workJsText, onProgress, attempt) {
+  /** Publishes any number of text files (assets/work.js, assets/blog.js, ...)
+   *  plus every media file added this session, in one atomic commit.
+   *  textFiles: [{ path, content }] - content is UTF-8 text. */
+  function publishToGitHub(textFiles, onProgress, attempt) {
     var token = getToken();
     if (!token) return Promise.reject(new Error('Paste a GitHub token first.'));
 
@@ -284,7 +286,7 @@
         mediaJobs.push({ path: pathFor(slug, rec, i), blob: rec.blob });
       });
     });
-    var total = 1 /* ref */ + 1 /* base commit */ + 1 /* work.js blob */ +
+    var total = 1 /* ref */ + 1 /* base commit */ + textFiles.length +
                 mediaJobs.length + 1 /* tree */ + 1 /* commit */ + 1 /* ref update */;
     var done = 0;
     function step(label) { done++; if (onProgress) onProgress(done, total, label); }
@@ -296,11 +298,16 @@
         return gh('/repos/' + GH_OWNER + '/' + GH_REPO + '/git/commits/' + refSha, token);
       })
       .then(function (commit) { baseTreeSha = commit.tree.sha; step('Reading current state'); })
-      .then(function () { return createBlob(token, workJsText, 'utf-8'); })
-      .then(function (sha) {
-        step('Uploading work.js');
-        var treeEntries = [{ path: 'assets/work.js', mode: '100644', type: 'blob', sha: sha }];
+      .then(function () {
+        var treeEntries = [];
         var chain = Promise.resolve();
+        textFiles.forEach(function (tf) {
+          chain = chain.then(function () { return createBlob(token, tf.content, 'utf-8'); })
+            .then(function (sha) {
+              treeEntries.push({ path: tf.path, mode: '100644', type: 'blob', sha: sha });
+              step('Uploading ' + tf.path.split('/').pop());
+            });
+        });
         mediaJobs.forEach(function (job) {
           chain = chain.then(function () { return blobToBase64(job.blob); })
             .then(function (b64) { return createBlob(token, b64, 'base64'); })
@@ -320,7 +327,7 @@
         step('Building commit');
         return gh('/repos/' + GH_OWNER + '/' + GH_REPO + '/git/commits', token, {
           method: 'POST',
-          body: { message: 'Publish work update from the editor', tree: tree.sha, parents: [refSha] }
+          body: { message: 'Publish update from the editor', tree: tree.sha, parents: [refSha] }
         });
       })
       .then(function (commit) {
@@ -332,7 +339,7 @@
       .catch(function (err) {
         /* someone else published in the moment between our ref read and
            write — refetch and try once more rather than failing outright */
-        if (err.status === 422 && !attempt) return publishToGitHub(workJsText, onProgress, 1);
+        if (err.status === 422 && !attempt) return publishToGitHub(textFiles, onProgress, 1);
         throw err;
       });
   }

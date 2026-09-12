@@ -1,14 +1,16 @@
-name: Build case pages
+name: Build generated pages
 
-# Runs whenever assets/work.js changes on main (including pushes made by the
-# editor's "Publish live" button through the GitHub API) and regenerates the
-# static /work/<slug>.html pages, replacing the manual `python3 build-cases.py`
-# step. Commits the regenerated pages back to main.
+# Runs whenever assets/work.js or assets/blog.js changes on main (including
+# pushes made by the editor's "Publish live" button through the GitHub API)
+# and regenerates the static /work/<slug>.html and /blog/<slug>.html pages,
+# replacing the manual `python3 build-cases.py` / `build-posts.py` steps.
+# Commits the regenerated pages back to main.
 on:
   push:
     branches: [main]
     paths:
       - "assets/work.js"
+      - "assets/blog.js"
 
 permissions:
   contents: write
@@ -32,14 +34,17 @@ jobs:
       - name: Regenerate work/*.html from assets/work.js
         run: python3 build-cases.py
 
+      - name: Regenerate blog/*.html from assets/blog.js
+        run: python3 build-posts.py
+
       - name: Commit regenerated pages
         run: |
           git config user.name "vaelo-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add work/*.html
+          git add work/*.html blog/*.html
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "Regenerate case pages from assets/work.js [skip ci]"
+            git commit -m "Regenerate generated pages [skip ci]"
             git push
           fi
