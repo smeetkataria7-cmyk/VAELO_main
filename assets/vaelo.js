@@ -205,13 +205,25 @@
       var text = line.textContent, n = 0;
       line.setAttribute('aria-label', text);
       line.textContent = '';
+      /* Letters within a word are grouped into one inline-block wrapper, so
+         the browser can only wrap the line between words (or at a space),
+         never between two letters of the same word - splitting into plain
+         sibling <b> elements let it break mid-word whenever a long word
+         didn't quite fit the line. */
+      var word = null;
       text.split('').forEach(function (ch) {
         var b = doc.createElement('b');
         b.setAttribute('aria-hidden', 'true');
-        if (ch === ' ') { b.className = 'sp'; b.innerHTML = '&nbsp;'; }
-        else b.textContent = ch;
         b.style.setProperty('--i', n++);
-        line.appendChild(b);
+        if (ch === ' ') {
+          b.className = 'sp'; b.innerHTML = '&nbsp;';
+          line.appendChild(b);
+          word = null;
+        } else {
+          b.textContent = ch;
+          if (!word) { word = doc.createElement('span'); word.className = 'word'; line.appendChild(word); }
+          word.appendChild(b);
+        }
       });
     });
   })();

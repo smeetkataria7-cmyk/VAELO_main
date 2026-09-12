@@ -481,10 +481,11 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
    ========================================================================== */
 
 /* hero headline arrives letter by letter, each on its own delay */
-.js .mask > i > b{display:inline-block;font-weight:inherit;transform:translateY(106%);
+.js .mask > i .word{display:inline-block}
+.js .mask > i b{display:inline-block;font-weight:inherit;transform:translateY(106%);
   transition:transform .85s cubic-bezier(.2,.75,.2,1);transition-delay:calc(var(--i) * 26ms)}
-.js body.lit .mask > i > b{transform:none}
-.js .mask > i > b.sp{width:.28em}
+.js body.lit .mask > i b{transform:none}
+.js .mask > i b.sp{width:.28em}
 
 /* the hero block drifts and dims as it leaves */
 .hero-in{will-change:transform,opacity}
@@ -495,7 +496,7 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
 .tile .meta h3{font-variant-ligatures:none}
 
 @media(prefers-reduced-motion:reduce){
-  .js .mask > i > b{transform:none!important}
+  .js .mask > i b{transform:none!important}
   .hero-in{transform:none!important;opacity:1!important}
 }
 
