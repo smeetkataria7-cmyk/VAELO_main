@@ -77,6 +77,16 @@
         setTimeout(function () { location.href = url; }, 470);
       });
     });
+
+    /* The browser's back/forward button can restore this exact page from
+       bfcache without re-running any script - including the moment right
+       after the block above set the curtain to "in" on the way out. Left
+       alone, that freezes the page under a solid green curtain until the
+       visitor manually reloads. Force it back to hidden on any bfcache
+       restore. */
+    on(window, 'pageshow', function (e) {
+      if (e.persisted) { wipe.classList.remove('in'); wipe.classList.add('out'); }
+    });
   }
 
   /* ------------------------------------------------------- smooth scroll ---
