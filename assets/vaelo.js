@@ -584,6 +584,43 @@
     });
   }
 
+  /* --------------------------------------------------- converge, then wash ---
+     Pinned like the rail, but reads scroll as one 0-1 progress value instead
+     of a horizontal position. Cards scattered by --tx/--ty/--rot (vw/vh/deg,
+     set inline per card in the HTML) ease toward dead centre as progress
+     climbs, each on its own slightly delayed window so they don't all land
+     at once; a gradient wash fades in behind them on the same progress and
+     carries straight into the footer. */
+  var converge = doc.getElementById('converge');
+  if (converge && !reduce) {
+    var convItems = Array.prototype.slice.call(converge.querySelectorAll('.conv-item')).map(function (el, i) {
+      var s = getComputedStyle(el);
+      return {
+        el: el,
+        tx: parseFloat(s.getPropertyValue('--tx')) || 0,
+        ty: parseFloat(s.getPropertyValue('--ty')) || 0,
+        rot: parseFloat(s.getPropertyValue('--rot')) || 0,
+        delay: i * 0.07
+      };
+    });
+    var wash = converge.querySelector('.conv-wash');
+    var convTick = function () {
+      var box = converge.getBoundingClientRect();
+      var span = converge.offsetHeight - innerHeight;
+      var p = span > 0 ? Math.min(1, Math.max(0, -box.top / span)) : 0;
+      convItems.forEach(function (d) {
+        var local = Math.min(1, Math.max(0, (p - d.delay) / (1 - d.delay)));
+        var ease = local * local * (3 - 2 * local);           /* smoothstep */
+        var tx = d.tx * (1 - ease), ty = d.ty * (1 - ease), rot = d.rot * (1 - ease);
+        d.el.style.transform = 'translate(-50%,-50%) translate(' + tx.toFixed(2) + 'vw,' +
+          ty.toFixed(2) + 'vh) scale(' + (1 - ease * 0.88).toFixed(3) + ') rotate(' + rot.toFixed(2) + 'deg)';
+        d.el.style.opacity = (1 - ease * 0.25).toFixed(3);
+      });
+      if (wash) wash.style.opacity = p.toFixed(3);
+    };
+    convTick(); onScroll(convTick); on(window, 'resize', convTick);
+  }
+
   /* ------------------------------------------------------ closing wordmark */
   var endmark = doc.querySelector('.endmark span');
   if (endmark) {

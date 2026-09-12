@@ -71,7 +71,7 @@
 
 <!-- ================= COUNTERS ================= -->
 <div class="strip" data-rev data-stagger>
-  <div><div class="n"><span data-count="5">5</span></div><div class="l">Categories served</div></div>
+  <div><div class="n"><span data-count="5" id="catCount">5</span></div><div class="l">Categories served</div></div>
   <div><div class="n"><span data-count="240">240</span><em>+</em></div><div class="l">Assets shipped this year</div></div>
   <div><div class="n"><span data-count="9">9</span> <em>days</em></div><div class="l">Median concept to live</div></div>
   <div><div class="n"><em>AI</em></div><div class="l">Native production stack</div></div>
@@ -88,8 +88,8 @@
 <!-- ================= WORK — pinned horizontal rail ================= -->
 <section id="work">
   <div class="rail-head" data-rev data-stagger>
-    <div><p class="lab ac">Selected Work</p><h2 style="margin-top:14px">Five that<br>made the cut</h2></div>
-    <p class="lab tab">2025 — 2026 · 05 projects · scroll →<br><a href="work/" style="color:var(--accent)">View the full archive ↗</a></p>
+    <div><p class="lab ac">Selected Work</p><h2 style="margin-top:14px" id="railTitle">Work<br>worth the scroll</h2></div>
+    <p class="lab tab">2025 — 2026 · <span id="railCount">·</span> · scroll →<br><a href="work/" style="color:var(--accent)">View the full archive ↗</a></p>
   </div>
   <div class="prog"><i id="prog"></i></div>
   <p class="swipe-hint">← Swipe the work sideways</p>
@@ -200,6 +200,28 @@
   </div>
 </section>
 
+<!-- ================= CONVERGE ================= -->
+<section class="converge" id="converge">
+  <div class="converge-stick">
+    <div class="conv-item" style="--tx:-30;--ty:-16;--rot:-7">
+      <img src="assets/work/marigold-miraaya/photo-03.jpg" alt="" loading="lazy">
+    </div>
+    <div class="conv-item" style="--tx:30;--ty:-18;--rot:6">
+      <img src="assets/work/launch-not-a-rollout/05.jpg" alt="" loading="lazy">
+    </div>
+    <div class="conv-item" style="--tx:-28;--ty:17;--rot:5">
+      <img src="assets/work/make-the-science-legible/10.jpg" alt="" loading="lazy">
+    </div>
+    <div class="conv-item" style="--tx:31;--ty:15;--rot:-5">
+      <img src="assets/work/catalogue-at-scale/06.jpg" alt="" loading="lazy">
+    </div>
+    <div class="conv-item" style="--tx:0;--ty:-25;--rot:0">
+      <img src="assets/work/conceptual/01-poster.jpg" alt="" loading="lazy">
+    </div>
+    <div class="conv-wash"></div>
+  </div>
+</section>
+
 <div class="endmark"><span>Vaelo</span></div>
 
 <footer>
@@ -234,6 +256,14 @@ function tags(w) {
   return list.filter(function (t) { return t && !seen[t.toLowerCase()] && (seen[t.toLowerCase()] = 1); })
     .map(function (t) { return '<span class="pill">' + t + '</span>'; }).join('');
 }
+/* Count text derives from the data instead of being typed in - the
+   headline used to say "Five" with six projects live, because nothing
+   forced someone editing assets/work.js to also go find and update this
+   sentence. */
+document.getElementById('railCount').textContent = window.VAELO_WORK.length + ' project' + (window.VAELO_WORK.length === 1 ? '' : 's');
+var catN = new Set(window.VAELO_WORK.map(function (w) { return w.cat; })).size;
+document.getElementById('catCount').textContent = catN;
+document.getElementById('catCount').setAttribute('data-count', catN);
 document.getElementById('rail').innerHTML = window.VAELO_WORK.map(function (w, i) {
   return '<a class="tile' + (i % 2 ? ' tall' : '') + '" href="work/' + w.slug + '.html">' +
     '<div class="frame">' + shot(w, 'Case image') + '<div class="veil"></div><div class="go">↗</div></div>' +

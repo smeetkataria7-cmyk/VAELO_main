@@ -142,13 +142,11 @@ body.menu .burger i:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 .tile.tall{width:min(33vw,400px)}
 .tile .frame{position:relative;overflow:hidden;aspect-ratio:4/3;border-radius:18px}
 .tile.tall .frame{aspect-ratio:3/4}
-/* Real media sizes the card by its own shape instead of being cropped into
-   a fixed box - a portrait phone clip and a landscape still both show in
-   full, at whatever height that takes at this fixed card width. Placeholder
-   .slot frames (no media yet) keep the fixed ratio above, since a div with
-   nothing in it has no natural shape to size from. */
-.tile .frame:has(.shot){aspect-ratio:auto}
-.tile .frame:has(.shot) .shot{position:static;width:100%;height:auto}
+/* Every card in a row needs to be the same height to read as organized -
+   that matters more here than showing a creative uncropped, so this stays
+   a fixed box with object-fit:cover (biased toward the top, where a face
+   or headline usually sits, rather than dead centre). The per-project case
+   page is where the full, uncropped creative gets shown. */
 .tile .slot{position:absolute;inset:0}
 .tile .slot::before{transition:transform .9s cubic-bezier(.2,.7,.2,1)}
 .tile:hover .slot::before{transform:scale(1.07)}
@@ -251,6 +249,23 @@ body.menu .burger i:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
   font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--dim)}
 
+/* ---------- converge: scattered work drifts to centre, then washes out ---
+   Pinned like the rail, but reads scroll as a single 0-1 progress value
+   (set as --p by script) rather than a horizontal position. Each card
+   starts wherever --tx/--ty/--rot place it and eases to dead centre as
+   --p approaches 1; the wash behind it fades in on the same progress. */
+.converge{position:relative;height:220vh;background:var(--black)}
+.converge-stick{position:sticky;top:0;height:100svh;overflow:hidden}
+.conv-item{position:absolute;top:50%;left:50%;width:min(20vw,210px);aspect-ratio:4/5;
+  border-radius:20px;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.55);
+  transform:translate(-50%,-50%) translate(calc(var(--tx) * 1vw),calc(var(--ty) * 1vh))
+    scale(1) rotate(calc(var(--rot) * 1deg))}
+.conv-item img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(.3) contrast(1.04)}
+.conv-wash{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:0;
+  background:linear-gradient(180deg,var(--black) 0%,var(--black) 45%,#0d2740 72%,var(--off) 100%)}
+@media(max-width:720px){.conv-item{width:34vw}}
+@media(prefers-reduced-motion:reduce){.converge{display:none}}
+
 /* ==========================================================================
    CASE STUDY PAGE
    ========================================================================== */
@@ -340,8 +355,6 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
 @media(max-width:760px){.arch{grid-template-columns:1fr}}
 .arch-item{display:block}
 .arch-item .frame{position:relative;overflow:hidden;aspect-ratio:4/3;border-radius:18px}
-.arch-item .frame:has(.shot){aspect-ratio:auto}
-.arch-item .frame:has(.shot) .shot{position:static;width:100%;height:auto}
 .arch-item .slot{position:absolute;inset:0}
 .arch-item .slot::before{transition:transform .9s cubic-bezier(.2,.7,.2,1)}
 .arch-item:hover .slot::before{transform:scale(1.06)}
@@ -495,7 +508,7 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
 .shot{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;
   background:#111110;transform:translateY(var(--py,0))}
 .tile .shot,.arch-item .shot{transition:transform .9s cubic-bezier(.2,.7,.2,1),filter .6s ease;
-  filter:grayscale(.45) contrast(1.04)}
+  filter:grayscale(.45) contrast(1.04);object-position:center 22%}
 .tile:hover .shot,.arch-item:hover .shot{transform:scale(1.06);filter:grayscale(0) contrast(1.08)}
 .case-hero .shot{filter:saturate(.85) contrast(1.06) brightness(.7)}
 .gal .shot{position:relative;inset:auto;height:auto}
