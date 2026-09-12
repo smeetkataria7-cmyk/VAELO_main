@@ -117,10 +117,15 @@
   }
   function diskName(rec, i) { return String(i + 1).padStart(2, '0') + ext(rec); }
   /* "site" is reserved for generic page images (the Site Manager's image
-     swaps) that don't belong to any one work project. */
+     swaps) that don't belong to any one work project. Sequential 01/02/...
+     naming is fine within one work project's own folder, but "site" gets
+     reused across unrelated pages and separate browser sessions - two
+     people replacing different images would both start counting from 01
+     and silently overwrite each other's upload. Each file's own random id
+     (assigned once, at upload time) keeps them unique instead. */
   function pathFor(slug, rec, i) {
-    var base = slug === 'site' ? 'assets/site' : 'assets/work/' + slug;
-    return base + '/' + diskName(rec, i);
+    if (slug === 'site') return 'assets/site/' + rec.id + ext(rec);
+    return 'assets/work/' + slug + '/' + diskName(rec, i);
   }
 
   function pathsFor(slug) {
