@@ -5,6 +5,12 @@
 :root{
   --black:#0a0a0a; --deep:#030303; --off:#f4f2ec; --dim:#8c887e;
   --accent:#d6ff3f; --line:rgba(244,242,236,0.14); --soft:rgba(244,242,236,0.06);
+  /* ── TWO FONTS. Nothing else is used anywhere on the site. ──────────────
+     --display  Bricolage Grotesque — every heading, the wordmark, figures,
+                and the "We're not a department store" statement.
+     --text     Archivo — body copy, labels, captions, buttons.
+     Adding a third face here (or a Google Fonts link on any page) breaks
+     the pairing; use a weight or a size instead. */
   --display:'Bricolage Grotesque',ui-sans-serif,system-ui,sans-serif;
   --text:'Archivo',ui-sans-serif,system-ui,-apple-system,sans-serif;
   --pad:5vw;
@@ -63,7 +69,7 @@ body.scrolled nav.top{mix-blend-mode:normal;background:rgba(6,6,5,.82);backdrop-
 .nav-links a::after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;background:currentColor;
   transform:scaleX(0);transform-origin:right;transition:transform .4s cubic-bezier(.2,.7,.2,1)}
 .nav-links a:hover::after{transform:scaleX(1);transform-origin:left}
-.burger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:6px;z-index:210}
+.burger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:6px;z-index:210;font:inherit}
 .burger i{display:block;width:24px;height:1.5px;background:var(--off);transition:transform .3s,opacity .3s}
 body.menu .burger i:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
 body.menu .burger i:nth-child(2){opacity:0}
@@ -135,10 +141,14 @@ body.menu .burger i:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 .rail-wrap{position:relative}
 .rail-stick{position:sticky;top:0;height:100svh;display:flex;align-items:center;overflow:hidden}
 .rail{display:flex;gap:clamp(14px,2vw,28px);padding:0 var(--pad);will-change:transform}
-.tile{flex:none;display:block;width:min(56vw,700px)}
-.tile.tall{width:min(33vw,400px)}
-.tile .frame{position:relative;overflow:hidden;aspect-ratio:4/3;border-radius:18px}
-.tile.tall .frame{aspect-ratio:3/4}
+/* Every brand cover is one size. The rail used to alternate a wide 4:3 with
+   a narrow 3:4, which made some clients' work read as bigger than others'.
+   One width, one ratio, matching the archive cards. */
+/* Every brand cover is one size and one shape: 4:5 portrait, a static frame.
+   The rail used to alternate a wide 4:3 with a narrow 3:4, which made some
+   clients' work read as bigger than others'. */
+.tile,.tile.tall{flex:none;display:block;width:min(34vw,420px)}
+.tile .frame,.tile.tall .frame{position:relative;overflow:hidden;aspect-ratio:4/5;border-radius:18px}
 /* Every card in a row needs to be the same height to read as organized -
    that matters more here than showing a creative uncropped, so this stays
    a fixed box with object-fit:cover (biased toward the top, where a face
@@ -170,9 +180,8 @@ body.menu .burger i:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
     scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
   .rail-stick::-webkit-scrollbar{display:none}
   .rail{transform:none!important;padding-right:calc(var(--pad) + 40px)}
-  .tile{width:78vw;scroll-snap-align:center}
-  .tile.tall{width:64vw}
-  .tile .frame,.tile.tall .frame{aspect-ratio:4/3}
+  .tile,.tile.tall{width:72vw;scroll-snap-align:center}
+  .tile .frame,.tile.tall .frame{aspect-ratio:4/5}
 }
 .swipe-hint{display:none;padding:12px var(--pad) 0;font-size:10.5px;text-transform:uppercase;
   letter-spacing:.1em;color:var(--dim)}
@@ -251,15 +260,21 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
    (set as --p by script) rather than a horizontal position. Each card
    starts wherever --tx/--ty/--rot place it and eases to dead centre as
    --p approaches 1; the wash behind it fades in on the same progress. */
-.converge{position:relative;height:220vh;background:var(--black)}
+.converge{position:relative;height:150vh;background:var(--black)}
 .converge-stick{position:sticky;top:0;height:100svh;overflow:hidden}
 .conv-item{position:absolute;top:50%;left:50%;width:min(20vw,210px);aspect-ratio:4/5;
   border-radius:20px;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.55);
   transform:translate(-50%,-50%) translate(calc(var(--tx) * 1vw),calc(var(--ty) * 1vh))
     scale(1) rotate(calc(var(--rot) * 1deg))}
 .conv-item img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(.3) contrast(1.04)}
+/* The wash used to end on navy and then white — two colours that appear
+   nowhere else in the brand, and it left a tall empty pale screen once the
+   cards had converged. It now closes on the page's own ground with a single
+   accent bloom, so the section hands off to the footer instead of blanking. */
 .conv-wash{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:0;
-  background:linear-gradient(180deg,var(--black) 0%,var(--black) 45%,#0d2740 72%,var(--off) 100%)}
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 62%,rgba(214,255,63,.16),transparent 66%),
+    linear-gradient(180deg,rgba(10,10,10,0) 0%,rgba(10,10,10,.55) 55%,var(--black) 100%)}
 @media(max-width:720px){.conv-item{width:34vw}}
 @media(prefers-reduced-motion:reduce){.converge{display:none}}
 
@@ -351,7 +366,7 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
   gap:clamp(20px,3vw,44px)}
 @media(max-width:760px){.arch{grid-template-columns:1fr}}
 .arch-item{display:block}
-.arch-item .frame{position:relative;overflow:hidden;aspect-ratio:4/3;border-radius:18px}
+.arch-item .frame{position:relative;overflow:hidden;aspect-ratio:4/5;border-radius:18px}
 .arch-item .slot{position:absolute;inset:0}
 .arch-item .slot::before{transition:transform .9s cubic-bezier(.2,.7,.2,1)}
 .arch-item:hover .slot::before{transform:scale(1.06)}
@@ -562,3 +577,8 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
 @media(prefers-reduced-motion:reduce){
   .tile .frame,.arch-item .frame{transform:none!important}
 }
+
+
+/* the one monospace use — the generated-code box in the editor — set in
+   Archivo with tabular figures rather than a third typeface */
+.mono-box{font-family:var(--text);font-variant-numeric:tabular-nums;letter-spacing:.01em}

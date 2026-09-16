@@ -315,7 +315,7 @@
   }
 
   function wireImages(doc) {
-    doc.querySelectorAll('.conv-item img, .studio-grid img, .gal img, .case-hero img, .arch-item img').forEach(function (img) {
+    doc.querySelectorAll('.conv-item img, .gal img, .case-hero img, .arch-item img').forEach(function (img) {
       if (img.closest(GENERATED_REGION)) return; // e.g. .arch-item images inside #arch
       var wrap = img.parentElement;
       wrap.classList.add('vaelo-imgwrap');

@@ -625,8 +625,11 @@
         var ease = local * local * (3 - 2 * local);           /* smoothstep */
         var tx = d.tx * (1 - ease), ty = d.ty * (1 - ease), rot = d.rot * (1 - ease);
         d.el.style.transform = 'translate(-50%,-50%) translate(' + tx.toFixed(2) + 'vw,' +
-          ty.toFixed(2) + 'vh) scale(' + (1 - ease * 0.88).toFixed(3) + ') rotate(' + rot.toFixed(2) + 'deg)';
-        d.el.style.opacity = (1 - ease * 0.25).toFixed(3);
+          ty.toFixed(2) + 'vh) scale(' + (1 - ease * 0.08).toFixed(3) + ') rotate(' + rot.toFixed(2) + 'deg)';
+        /* The cards used to shrink to 12% of their size and end as a speck
+           in the middle of an empty screen. They now hold their size, gather
+           into a single stack at centre, and dissolve into the wash. */
+        d.el.style.opacity = (ease > 0.72 ? Math.max(0, 1 - (ease - 0.72) / 0.28) : 1).toFixed(3);
       });
       if (wash) wash.style.opacity = p.toFixed(3);
     };

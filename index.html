@@ -35,7 +35,7 @@
 <nav class="top">
   <a href="index.html" class="word">Vaelo</a>
   <div class="nav-links">
-    <a href="work/">Work</a><a href="blog/">Blog</a><a href="#capabilities">Services</a><a href="#process">Process</a><a href="#studio">Studio</a><a href="#contact">Contact</a><a href="editor.html" style="color:var(--dim)">Editor</a>
+    <a href="work/">Work</a><a href="blog/">Blog</a><a href="#capabilities">Services</a><a href="#process">Process</a><a href="#contact">Contact</a><a href="editor.html" style="color:var(--dim)">Editor</a>
   </div>
   <button class="burger" aria-label="Menu" aria-expanded="false"><i></i><i></i><i></i></button>
 </nav>
@@ -172,22 +172,6 @@
   </div>
 </section>
 
-<!-- ================= STUDIO ================= -->
-<section class="sec" data-rev id="studio">
-  <div class="sec-hd" data-rev data-stagger>
-    <div><p class="lab ac">Studio</p><h2 style="margin-top:14px">Small on purpose</h2></div>
-    <p class="lab tab">Mumbai · Founded 2025</p>
-  </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,60px);align-items:end" class="studio-grid">
-    <div class="slot" data-spec="Studio / team · 1600×1000" style="aspect-ratio:16/10"></div>
-    <div class="prose" data-rev data-stagger>
-      <p>Vaelo runs out of Mumbai as one integrated team rather than a stack of departments. <b>Every brief is touched by the people who will ship it</b> — no account layer translating between you and the work.</p>
-      <p>The AI production stack isn't a line on a credentials page. It's the operating constraint that lets a team this size take on five categories at once without diluting any of them.</p>
-    </div>
-  </div>
-</section>
-</main>
-
 <!-- ================= CONTACT ================= -->
 <section class="end" id="contact">
   <p class="lab ac">New Business</p>
@@ -265,7 +249,8 @@ var catN = new Set(window.VAELO_WORK.map(function (w) { return w.cat; })).size;
 document.getElementById('catCount').textContent = catN;
 document.getElementById('catCount').setAttribute('data-count', catN);
 document.getElementById('rail').innerHTML = window.VAELO_WORK.map(function (w, i) {
-  return '<a class="tile' + (i % 2 ? ' tall' : '') + '" href="work/' + w.slug + '.html">' +
+  /* every project gets the same cover size — no alternating tall/wide */
+  return '<a class="tile" href="work/' + w.slug + '.html">' +
     '<div class="frame">' + shot(w, 'Case image') + '<div class="veil"></div><div class="go">↗</div></div>' +
     '<div class="meta"><div><h3>' + w.title + '</h3><div class="tags">' + tags(w) + '</div></div>' +
     '<div class="idx">' + w.idx + '</div></div></a>';
