@@ -18,7 +18,7 @@ window.VAELO_WORK = [
     brief: 'The client had a finished product, a hard launch date and no audience. The category is crowded with brands that all resolved to the same visual language — soft pastels, sans-serif wordmark, a claim nobody reads. A staged rollout would have burned the launch window before anyone noticed the product existed.',
     did: 'We built the identity and the packaging system first, because the pack is the ad in a category people meet on a shelf. Then the full launch asset library was produced in-house — product, lifestyle and UGC-style video — so the Meta buy launched against creative we made ourselves. One team held the positioning from the first sketch to the third round of ad iterations, which is why the test loop closed in days rather than weeks.',
     kpis: [['240', 'Assets shipped'], ['9 days', 'Concept to live'], ['4', 'Channels at launch']],
-    images: { hero: 'assets/work/launch-not-a-rollout/01.mp4', heroPoster: 'assets/work/launch-not-a-rollout/01-poster.jpg', gallery: [
+    images: { cover: 'assets/work/launch-not-a-rollout/cover.jpg', hero: 'assets/work/launch-not-a-rollout/01.mp4', heroPoster: 'assets/work/launch-not-a-rollout/01-poster.jpg', gallery: [
       'assets/work/launch-not-a-rollout/02.mp4',
       'assets/work/launch-not-a-rollout/03.jpg',
       'assets/work/launch-not-a-rollout/04.jpg',
@@ -114,7 +114,7 @@ window.VAELO_WORK = [
     brief: 'The sustainability claim was real, third-party verified, and buried. It sat below an ingredient list, in a typographic hierarchy that gave equal weight to everything — which is the same as giving weight to nothing.',
     did: 'We rebuilt the pack hierarchy so the claim lands before the ingredient list, with an iconography set that carries the science without a paragraph of explanation. The system was drawn to scale across the full range, including the smallest format, where most pack systems quietly fall apart.',
     kpis: [['3 sec', 'Claim comprehension target'], ['1 system', 'Full range'], ['SKU-min', 'Tested at smallest format']],
-    images: { hero: 'assets/work/make-the-science-legible/01.mp4', heroPoster: 'assets/work/make-the-science-legible/01-poster.jpg', gallery: [
+    images: { cover: 'assets/work/make-the-science-legible/cover.jpg', hero: 'assets/work/make-the-science-legible/01.mp4', heroPoster: 'assets/work/make-the-science-legible/01-poster.jpg', gallery: [
       'assets/work/make-the-science-legible/02.mp4',
       'assets/work/make-the-science-legible/03.mp4',
       'assets/work/make-the-science-legible/04.mp4',

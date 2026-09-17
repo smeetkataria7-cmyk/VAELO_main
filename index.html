@@ -220,6 +220,13 @@
    several simultaneously autoplaying videos is heavy enough to make the
    page feel unresponsive. The real video only plays on the case page. */
 function shot(w, label) {
+  /* An explicit cover wins over the hero: it is the one frame chosen to
+     represent the brand, rather than whatever the case study opens on. */
+  var cover = w.images && w.images.cover;
+  if (cover) {
+    return '<img class="shot" src="' + cover + '" alt="' + w.title.replace(/"/g, '&quot;') +
+      '" loading="lazy" decoding="async" data-par="7">';
+  }
   var src = w.images && w.images.hero;
   var poster = w.images && w.images.heroPoster;
   if (!src) return '<div class="slot" data-spec="' + label + '" data-par="7"></div>';
