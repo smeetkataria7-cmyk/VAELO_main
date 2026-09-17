@@ -169,6 +169,18 @@
       target = current = scrollY;
     });
 
+    /* Anything else that needs to move the page — the rail's horizontal
+       wheel, its scrubber — goes through here so it eases like the rest
+       instead of jumping against the running animation. */
+    window.vaeloScrollBy = function (px) {
+      target = Math.max(0, Math.min(maxScroll(), target + px));
+      start();
+    };
+    window.vaeloScrollTo = function (px) {
+      target = Math.max(0, Math.min(maxScroll(), px));
+      start();
+    };
+
     /* in-page links glide instead of jumping, without scroll-behavior fighting us */
     doc.documentElement.style.scrollBehavior = 'auto';
     doc.querySelectorAll('a[href^="#"]').forEach(function (a) {
@@ -405,6 +417,7 @@
       var p = span > 0 ? Math.min(1, Math.max(0, -box.top / span)) : 0;
       target = -p * travel;
       if (prog) prog.style.width = (5 + p * 95) + '%';
+      if (window.vaeloPaintScrub) window.vaeloPaintScrub(p);
       if (!gliding) { gliding = true; requestAnimationFrame(glide); }
     };
 
@@ -427,6 +440,110 @@
     onScroll(aim);
     setTimeout(settle, 60);                       /* tiles render from data */
     on(window, 'load', settle);
+  }
+
+  /* ------------------------------------------- rail: sideways input ---
+     A trackpad swipe or shift-wheel over the rail now moves it. The rail is
+     driven by page scroll, so horizontal input is converted at the rail's own
+     ratio and handed to the same easing the wheel uses — the two never fight.
+     Below the pin breakpoint the strip is a native scroller and already
+     handles this itself, so we leave it alone. */
+  var pageBy = function (px) {
+    if (window.vaeloScrollBy) window.vaeloScrollBy(px);
+    else scrollTo(0, scrollY + px);
+  };
+  var pageTo = function (px) {
+    if (window.vaeloScrollTo) window.vaeloScrollTo(px);
+    else scrollTo(0, px);
+  };
+
+  var stick = doc.querySelector('.rail-stick');
+  if (stick && rail && railWrap) {
+    var ratio = function () {
+      var span = railWrap.offsetHeight - innerHeight;
+      var dist = rail.scrollWidth - innerWidth + innerWidth * 0.08;
+      return dist > 0 ? span / dist : 0;
+    };
+    var pinned = function () { return innerWidth > 720 && !reduce; };
+
+    on(stick, 'wheel', function (e) {
+      if (!pinned()) return;                       /* native scroller below 720 */
+      var dx = e.deltaX, dy = e.deltaY;
+      if (Math.abs(dx) <= Math.abs(dy)) return;    /* vertical: leave it be */
+      if (e.deltaMode === 1) dx *= 16;
+      else if (e.deltaMode === 2) dx *= innerWidth;
+      e.preventDefault();
+      e.stopPropagation();
+      pageBy(dx * ratio());
+    }, { passive: false, capture: true });
+  }
+
+  /* ------------------------------------------------- rail: the scrubber ---
+     Drag the bar under the heading to move through the work directly. It
+     drives page scroll while the section is pinned, and the strip's own
+     scrollLeft on narrow screens, so it works either way. */
+  var scrub = doc.getElementById('scrub');
+  if (scrub && rail && railWrap) {
+    /* named apart from the rail module's own `wide` flag, which lives in this
+       same scope — sharing the name turned that boolean into a function and
+       broke the rail's driver */
+    var scrubPinned = function () { return innerWidth > 720 && !reduce; };
+    var bar = scrub.querySelector('i');
+    var knob = scrub.querySelector('.knob');
+
+    var applyP = function (p) {
+      p = Math.max(0, Math.min(1, p));
+      if (scrubPinned()) {
+        var top = railWrap.getBoundingClientRect().top + scrollY;
+        pageTo(top + (railWrap.offsetHeight - innerHeight) * p);
+      } else {
+        var max = stick.scrollWidth - stick.clientWidth;
+        stick.scrollLeft = max * p;
+      }
+      scrub.setAttribute('aria-valuenow', Math.round(p * 100));
+    };
+    var fromEvent = function (e) {
+      var b = scrub.getBoundingClientRect();
+      return (e.clientX - b.left) / b.width;
+    };
+
+    var dragging = false;
+    on(scrub, 'pointerdown', function (e) {
+      dragging = true;
+      scrub.classList.add('dragging');
+      /* a synthetic or already-released pointer id throws here */
+      try { scrub.setPointerCapture && scrub.setPointerCapture(e.pointerId); } catch (err) {}
+      applyP(fromEvent(e));
+      e.preventDefault();
+    });
+    on(scrub, 'pointermove', function (e) { if (dragging) applyP(fromEvent(e)); });
+    var end = function () { dragging = false; scrub.classList.remove('dragging'); };
+    on(scrub, 'pointerup', end);
+    on(scrub, 'pointercancel', end);
+
+    on(scrub, 'keydown', function (e) {
+      var now = parseFloat(scrub.getAttribute('aria-valuenow')) / 100 || 0;
+      var step = e.shiftKey ? 0.2 : 0.06;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { applyP(now + step); e.preventDefault(); }
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { applyP(now - step); e.preventDefault(); }
+      else if (e.key === 'Home') { applyP(0); e.preventDefault(); }
+      else if (e.key === 'End') { applyP(1); e.preventDefault(); }
+    });
+
+    /* keep the bar and knob showing the true position, from either mode */
+    var paint = function (p) {
+      var pct = Math.max(0, Math.min(1, p)) * 100;
+      if (bar) bar.style.width = (5 + pct * 0.95) + '%';
+      if (knob) knob.style.left = (5 + pct * 0.95) + '%';
+      if (!dragging) scrub.setAttribute('aria-valuenow', Math.round(pct));
+    };
+    window.vaeloPaintScrub = paint;
+    on(stick, 'scroll', function () {
+      if (scrubPinned()) return;
+      var max = stick.scrollWidth - stick.clientWidth;
+      paint(max > 0 ? stick.scrollLeft / max : 0);
+    }, { passive: true });
+    paint(0);
   }
 
   /* ------------------------------------------------------- scroll reveal */

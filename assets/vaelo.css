@@ -136,8 +136,28 @@ body.menu .burger i:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 .rail-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;
   padding:clamp(80px,11vw,150px) var(--pad) 0}
 .rail-head h2{font-size:clamp(28px,5vw,64px);line-height:.94}
-.prog{height:1px;background:var(--line);margin:30px var(--pad) 0;position:relative}
-.prog i{position:absolute;left:0;top:-1px;height:3px;background:var(--accent);width:5%;display:block}
+/* The progress line is now a real scrubber: a grab handle you can drag to
+   move through the work, not just a read-out of where you are. The hit area
+   is 22px tall while the rule itself stays hairline. */
+/* The scrubber lives inside the pinned area, not above it — otherwise it
+   scrolls out of view the moment you start using it. */
+.prog{position:absolute;left:var(--pad);right:var(--pad);bottom:clamp(22px,4vh,44px);z-index:6;
+  height:22px;display:flex;align-items:center;
+  cursor:grab;touch-action:none;-webkit-tap-highlight-color:transparent}
+.rail-stick{position:sticky}
+@media(max-width:720px){
+  .prog{position:relative;left:auto;right:auto;bottom:auto;margin:14px var(--pad) 0}
+}
+.prog::before{content:'';position:absolute;left:0;right:0;height:1px;background:var(--line)}
+.prog:hover::before,.prog.dragging::before{background:rgba(244,242,236,.26)}
+.prog.dragging{cursor:grabbing}
+.prog i{position:absolute;left:0;height:3px;background:var(--accent);width:5%;display:block;
+  border-radius:2px;transition:height .2s}
+.prog:hover i,.prog.dragging i{height:5px}
+.prog .knob{position:absolute;top:50%;width:13px;height:13px;border-radius:50%;background:var(--accent);
+  transform:translate(-50%,-50%);box-shadow:0 0 0 4px rgba(214,255,63,.16);transition:transform .18s}
+.prog:hover .knob,.prog.dragging .knob{transform:translate(-50%,-50%) scale(1.25)}
+.prog:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
 .rail-wrap{position:relative}
 .rail-stick{position:sticky;top:0;height:100svh;display:flex;align-items:center;overflow:hidden}
 .rail{display:flex;gap:clamp(14px,2vw,28px);padding:0 var(--pad);will-change:transform}
@@ -292,15 +312,24 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
 @media(max-width:760px){.facts{grid-template-columns:repeat(2,1fr)}}
 .facts div{background:var(--black);padding:22px clamp(18px,2.6vw,32px)}
 .facts b{display:block;font-size:15px;font-weight:500;margin-top:7px}
-.case-body{padding:clamp(70px,10vw,130px) var(--pad);display:grid;grid-template-columns:minmax(180px,26%) 1fr;
+/* These bands used to open with 130px of air and close with another 130px,
+   leaving one small grey paragraph stranded in the middle of a dark screen
+   with the work pushed far below it. Tighter above, much tighter below, so
+   the words read as the lead-in to the images rather than an interruption. */
+.case-body{padding:clamp(54px,7vw,92px) var(--pad) clamp(26px,3.4vw,44px);
+  display:grid;grid-template-columns:minmax(180px,26%) 1fr;
   gap:clamp(22px,5vw,70px);align-items:start}
 @media(max-width:860px){.case-body{grid-template-columns:1fr;gap:20px}}
 .case-body .stick{position:sticky;top:100px}
 @media(max-width:860px){.case-body .stick{position:static}}
-.case-body h2{font-size:clamp(22px,3vw,36px);line-height:1.05}
-.prose{display:flex;flex-direction:column;gap:20px;font-size:16px;color:var(--dim);max-width:64ch}
+.case-body h2{font-size:clamp(20px,2.5vw,30px);line-height:1.08;margin-top:10px}
+/* Lead copy carried --dim at 16px, which sat too faint and too small beside
+   full-bleed imagery. Larger, looser, and lifted off the grey. */
+.prose{display:flex;flex-direction:column;gap:18px;font-size:clamp(16.5px,1.25vw,18.5px);
+  line-height:1.68;color:rgba(244,242,236,.76);max-width:60ch}
+.prose p:first-child{color:rgba(244,242,236,.92)}
 .prose b{color:var(--off);font-weight:500}
-.gal{padding:0 var(--pad) clamp(60px,9vw,120px);display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(12px,2vw,26px)}
+.gal{padding:0 var(--pad) clamp(44px,6vw,86px);display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(12px,2vw,26px)}
 .gal .slot{width:100%}
 /* These cells used to force 16:9, 4:5 and 1:1 boxes onto whatever was inside
    them. Nearly every asset here is a 4:5 or 9:16 social creative, so
