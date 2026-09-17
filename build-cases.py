@@ -115,8 +115,13 @@ def media(src, alt, cls, spec, par):
         return '<div class="slot %s" data-par="%s" data-spec="%s"></div>' % (cls, par, spec)
     a = html.escape(alt, quote=True)
     if src.lower().endswith((".mp4", ".webm", ".mov", ".m4v")):
-        inner = ('<video class="shot" src="../%s" autoplay muted loop playsinline '
-                 'preload="metadata" data-par="%s"></video>' % (src, par))
+        # a poster keeps the frame filled while the clip loads, and keeps it
+        # visible at all if the browser refuses to decode the file
+        stem = src.rsplit('.', 1)[0]
+        poster = stem + '-poster.jpg'
+        pa = (' poster="../%s"' % poster) if pathlib.Path(poster).exists() else ''
+        inner = ('<video class="shot" src="../%s"%s muted loop playsinline '
+                 'preload="metadata" data-par="%s"></video>' % (src, pa, par))
     else:
         inner = ('<img class="shot" src="../%s" alt="%s" loading="lazy" '
                  'decoding="async" data-par="%s">' % (src, a, par))

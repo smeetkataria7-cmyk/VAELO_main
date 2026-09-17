@@ -663,6 +663,67 @@
     drift(); onScroll(drift);
   }
 
+  /* ---------------------------------------------- gallery playback ---
+     Case-study clips play only while they are actually on screen, and pause
+     when they leave. The whole gallery used to autoplay at once, which is
+     what made these pages heavy; the poster frame holds the cell until its
+     clip is in view. */
+  (function () {
+    var vids = doc.querySelectorAll('.gal video');
+    if (!vids.length) return;
+    if (reduce || !('IntersectionObserver' in window)) {
+      vids.forEach(function (v) { v.setAttribute('controls', ''); });
+      return;
+    }
+    var vio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting) {
+          var pr = v.play();
+          if (pr && pr.catch) pr.catch(function () {});   /* poster stays */
+        } else if (!v.paused) {
+          v.pause();
+        }
+      });
+    }, { threshold: 0.45 });
+    vids.forEach(function (v) { vio.observe(v); });
+  })();
+
+  /* ------------------------------------------------- gallery sizing ---
+     Each gallery cell adopts the true shape of the file inside it, so a 4:5
+     creative is shown whole instead of being cropped into a 16:9 slot. */
+  (function () {
+    var cells = doc.querySelectorAll('.gal figure');
+    if (!cells.length) return;
+    var fit = function (el, w, h) {
+      if (!(w > 0 && h > 0)) return;
+      el.style.setProperty('--ar', w + ' / ' + h);
+      var r = w / h;
+      el.classList.remove('is-portrait', 'is-square', 'is-landscape');
+      el.classList.add(r < 0.9 ? 'is-portrait' : r > 1.2 ? 'is-landscape' : 'is-square');
+    };
+    cells.forEach(function (fig) {
+      var img = fig.querySelector('img');
+      if (img) {
+        if (img.complete && img.naturalWidth) fit(fig, img.naturalWidth, img.naturalHeight);
+        else on(img, 'load', function () { fit(fig, img.naturalWidth, img.naturalHeight); });
+        return;
+      }
+      var vid = fig.querySelector('video');
+      if (vid) {
+        var take = function () { fit(fig, vid.videoWidth, vid.videoHeight); };
+        if (vid.videoWidth) take(); else on(vid, 'loadedmetadata', take);
+        /* a poster still carries the shape when the video cannot decode */
+        var ps = vid.getAttribute('poster');
+        if (ps) {
+          var probe = new Image();
+          probe.onload = function () { if (!vid.videoWidth) fit(fig, probe.naturalWidth, probe.naturalHeight); };
+          probe.src = ps;
+        }
+      }
+    });
+  })();
+
   /* ------------------------------------------------------------- tilt ---
      Cards lean toward the pointer on a real perspective plane. Small angles
      only — the point is that the surface feels physical, not that it spins. */
