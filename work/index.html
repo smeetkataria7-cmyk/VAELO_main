@@ -61,8 +61,12 @@ function shot(w) {
      represent the brand, rather than whatever the case study opens on. */
   var cover = w.images && w.images.cover;
   if (cover) {
+    /* If a cover file is missing or fails to decode, fall back to the hero
+       frame rather than leaving a broken image in the rail. */
+    var fb = (w.images && (w.images.heroPoster || w.images.hero)) || '';
+    var onerr = fb ? ' onerror="this.onerror=null;this.src=\'../' + fb + '\'"' : '';
     return '<img class="shot" src="../' + cover + '" alt="' + w.title.replace(/"/g, '&quot;') +
-      '" loading="lazy" decoding="async" data-par="7">';
+      '" loading="lazy" decoding="async" data-par="7"' + onerr + '>';
   }
   var src = w.images && w.images.hero;
   var poster = w.images && w.images.heroPoster;

@@ -45,7 +45,7 @@ window.VAELO_WORK = [
     brief: 'Marigold Miraaya had reached the point most developments treat as the finish line \u2014 OC received, ready to move in, MahaRERA P51800003669. The category answers that moment with specification: carpet area, configuration, possession date. None of it tells a buyer what living there is actually like, and every competing listing reads the same way.',
     did: 'We shot the building the way residents use it and built the campaign around moments rather than amenities \u2014 carrom in the indoor games room, a couple in the poolside cabana, families in the water at the same hour. The line carries the argument: Evenings Well Spent. Unwind. Together. Something for Everyone. The specification and the RERA number stay on the pack where they belong; the campaign sells the evening.',
     kpis: [['OC', 'Received'], ['P51800003669', 'MahaRERA'], ['Ready', 'To move in']],
-    images: { hero: 'assets/work/marigold-miraaya/photo-01.jpg', gallery: [
+    images: { cover: 'assets/work/marigold-miraaya/cover.png', hero: 'assets/work/marigold-miraaya/photo-01.jpg', gallery: [
       'assets/work/marigold-miraaya/film.mp4',
       'assets/work/marigold-miraaya/photo-02.jpg',
       'assets/work/marigold-miraaya/photo-03.jpg',
