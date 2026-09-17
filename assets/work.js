@@ -68,7 +68,7 @@ window.VAELO_WORK = [
     brief: 'Hundreds of SKUs, a season that would be over before a traditional shoot schedule finished, and a brand team who would reject anything that looked synthetic. The constraint was never cost — it was calendar.',
     did: 'We stood up an AI production pipeline for product and lifestyle imagery with a consistency specification tight enough to pass the brand team\'s own review: fixed lighting logic, a locked colour response, and a per-SKU checklist. Everything that failed review went back through the pipeline rather than into a reshoot.',
     kpis: [['1 season', 'Delivered in-window'], ['100%', 'Brand-review pass'], ['0', 'Reshoots']],
-    images: { hero: 'assets/work/catalogue-at-scale/01.mp4', heroPoster: 'assets/work/catalogue-at-scale/01-poster.jpg', gallery: [
+    images: { cover: 'assets/work/catalogue-at-scale/cover.png', hero: 'assets/work/catalogue-at-scale/01.mp4', heroPoster: 'assets/work/catalogue-at-scale/01-poster.jpg', gallery: [
       'assets/work/catalogue-at-scale/02.mp4',
       'assets/work/catalogue-at-scale/03.mp4',
       'assets/work/catalogue-at-scale/04.mp4',
