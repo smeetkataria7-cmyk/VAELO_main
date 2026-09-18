@@ -16,8 +16,8 @@ window.VAELO_WORK = [
     tile: '',
     summary: 'A new range with a fixed launch date, no existing audience, and a category where everything looks the same on shelf and identical in feed.',
     brief: 'The client had a finished product, a hard launch date and no audience. The category is crowded with brands that all resolved to the same visual language — soft pastels, sans-serif wordmark, a claim nobody reads. A staged rollout would have burned the launch window before anyone noticed the product existed.',
-    did: 'We built the identity and the packaging system first, because the pack is the ad in a category people meet on a shelf. Then the full launch asset library was produced in-house — product, lifestyle and UGC-style video — so the Meta buy launched against creative we made ourselves. One team held the positioning from the first sketch to the third round of ad iterations, which is why the test loop closed in days rather than weeks.',
-    kpis: [['240', 'Assets shipped'], ['9 days', 'Concept to live'], ['4', 'Channels at launch']],
+    did: 'We built the identity and the packaging system first, because the pack is the ad in a category people meet on a shelf. Then the full launch asset library was produced in-house — product, lifestyle and UGC-style video — so the Meta buy launched against creative we made ourselves. One team held the positioning from the first sketch to the third round of ad iterations, which is why the test loop closed in days rather than weeks. The Meta buy returned 4x on a ₹30,000 spend.',
+    kpis: [['4x', 'Return on ad spend'], ['₹30,000', 'Media spend'], ['9 days', 'Concept to live']],
     images: { cover: 'assets/work/launch-not-a-rollout/cover.png', hero: 'assets/work/launch-not-a-rollout/01.mp4', heroPoster: 'assets/work/launch-not-a-rollout/01-poster.jpg', gallery: [
       'assets/work/launch-not-a-rollout/02.mp4',
       'assets/work/launch-not-a-rollout/03.jpg',
@@ -88,8 +88,8 @@ window.VAELO_WORK = [
     tile: '',
     summary: 'A catalogue too large to shoot conventionally inside the season it was meant to sell in.',
     brief: 'Hundreds of SKUs, a season that would be over before a traditional shoot schedule finished, and a brand team who would reject anything that looked synthetic. The constraint was never cost — it was calendar.',
-    did: 'We stood up an AI production pipeline for product and lifestyle imagery with a consistency specification tight enough to pass the brand team\'s own review: fixed lighting logic, a locked colour response, and a per-SKU checklist. Everything that failed review went back through the pipeline rather than into a reshoot.',
-    kpis: [['1 season', 'Delivered in-window'], ['100%', 'Brand-review pass'], ['0', 'Reshoots']],
+    did: 'We stood up an AI production pipeline for product and lifestyle imagery with a consistency specification tight enough to pass the brand team\'s own review: fixed lighting logic, a locked colour response, and a per-SKU checklist. Everything that failed review went back through the pipeline rather than into a reshoot. The catalogue it fed has generated over ₹1 lakh in revenue.',
+    kpis: [['₹1L+', 'Revenue generated'], ['100%', 'Brand-review pass'], ['0', 'Reshoots']],
     images: { cover: 'assets/work/catalogue-at-scale/cover.png', hero: 'assets/work/catalogue-at-scale/01.mp4', heroPoster: 'assets/work/catalogue-at-scale/01-poster.jpg', gallery: [
       'assets/work/catalogue-at-scale/02.mp4',
       'assets/work/catalogue-at-scale/03.mp4',
