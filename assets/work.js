@@ -186,7 +186,7 @@ window.VAELO_WORK = [
   },
   {
     slug: 'niti-bothra',
-    idx: '07',
+    idx: '08',
     title: 'Niti Bothra',
     cat: 'Fashion',
     scope: 'AI Production',
