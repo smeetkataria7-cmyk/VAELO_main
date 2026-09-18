@@ -189,7 +189,7 @@ window.VAELO_WORK = [
     brief: 'Most of what a production line does can\'t be shown in a portfolio without shooting it again. This reel exists to show the stack itself — what it can produce before a client brief even asks for it.',
     did: 'Six concepts, generated and finished end to end through the AI pipeline — no camera, no set, no shoot day. The point isn\'t any single concept; it\'s the production speed that let all six exist.',
     kpis: [['6', 'Concepts produced'], ['0', 'Shoot days'], ['100%', 'AI-native production']],
-    images: { hero: 'assets/work/conceptual/01.mp4', heroPoster: 'assets/work/conceptual/01-poster.jpg', gallery: ['assets/work/conceptual/02.mp4', 'assets/work/conceptual/03.mp4', 'assets/work/conceptual/04.mp4', 'assets/work/conceptual/05.mp4', 'assets/work/conceptual/06.mp4'] }
+    images: { cover: 'assets/work/conceptual/cover.jpg', hero: 'assets/work/conceptual/01.mp4', heroPoster: 'assets/work/conceptual/01-poster.jpg', gallery: ['assets/work/conceptual/02.mp4', 'assets/work/conceptual/03.mp4', 'assets/work/conceptual/04.mp4', 'assets/work/conceptual/05.mp4', 'assets/work/conceptual/06.mp4'] }
   },
   {
     slug: 'niti-bothra',
