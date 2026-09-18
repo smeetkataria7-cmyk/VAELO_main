@@ -135,7 +135,7 @@ window.VAELO_WORK = [
     summary: 'A genuinely sustainable material story that customers could not read off the pack in three seconds.',
     brief: 'The sustainability claim was real, third-party verified, and buried. It sat below an ingredient list, in a typographic hierarchy that gave equal weight to everything — which is the same as giving weight to nothing.',
     did: 'We rebuilt the pack hierarchy so the claim lands before the ingredient list, with an iconography set that carries the science without a paragraph of explanation. The system was drawn to scale across the full range, including the smallest format, where most pack systems quietly fall apart.',
-    kpis: [['3 sec', 'Claim comprehension target'], ['1 system', 'Full range'], ['SKU-min', 'Tested at smallest format']],
+    kpis: [['1 system', 'Full range'], ['SKU-min', 'Tested at smallest format']],
     images: { cover: 'assets/work/make-the-science-legible/cover.jpg', hero: 'assets/work/make-the-science-legible/01.mp4', heroPoster: 'assets/work/make-the-science-legible/01-poster.jpg', gallery: [
       'assets/work/make-the-science-legible/02.mp4',
       'assets/work/make-the-science-legible/03.mp4',
