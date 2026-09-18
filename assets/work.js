@@ -91,7 +91,7 @@ window.VAELO_WORK = [
     brief: 'Enrolment runs to a calendar that does not move. The content operation did move — deadlines slipped, approvals stalled in inboxes, and trend-driven swaps arrived too late to make the window they were meant to catch.',
     did: 'We designed the system before producing anything: a content calendar with real stage gates, an approval flow with named owners, and a change log so a trend swap is a recorded decision rather than a lost message. Then we produced against it through two full intake cycles to prove it held under load.',
     kpis: [['2', 'Intake cycles run'], ['7 stages', 'Idea to posted'], ['0', 'Missed windows']],
-    images: { hero: 'assets/work/built-to-enroll/01.mp4', heroPoster: 'assets/work/built-to-enroll/01-poster.jpg', gallery: [
+    images: { cover: 'assets/work/built-to-enroll/cover.jpg', hero: 'assets/work/built-to-enroll/01.mp4', heroPoster: 'assets/work/built-to-enroll/01-poster.jpg', gallery: [
       'assets/work/built-to-enroll/02.mp4',
       'assets/work/built-to-enroll/03.mp4',
       'assets/work/built-to-enroll/04.mp4',
