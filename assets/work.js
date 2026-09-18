@@ -183,5 +183,26 @@ window.VAELO_WORK = [
     did: 'Six concepts, generated and finished end to end through the AI pipeline — no camera, no set, no shoot day. The point isn\'t any single concept; it\'s the production speed that let all six exist.',
     kpis: [['6', 'Concepts produced'], ['0', 'Shoot days'], ['100%', 'AI-native production']],
     images: { hero: 'assets/work/conceptual/01.mp4', heroPoster: 'assets/work/conceptual/01-poster.jpg', gallery: ['assets/work/conceptual/02.mp4', 'assets/work/conceptual/03.mp4', 'assets/work/conceptual/04.mp4', 'assets/work/conceptual/05.mp4', 'assets/work/conceptual/06.mp4'] }
+  },
+  {
+    slug: 'niti-bothra',
+    idx: '07',
+    title: 'Niti Bothra',
+    cat: 'Fashion',
+    scope: 'AI Production',
+    year: '2026',
+    client: 'Niti Bothra',
+    tile: '',
+    summary: 'A full ethnic-wear lookbook produced entirely through AI product photography — no studio day, no models on set.',
+    brief: 'An ethnic wear label needed a lookbook that reads like a studio shoot with hired models, stylists and a location — on a timeline and budget that a traditional shoot day couldn’t meet.',
+    did: 'We ran the full lookbook through the AI production pipeline: garment shots turned into styled, model-worn imagery with consistent lighting, skin tone and drape across every piece, so the set reads as one shoot rather than a patchwork of renders.',
+    kpis: [['6', 'Looks produced'], ['0', 'Shoot days'], ['100%', 'AI-native production']],
+    images: { hero: 'assets/work/niti-bothra/01-hero.jpg', gallery: [
+      'assets/work/niti-bothra/02.jpg',
+      'assets/work/niti-bothra/03.jpg',
+      'assets/work/niti-bothra/04.jpg',
+      'assets/work/niti-bothra/05.jpg',
+      'assets/work/niti-bothra/06.jpg'
+    ] }
   }
 ];
