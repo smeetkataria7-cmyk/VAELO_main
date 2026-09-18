@@ -633,3 +633,89 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
 .live-link::after{content:'';position:absolute;left:0;bottom:-3px;width:100%;height:1px;background:var(--accent);
   transform:scaleX(0);transform-origin:right;transition:transform .4s cubic-bezier(.2,.7,.2,1)}
 .live-link:hover::after{transform:scaleX(1);transform-origin:left}
+
+/* ==========================================================================
+   MOBILE PASS
+   A phone is the first screen this site is judged on, so the small-screen
+   rules live together here rather than scattered through the file. Three
+   things are being fixed: touch targets that were too small to hit
+   reliably, headers that ran into the content underneath them, and copy
+   set at desktop sizes that got cramped once the column narrowed.
+   ========================================================================== */
+
+/* ---------- touch targets ----------
+   A finger needs roughly 44px. Several controls were drawn smaller than
+   that, so the hit area is grown with padding and pulled back with a
+   negative margin — the target gets bigger, the layout does not move. */
+@media(pointer:coarse),(max-width:720px){
+  .word{padding:8px 2px;margin:-8px -2px}
+  .burger{padding:15px;margin:-15px;gap:6px}
+  .burger i{width:26px}
+
+  /* inline links that sat on a single line of text */
+.live-link,.crumb a,footer a,.more,.rail-head .tab a,.nav-links a{
+    display:inline-block;padding-block:14px;margin-block:-14px}
+
+  /* .mail keeps its own display and top margin — it is a block-level
+     control already, so it only needs a taller strike area */
+  .mail{padding-top:10px;padding-bottom:12px}
+
+  /* filter pills and tabs */
+  .tab-btn{padding:11px 18px;font-size:12px}
+  .pill{font-size:11px;padding:6px 12px}
+
+  /* the rail scrubber is a drag handle — give it a real grab area */
+  /* a two-word breadcrumb is too narrow to hit on its own */
+  .crumb a{padding-inline:6px;margin-inline:-6px}
+
+  .prog{height:34px}
+  .prog .knob{width:16px;height:16px}
+}
+
+/* ---------- page headers ----------
+   .arch-hd carries no bottom padding because the work archive puts its
+   filter tabs directly beneath it. The blog has no tabs, so its first
+   card was landing against the headline. */
+.arch-hd + .post-list{padding-top:clamp(28px,6vw,56px)}
+
+@media(max-width:720px){
+  .arch-hd{padding-top:104px}
+  .arch-hd h1{line-height:.94}
+
+  /* ---------- hero ----------
+     Bottom-anchored over a full viewport left the standfirst below the
+     fold on a phone. Shortening the box and tightening the padding brings
+     the whole statement into the first screen. */
+  .hero{min-height:92svh;padding:96px var(--pad) 40px}
+  .hero-foot{margin-top:22px}
+
+  /* ---------- copy ----------
+     Uppercase text with wide tracking is hard work at small sizes over
+     several lines, so the tracking comes in as the column narrows. */
+  /* the section standfirsts are set in the small uppercase label style;
+     over four lines that needs looser leading and tighter tracking */
+  .lab{letter-spacing:.06em}
+  .sec-hd .lab,.rail-head .tab{font-size:12px;line-height:1.75}
+
+  /* section headings were breaking to four and five lines */
+  .sec h2{line-height:.96}
+
+  /* contact details stack into one readable column */
+  .cbits{gap:22px}
+
+  /* the footer's two halves were colliding on the narrowest phones */
+  footer{flex-direction:column;gap:10px}
+}
+
+/* ---------- very narrow (360px and below) ---------- */
+@media(max-width:380px){
+  :root{--pad:18px}
+  .tile,.tile.tall{width:78vw}
+}
+
+/* ---------- landscape phones ----------
+   100svh sections become unreadable when the viewport is 380px tall. */
+@media(max-height:520px) and (orientation:landscape){
+  .hero{min-height:auto;padding-top:88px;padding-bottom:36px}
+  .rail-stick{height:auto}
+}
