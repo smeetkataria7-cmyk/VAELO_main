@@ -33,8 +33,30 @@ window.VAELO_WORK = [
     ] }
   },
   {
-    slug: 'marigold-miraaya',
+    slug: 'deon-tapes',
     idx: '02',
+    title: 'The Factory, On the Record',
+    cat: 'Manufacturing',
+    scope: 'Web & Product',
+    year: '2026',
+    client: 'Deon Tapes \u2014 adhesive tape manufacturing',
+    link: 'https://deontapes.com/',
+    linkLabel: 'deontapes.com',
+    tile: '',
+    summary: 'A full website rebuild for an adhesive tape manufacturer \u2014 the whole range catalogued, and the factory itself made the argument.',
+    brief: 'Deon Tapes makes adhesive tape at industrial scale and sells to buyers who need proof before they need persuasion: what is actually made, to what standard, on what plant. The site in place did none of that work \u2014 the range was not catalogued, the accreditations were invisible, and there was nothing to show a buyer the factory behind the claim.',
+    did: 'We started with a gap analysis against the existing site, then wireframed the whole thing before a line of it was built \u2014 brief, wireframes, brand guidelines and a redesign report, each signed off in turn. The build runs to thirty pages: the full product catalogue, a knowledge centre, applications by industry, OEM partners, a company journey, and a blog the team publishes to themselves. Twenty-two factory photographs carry the plant, and the accreditation marks sit where a procurement buyer looks first.',
+    kpis: [['33', 'Products catalogued'], ['30', 'Pages built'], ['9', 'Accreditations shown']],
+    images: { cover: 'assets/work/deon-tapes/cover.jpg', hero: 'assets/work/deon-tapes/01.jpg', gallery: [
+      'assets/work/deon-tapes/02.jpg',
+      'assets/work/deon-tapes/03.jpg',
+      'assets/work/deon-tapes/04.jpg',
+      'assets/work/deon-tapes/05.jpg'
+    ] }
+  },
+  {
+    slug: 'marigold-miraaya',
+    idx: '03',
     title: 'Marigold Miraaya',
     cat: 'Real Estate',
     scope: 'Film + Social Campaign',
@@ -57,7 +79,7 @@ window.VAELO_WORK = [
   },
   {
     slug: 'catalogue-at-scale',
-    idx: '03',
+    idx: '04',
     title: 'Catalogue at Scale',
     cat: 'Fashion',
     scope: 'AI Production',
@@ -80,7 +102,7 @@ window.VAELO_WORK = [
   },
   {
     slug: 'built-to-enroll',
-    idx: '04',
+    idx: '05',
     title: 'Built to Enroll',
     cat: 'Ed-Tech',
     scope: 'Content Systems',
@@ -103,7 +125,7 @@ window.VAELO_WORK = [
   },
   {
     slug: 'make-the-science-legible',
-    idx: '05',
+    idx: '06',
     title: 'Make the Science Legible',
     cat: 'Sustainable Packaging',
     scope: 'Design',
@@ -149,7 +171,7 @@ window.VAELO_WORK = [
   },
   {
     slug: 'conceptual',
-    idx: '06',
+    idx: '07',
     title: 'Conceptual',
     cat: 'AI Production',
     scope: 'AI Production Reel',

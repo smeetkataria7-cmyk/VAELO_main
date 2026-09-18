@@ -73,6 +73,7 @@ TPL = """<!DOCTYPE html>
   <div><span class="lab">Category</span><b>{cat}</b></div>
   <div><span class="lab">Scope</span><b>{scope}</b></div>
   <div><span class="lab">Year</span><b>{year}</b></div>
+  {link_cell}
 </div>
 
 <section class="case-body" data-rev>
@@ -142,6 +143,11 @@ def gallery(items, layout, alt):
 out = pathlib.Path("work"); out.mkdir(exist_ok=True)
 for i, w in enumerate(WORK):
     nxt = WORK[(i + 1) % len(WORK)]
+    link = w.get("link", "")
+    link_cell = ('<div><span class="lab">Live site</span>'
+                 '<b><a class="live-link" href="%s" target="_blank" rel="noopener">%s \u2197</a></b></div>'
+                 % (html.escape(link, quote=True),
+                    html.escape(w.get("linkLabel") or link.replace("https://", "").rstrip("/")))) if link else ""
     kpis = "".join(
         '<div><div class="v">{}</div><div class="l">{}</div></div>'.format(html.escape(v), html.escape(l))
         for v, l in w["kpis"])
@@ -170,6 +176,7 @@ for i, w in enumerate(WORK):
         scope=html.escape(w["scope"]), year=w["year"], client=html.escape(w["client"]),
         summary=html.escape(w["summary"], quote=True),
         brief=html.escape(w["brief"]), did=html.escape(w["did"]), kpis=kpis,
+        link_cell=link_cell,
         title_j=json.dumps(w["title"]), cat_j=json.dumps(w["cat"]),
         next_slug=nxt["slug"], next_idx=nxt["idx"], next_title=html.escape(nxt["title"]))
     (out / (w["slug"] + ".html")).write_text(page, encoding="utf-8")

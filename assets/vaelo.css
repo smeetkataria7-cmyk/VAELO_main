@@ -626,3 +626,10 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
   .gal figure.is-square,.gal figure.is-landscape{grid-column:span 12}
 }
 @media(max-width:600px){.gal figure{grid-column:1/13!important}}
+
+
+/* a client's live site, linked from the case study's facts bar */
+.live-link{color:var(--accent);position:relative}
+.live-link::after{content:'';position:absolute;left:0;bottom:-3px;width:100%;height:1px;background:var(--accent);
+  transform:scaleX(0);transform-origin:right;transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+.live-link:hover::after{transform:scaleX(1);transform-origin:left}
