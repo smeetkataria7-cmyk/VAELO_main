@@ -26,8 +26,13 @@ a{color:inherit;text-decoration:none}
 :focus-visible{outline:2px solid var(--accent);outline-offset:4px}
 img{max-width:100%;display:block}
 h1,h2,h3,.disp{font-family:var(--display);font-weight:700;letter-spacing:-.02em;text-transform:uppercase;text-wrap:balance}
-.out{color:transparent;-webkit-text-stroke:1.4px var(--off)}
-@media(max-width:700px){.out{-webkit-text-stroke-width:1px}}
+/* The emphasised line in a headline. It used to be drawn as transparent
+   text with a stroke, but -webkit-text-stroke centres the stroke on the
+   glyph edge, which eats into the counters and makes the word read as a
+   narrower, different typeface sitting next to the solid lines. Same
+   family, same weight — it just did not look it. It is now solid and
+   carries the accent instead, so the page holds one face throughout. */
+.out{color:var(--accent)}
 .lab{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim)}
 .lab.ac{color:var(--accent)}
 .tab{font-variant-numeric:tabular-nums}
