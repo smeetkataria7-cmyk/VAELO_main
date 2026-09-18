@@ -7,6 +7,7 @@ window.VAELO_WORK = [
 
   {
     slug: 'launch-not-a-rollout',
+    tone: '#2970af',
     idx: '01',
     title: 'Launch, Not a Rollout',
     cat: 'D2C',
@@ -34,6 +35,7 @@ window.VAELO_WORK = [
   },
   {
     slug: 'deon-tapes',
+    tone: '#c53c2c',
     idx: '02',
     title: 'The Factory, On the Record',
     cat: 'Manufacturing',
@@ -56,6 +58,7 @@ window.VAELO_WORK = [
   },
   {
     slug: 'marigold-miraaya',
+    tone: '#d9a326',
     idx: '03',
     title: 'Marigold Miraaya',
     cat: 'Real Estate',
@@ -79,6 +82,7 @@ window.VAELO_WORK = [
   },
   {
     slug: 'catalogue-at-scale',
+    tone: '#277569',
     idx: '04',
     title: 'Catalogue at Scale',
     cat: 'Fashion',
@@ -102,6 +106,7 @@ window.VAELO_WORK = [
   },
   {
     slug: 'built-to-enroll',
+    tone: '#f58d13',
     idx: '05',
     title: 'Built to Enroll',
     cat: 'Ed-Tech',
@@ -125,6 +130,7 @@ window.VAELO_WORK = [
   },
   {
     slug: 'make-the-science-legible',
+    tone: '#3c7730',
     idx: '06',
     title: 'Make the Science Legible',
     cat: 'Sustainable Packaging',
@@ -171,6 +177,7 @@ window.VAELO_WORK = [
   },
   {
     slug: 'conceptual',
+    tone: '#d6ff3f',
     idx: '07',
     title: 'Conceptual',
     cat: 'AI Production',
@@ -186,6 +193,7 @@ window.VAELO_WORK = [
   },
   {
     slug: 'niti-bothra',
+    tone: '#c92849',
     idx: '08',
     title: 'Niti Bothra',
     cat: 'Fashion',

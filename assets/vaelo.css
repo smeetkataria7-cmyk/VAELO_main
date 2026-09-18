@@ -724,3 +724,55 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
   .hero{min-height:auto;padding-top:88px;padding-bottom:36px}
   .rail-stick{height:auto}
 }
+
+/* ==========================================================================
+   WORK ARCHIVE — staggered grid with coloured caption bars
+   Each project is an image over a bar carrying that brand's own colour, so
+   the page reads as a set of brands rather than a wall of thumbnails.
+   The covers stay a uniform 4:5 — the stagger comes from offsetting the
+   middle column, not from letting the images run to different heights.
+   ========================================================================== */
+.arch-hd.centred,.tabs.centred{text-align:center}
+.tabs.centred{justify-content:center}
+
+.arch.mason{grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.4vw,34px);align-items:start}
+.arch.mason > :nth-child(3n+2){margin-top:clamp(40px,7vw,96px)}
+
+.arch.mason .arch-item{display:flex;flex-direction:column;gap:14px}
+/* the category filter hides cards with the hidden attribute; a class-level
+   display rule outranks the browser's own [hidden] styling, so it has to be
+   restated here or filtering silently stops hiding anything */
+.arch.mason .arch-item[hidden]{display:none}
+.arch.mason .frame{border-radius:20px}
+/* the covers carry the page here, so they sit almost undimmed; the veil is
+   only there to keep a bright image from fighting the caption under it */
+.arch.mason .veil{opacity:.12}
+.arch.mason .arch-item:hover .veil{opacity:0}
+
+.arch.mason .bar{display:flex;align-items:center;justify-content:space-between;gap:14px;
+  background:var(--tone);color:var(--ink);border-radius:18px;
+  padding:16px clamp(16px,1.5vw,22px);transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+.arch.mason .arch-item:hover .bar{transform:translateY(-4px)}
+.arch.mason .bar h3{font-size:clamp(15px,1.35vw,21px);color:inherit;margin:0;line-height:1.1}
+.arch.mason .arch-item:hover .bar h3{color:inherit}
+.arch.mason .bar .tags{margin-top:9px}
+/* the pills sit on a coloured ground here, so they take their contrast from
+   the bar's ink rather than the page's dim grey */
+.arch.mason .bar .pill{color:inherit;border-color:currentColor;opacity:.85;font-size:11px}
+.arch.mason .arch-item:hover .bar .pill{color:inherit;border-color:currentColor}
+
+.arch.mason .see{flex:none;font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;
+  border:1px solid currentColor;border-radius:999px;padding:10px 16px;white-space:nowrap;
+  transition:background .3s,color .3s}
+.arch.mason .arch-item:hover .see{background:var(--ink);color:var(--tone)}
+
+@media(max-width:900px){
+  .arch.mason{grid-template-columns:repeat(2,1fr)}
+  .arch.mason > :nth-child(3n+2){margin-top:0}
+  .arch.mason > :nth-child(2n){margin-top:clamp(30px,6vw,64px)}
+}
+@media(max-width:620px){
+  .arch.mason{grid-template-columns:1fr}
+  .arch.mason > :nth-child(n){margin-top:0}
+  .arch.mason .bar{flex-wrap:wrap}
+}

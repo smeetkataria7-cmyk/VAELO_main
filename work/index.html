@@ -36,13 +36,13 @@
 </nav>
 
 <main>
-  <header class="arch-hd">
+  <header class="arch-hd centred">
     <p class="lab ac">Archive</p>
     <h1 style="margin-top:16px"><span class="mask"><i>Every project,</i></span><span class="mask"><i class="out">on the record.</i></span></h1>
   </header>
 
-  <div class="tabs" role="tablist" aria-label="Filter work by category" id="tabs"></div>
-  <div class="arch" id="arch"></div>
+  <div class="tabs centred" role="tablist" aria-label="Filter work by category" id="tabs"></div>
+  <div class="arch mason" id="arch"></div>
 </main>
 
 <footer>
@@ -96,12 +96,30 @@ function shot(w) {
     return list.filter(function (t) { return t && !seen[t.toLowerCase()] && (seen[t.toLowerCase()] = 1); })
       .map(function (t) { return '<span class="pill">' + t + '</span>'; }).join('');
   }
+  /* A caption bar carries the project's own colour, so the grid reads as a
+     set of brands rather than a set of thumbnails. Whether the type on it
+     is black or off-white is decided from the colour's luminance rather
+     than guessed, so a light tone never gets light text on it. */
+  function ink(hex) {
+    var c = hex.replace('#', '');
+    if (c.length === 3) c = c[0] + c[0] + c[1] + c[1] + c[2] + c[2];
+    var f = function (i) {
+      var v = parseInt(c.substr(i, 2), 16) / 255;
+      return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+    };
+    return (0.2126 * f(0) + 0.7152 * f(2) + 0.0722 * f(4)) > 0.35 ? '#0a0a0a' : '#f4f2ec';
+  }
+
   document.getElementById('arch').innerHTML = W.map(function (w) {
-    return '<a class="arch-item" data-rev data-cat="' + w.cat + '" href="' + w.slug + '.html">' +
-      '<div class="frame">' + shot(w) + '<div class="veil"></div><div class="go">↗</div></div>' +
-      '<div class="meta"><div><h3>' + w.title + '</h3><div class="tags">' + tags(w) + '</div></div>' +
-      '<div class="yr">' + w.year + '</div></div>' +
-      '<p class="sum">' + w.summary + '</p></a>';
+    var tone = w.tone || '#1b1b19';
+    return '<a class="arch-item" data-rev data-cat="' + w.cat + '" href="' + w.slug + '.html"' +
+      ' style="--tone:' + tone + ';--ink:' + ink(tone) + '">' +
+      '<div class="frame">' + shot(w) + '<div class="veil"></div></div>' +
+      '<div class="bar">' +
+        '<div class="bar-txt"><h3>' + w.title + '</h3>' +
+          '<div class="tags">' + tags(w) + '</div></div>' +
+        '<span class="see">See case</span>' +
+      '</div></a>';
   }).join('');
 })();
 </script>
