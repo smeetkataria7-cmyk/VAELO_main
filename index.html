@@ -85,20 +85,13 @@
   </div>
 </div>
 
-<!-- ================= WORK — pinned horizontal rail ================= -->
-<section id="work">
-  <div class="rail-head" data-rev data-stagger>
+<!-- ================= WORK — staggered grid ================= -->
+<section id="work" class="work-sec">
+  <div class="rail-head centred" data-rev data-stagger>
     <div><p class="lab ac">Selected Work</p><h2 style="margin-top:14px" id="railTitle">Work<br>worth the scroll</h2></div>
-    <p class="lab tab">2025 — 2026 · <span id="railCount">·</span> · scroll →<br><a href="work/" style="color:var(--accent)">View the full archive ↗</a></p>
+    <p class="lab tab">2025 — 2026 · <span id="railCount">·</span><br><a href="work/" style="color:var(--accent)">View the full archive ↗</a></p>
   </div>
-  <p class="swipe-hint">← Swipe the work sideways</p>
-  <div class="rail-wrap" id="railWrap">
-    <div class="rail-stick">
-      <div class="rail" id="rail"></div>
-      <div class="prog" id="scrub" role="slider" tabindex="0" aria-label="Scroll through the work"
-       aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="prog"></i><span class="knob"></span></div>
-    </div>
-  </div>
+  <div class="arch mason" id="rail"></div>
 </section>
 
 <!-- ================= STATEMENT ================= -->
@@ -259,12 +252,28 @@ document.getElementById('railCount').textContent = window.VAELO_WORK.length + ' 
 var catN = new Set(window.VAELO_WORK.map(function (w) { return w.cat; })).size;
 document.getElementById('catCount').textContent = catN;
 document.getElementById('catCount').setAttribute('data-count', catN);
-document.getElementById('rail').innerHTML = window.VAELO_WORK.map(function (w, i) {
+/* Each project is its cover over a bar in that brand's own colour. Whether
+   the type on the bar is black or off-white is computed from the colour's
+   luminance rather than set by hand, so a light tone never ends up carrying
+   light text. Same rule as the archive page. */
+function ink(hex) {
+  var c = hex.replace('#', '');
+  if (c.length === 3) c = c[0] + c[0] + c[1] + c[1] + c[2] + c[2];
+  var f = function (i) {
+    var v = parseInt(c.substr(i, 2), 16) / 255;
+    return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+  };
+  return (0.2126 * f(0) + 0.7152 * f(2) + 0.0722 * f(4)) > 0.35 ? '#0a0a0a' : '#f4f2ec';
+}
+document.getElementById('rail').innerHTML = window.VAELO_WORK.map(function (w) {
   /* every project gets the same cover size — no alternating tall/wide */
-  return '<a class="tile" href="work/' + w.slug + '.html">' +
-    '<div class="frame">' + shot(w, 'Case image') + '<div class="veil"></div><div class="go">↗</div></div>' +
-    '<div class="meta"><div><h3>' + w.title + '</h3><div class="tags">' + tags(w) + '</div></div>' +
-    '<div class="idx">' + w.idx + '</div></div></a>';
+  var tone = w.tone || '#1b1b19';
+  return '<a class="arch-item" data-rev href="work/' + w.slug + '.html"' +
+    ' style="--tone:' + tone + ';--ink:' + ink(tone) + '">' +
+    '<div class="frame">' + shot(w, 'Case image') + '<div class="veil"></div></div>' +
+    '<div class="bar"><div class="bar-txt"><h3>' + w.title + '</h3>' +
+      '<div class="tags">' + tags(w) + '</div></div>' +
+      '<span class="see">See case</span></div></a>';
 }).join('');
 </script>
 <script src="assets/vaelo.js"></script>
