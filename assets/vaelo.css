@@ -855,7 +855,19 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
   transition:border-color .3s,background .3s,transform .3s}
 .svc-row:hover .chip{border-color:rgba(244,242,236,.34)}
 
-.svc-shot{position:relative;overflow:hidden;border-radius:22px;aspect-ratio:4/5;background:#111110}
+/* the image is the client's work, so it links to that case study and
+   names the client on it: an unlabelled picture gives a reader no reason
+   to think there is anything behind it */
+.svc-shot{position:relative;display:block;overflow:hidden;border-radius:22px;aspect-ratio:4/5;
+  background:#111110;transition:box-shadow .35s}
+.svc-shot:hover{box-shadow:0 0 0 2px var(--accent)}
+.svc-shot-tag{position:absolute;left:12px;right:12px;bottom:12px;z-index:2;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:10px 14px;border-radius:12px;
+  background:rgba(10,10,10,.68);backdrop-filter:blur(8px);
+  font-size:clamp(11.5px,.95vw,13px);text-transform:uppercase;letter-spacing:.07em;
+  color:var(--off);transition:background .3s,color .3s}
+.svc-shot:hover .svc-shot-tag{background:var(--accent);color:var(--black)}
 .svc-shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
   transition:transform .9s cubic-bezier(.2,.7,.2,1)}
 .svc-row:hover .svc-shot img{transform:scale(1.05)}
