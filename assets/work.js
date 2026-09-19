@@ -30,7 +30,8 @@ window.VAELO_WORK = [
       'assets/work/launch-not-a-rollout/09.jpg',
       'assets/work/launch-not-a-rollout/10.jpg',
       'assets/work/launch-not-a-rollout/11.jpg',
-      'assets/work/launch-not-a-rollout/12.jpg'
+      'assets/work/launch-not-a-rollout/12.jpg',
+      'assets/work/launch-not-a-rollout/13.jpg'
     ] }
   },
   {
@@ -70,14 +71,21 @@ window.VAELO_WORK = [
     brief: 'Marigold Miraaya had reached the point most developments treat as the finish line: OC received, ready to move in, MahaRERA P51800003669. The category answers that moment with specification: carpet area, configuration, possession date. None of it tells a buyer what living there is actually like, and every competing listing reads the same way.',
     did: 'We shot the building the way residents use it and built the campaign around moments rather than amenities: carrom in the indoor games room, a couple in the poolside cabana, families in the water at the same hour. The line carries the argument: Evenings Well Spent. Unwind. Together. Something for Everyone. The specification and the RERA number stay on the pack where they belong; the campaign sells the evening.',
     kpis: [['OC', 'Received'], ['P51800003669', 'MahaRERA'], ['Ready', 'To move in']],
-    images: { cover: 'assets/work/marigold-miraaya/cover.png', hero: 'assets/work/marigold-miraaya/photo-01.jpg', gallery: [
+    images: { hero: 'assets/work/marigold-miraaya/photo-01.jpg', gallery: [
       'assets/work/marigold-miraaya/film.mp4',
       'assets/work/marigold-miraaya/photo-02.jpg',
       'assets/work/marigold-miraaya/photo-03.jpg',
       'assets/work/marigold-miraaya/photo-04.jpg',
       'assets/work/marigold-miraaya/photo-05.jpg',
       'assets/work/marigold-miraaya/photo-06.jpg',
-      'assets/work/marigold-miraaya/photo-07.jpg'
+      'assets/work/marigold-miraaya/photo-07.jpg',
+      'assets/work/marigold-miraaya/01.mp4',
+      'assets/work/marigold-miraaya/02.mp4',
+      'assets/work/marigold-miraaya/03.mp4',
+      'assets/work/marigold-miraaya/04.mp4',
+      'assets/work/marigold-miraaya/05.mp4',
+      'assets/work/marigold-miraaya/06.mp4',
+      'assets/work/marigold-miraaya/07.mp4'
     ] }
   },
   {
@@ -129,7 +137,21 @@ window.VAELO_WORK = [
       'assets/work/built-to-enroll/05.mp4',
       'assets/work/built-to-enroll/06.mp4',
       'assets/work/built-to-enroll/07.mp4',
-      'assets/work/built-to-enroll/08.mp4'
+      'assets/work/built-to-enroll/08.mp4',
+      'assets/work/built-to-enroll/09.mp4',
+      'assets/work/built-to-enroll/10.mp4',
+      'assets/work/built-to-enroll/11.mp4',
+      'assets/work/built-to-enroll/12.mp4',
+      'assets/work/built-to-enroll/13.mp4',
+      'assets/work/built-to-enroll/14.mp4',
+      'assets/work/built-to-enroll/15.mp4',
+      'assets/work/built-to-enroll/16.mp4',
+      'assets/work/built-to-enroll/17.mp4',
+      'assets/work/built-to-enroll/18.mp4',
+      'assets/work/built-to-enroll/19.mp4',
+      'assets/work/built-to-enroll/20.mp4',
+      'assets/work/built-to-enroll/21.mp4',
+      'assets/work/built-to-enroll/22.mp4'
     ] }
   },
   {
@@ -193,7 +215,14 @@ window.VAELO_WORK = [
     brief: 'Most of what a production line does can\'t be shown in a portfolio without shooting it again. This reel exists to show the stack itself, and what it can produce before a client brief even asks for it.',
     did: 'Six concepts, generated and finished end to end through the AI pipeline: no camera, no set, no shoot day. The point isn\'t any single concept; it\'s the production speed that let all six exist.',
     kpis: [['6', 'Concepts produced'], ['0', 'Shoot days'], ['100%', 'AI-native production']],
-    images: { cover: 'assets/work/conceptual/cover.jpg', hero: 'assets/work/conceptual/01.mp4', heroPoster: 'assets/work/conceptual/01-poster.jpg', gallery: ['assets/work/conceptual/02.mp4', 'assets/work/conceptual/03.mp4', 'assets/work/conceptual/04.mp4', 'assets/work/conceptual/05.mp4', 'assets/work/conceptual/06.mp4'] }
+    images: { cover: 'assets/work/conceptual/cover.jpg', hero: 'assets/work/conceptual/01.mp4', heroPoster: 'assets/work/conceptual/01-poster.jpg', gallery: ['assets/work/conceptual/02.mp4', 'assets/work/conceptual/03.mp4', 'assets/work/conceptual/04.mp4', 'assets/work/conceptual/05.mp4', 'assets/work/conceptual/06.mp4',
+      'assets/work/conceptual/07.png',
+      'assets/work/conceptual/08.png',
+      'assets/work/conceptual/09.png',
+      'assets/work/conceptual/10.png',
+      'assets/work/conceptual/11.png',
+      'assets/work/conceptual/12.png',
+      'assets/work/conceptual/13.png'] }
   },
   {
     slug: 'niti-bothra',

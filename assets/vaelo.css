@@ -13,6 +13,8 @@
      the pairing; use a weight or a size instead. */
   --display:'Bricolage Grotesque',ui-sans-serif,system-ui,sans-serif;
   --text:'Archivo',ui-sans-serif,system-ui,-apple-system,sans-serif;
+  /* the wordmark only; see .word */
+  --mark:'Montserrat',ui-sans-serif,system-ui,sans-serif;
   --pad:5vw;
 }
 *{margin:0;padding:0;box-sizing:border-box}
@@ -68,7 +70,10 @@ nav.top{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-con
    never has to compete with whatever is scrolling underneath it */
 body.scrolled nav.top{mix-blend-mode:normal;background:rgba(6,6,5,.82);backdrop-filter:blur(12px);
   padding-top:15px;padding-bottom:15px;border-bottom:1px solid var(--line)}
-.word{font-family:var(--display);font-weight:800;font-size:20px;letter-spacing:-.01em}
+/* The wordmark is the one place a third face is used: Montserrat, in
+   pure white, so the logo reads as a mark rather than as another heading
+   set in the display face. Everything else still holds to the two. */
+.word{font-family:var(--mark);font-weight:700;font-size:20px;letter-spacing:-.01em;color:#fff}
 .nav-links{display:flex;gap:28px;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
 .nav-links a{position:relative;padding-bottom:3px}
 .nav-links a::after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;background:currentColor;
@@ -781,3 +786,11 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
 .work-sec .rail-head.centred{display:block;text-align:center;padding:0 var(--pad) clamp(34px,5vw,60px)}
 .work-sec .rail-head.centred .tab{margin-top:18px}
 .work-sec .arch.mason{padding-left:var(--pad);padding-right:var(--pad)}
+
+/* ---------- case page header, without the hero image ----------
+   The full-bleed hero cropped a 4:5 cover into a letterbox band, which
+   cut heads and product off. The header is now type on the page ground,
+   so nothing is cropped and the title lands immediately. */
+.case-hero.bare{min-height:0;padding:clamp(140px,16vh,190px) var(--pad) clamp(30px,4vw,48px);
+  border-bottom:1px solid var(--line)}
+.case-hero.bare h1{max-width:20ch}
