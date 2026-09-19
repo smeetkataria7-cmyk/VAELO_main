@@ -9,7 +9,7 @@ window.VAELO_WORK = [
     slug: 'launch-not-a-rollout',
     tone: '#2970af',
     idx: '01',
-    title: 'Launch, Not a Rollout',
+    title: 'SimpliCare',
     cat: 'D2C',
     scope: 'Brand + Performance',
     year: '2026',
