@@ -89,6 +89,8 @@ window.VAELO_WORK = [
     scope: 'AI Production',
     year: '2025',
     client: 'Tribal Zone — jewellery and accessories',
+    link: 'https://www.tribalzone.in/',
+    linkLabel: 'tribalzone.in',
     tile: '',
     summary: 'A catalogue too large to shoot conventionally inside the season it was meant to sell in.',
     brief: 'Hundreds of SKUs, a season that would be over before a traditional shoot schedule finished, and a brand team who would reject anything that looked synthetic. The constraint was never cost — it was calendar.',
