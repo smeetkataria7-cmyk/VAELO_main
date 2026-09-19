@@ -11,6 +11,8 @@ on:
     paths:
       - "assets/work.js"
       - "assets/blog.js"
+      - "assets/vaelo.css"
+      - "assets/vaelo.js"
 
 permissions:
   contents: write
@@ -37,11 +39,14 @@ jobs:
       - name: Regenerate blog/*.html from assets/blog.js
         run: python3 build-posts.py
 
+      - name: Stamp asset links with a content hash
+        run: python3 stamp-assets.py
+
       - name: Commit regenerated pages
         run: |
           git config user.name "vaelo-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add work/*.html blog/*.html
+          git add work/*.html blog/*.html index.html services/*.html editor.html manage.html
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
