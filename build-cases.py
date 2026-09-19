@@ -91,9 +91,12 @@ TPL = """<!DOCTYPE html>
 <div class="kpis" data-rev data-stagger>{kpis}</div>
 </main>
 
-<a class="next" href="{next_slug}.html">
-  <p class="lab ac">Next project · {next_idx}</p>
-  <h2>{next_title}</h2>
+<a class="next" href="{next_slug}.html" style="--tone:{next_tone}">
+  <div class="next-txt">
+    <p class="lab ac">Next project · {next_idx}</p>
+    <h2>{next_title}</h2>
+  </div>
+  <div class="next-shot">{next_cover}</div>
   <span class="arrow" aria-hidden="true">↗</span>
 </a>
 
@@ -141,6 +144,13 @@ def gallery(items, layout, alt):
 out = pathlib.Path("work"); out.mkdir(exist_ok=True)
 for i, w in enumerate(WORK):
     nxt = WORK[(i + 1) % len(WORK)]
+    # the next-project block reads as more body copy without a picture of
+    # what it leads to, so it carries that project's cover
+    nimg = nxt.get("images", {})
+    nsrc = nimg.get("cover") or nimg.get("heroPoster") or nimg.get("hero") or ""
+    if nsrc.lower().endswith((".mp4", ".webm", ".mov")):
+        nsrc = nimg.get("heroPoster", "")
+    next_cover = ('<img src="../%s" alt="" loading="lazy" decoding="async">' % html.escape(nsrc, quote=True)) if nsrc else ""
     link = w.get("link", "")
     link_cell = ('<div><span class="lab">Live site</span>'
                  '<b><a class="live-link" href="%s" target="_blank" rel="noopener">%s \u2197</a></b></div>'
@@ -176,6 +186,7 @@ for i, w in enumerate(WORK):
         brief=html.escape(w["brief"]), did=html.escape(w["did"]), kpis=kpis,
         link_cell=link_cell,
         title_j=json.dumps(w["title"]), cat_j=json.dumps(w["cat"]),
-        next_slug=nxt["slug"], next_idx=nxt["idx"], next_title=html.escape(nxt["title"]))
+        next_slug=nxt["slug"], next_idx=nxt["idx"], next_title=html.escape(nxt["title"]),
+        next_tone=nxt.get("tone", "#d6ff3f"), next_cover=next_cover)
     (out / (w["slug"] + ".html")).write_text(page, encoding="utf-8")
     print("wrote work/%s.html" % w["slug"])

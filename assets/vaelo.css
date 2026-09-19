@@ -354,13 +354,37 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
 .kpis div{background:var(--black);padding:28px clamp(20px,3vw,40px);flex:1 1 200px}
 .kpis .v{font-family:var(--display);font-weight:800;font-size:clamp(28px,4.2vw,52px);color:var(--accent);font-variant-numeric:tabular-nums}
 .kpis .l{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--dim);margin-top:8px}
-.next{border-top:1px solid var(--line);padding:clamp(60px,9vw,120px) var(--pad);display:block;position:relative;overflow:hidden}
+/* The next-project link sat on the same flat black as the case body with
+   only a hairline above it, so it read as more copy rather than as the
+   way out of the page. It now has its own ground, the next project's own
+   colour along the top, and a picture of what it leads to. */
+.next{position:relative;overflow:hidden;display:grid;
+  grid-template-columns:1fr auto;align-items:center;gap:clamp(20px,4vw,60px);
+  padding:clamp(48px,7vw,96px) var(--pad);
+  background:linear-gradient(180deg,#121211,#0d0d0c);
+  border-top:3px solid var(--tone,var(--accent))}
+/* a wash of the next project's colour, so the panel is tinted by where
+   it is going rather than being another grey box */
+.next::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(120% 140% at 0% 0%,var(--tone,var(--accent)),transparent 62%);
+  opacity:.10;transition:opacity .5s}
+.next:hover::before{opacity:.2}
+.next-txt{position:relative;z-index:1;min-width:0}
 .next .lab{margin-bottom:14px}
-.next h2{font-size:clamp(30px,7vw,96px);line-height:.9;transition:color .35s}
-.next:hover h2{color:var(--accent)}
-.next .arrow{position:absolute;right:var(--pad);bottom:clamp(60px,9vw,120px);font-size:clamp(28px,5vw,64px);
+.next h2{font-size:clamp(28px,5.6vw,80px);line-height:.92;transition:color .35s}
+.next:hover h2{color:var(--tone,var(--accent))}
+.next-shot{position:relative;z-index:1;flex:none;width:clamp(88px,11vw,150px);
+  aspect-ratio:4/5;border-radius:14px;overflow:hidden;background:#111110}
+.next-shot img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.next:hover .next-shot img{transform:scale(1.07)}
+.next .arrow{position:absolute;z-index:1;right:var(--pad);top:clamp(26px,4vw,44px);
+  font-size:clamp(22px,2.6vw,34px);color:var(--tone,var(--accent));
   transition:transform .45s cubic-bezier(.2,.7,.2,1)}
-.next:hover .arrow{transform:translate(14px,-14px)}
+.next:hover .arrow{transform:translate(10px,-10px)}
+@media(max-width:620px){
+  .next{gap:18px}
+  .next .arrow{display:none}
+}
 
 /* ---------- reveal system ----------
    Gated on html.js: with scripting off nothing is ever hidden. The motion
