@@ -86,6 +86,8 @@ POST_TPL = """<!DOCTYPE html>
   <span class="arrow" aria-hidden="true">↗</span>
 </a>
 
+<div class="endmark"><span>Vaelo</span></div>
+
 <footer>
   <div>Vaelo Creative LLP, Mumbai, India</div>
   <div><a href="mailto:hello@vaelocreative.com">hello@vaelocreative.com</a></div>
@@ -142,6 +144,8 @@ INDEX_TPL = """<!DOCTYPE html>
 {cards}
   </div>
 </main>
+
+<div class="endmark"><span>Vaelo</span></div>
 
 <footer>
   <div>Vaelo Creative LLP, Mumbai, India</div>

@@ -753,22 +753,6 @@
     convTick(); onScroll(convTick); on(window, 'resize', convTick);
   }
 
-  /* ------------------------------------------------------ closing wordmark */
-  var endmark = doc.querySelector('.endmark span');
-  if (endmark) {
-    var fill = function () {
-      var b = endmark.getBoundingClientRect();
-      /* runs from the moment the word appears to the moment it is fully in
-         view, and is pinned at full once the page bottom is reached */
-      var start = innerHeight, end = innerHeight * 0.42;
-      var p = (start - b.top) / (start - end);
-      var atBottom = (innerHeight + scrollY) >= (doc.documentElement.scrollHeight - 4);
-      if (atBottom) p = 1;
-      endmark.style.setProperty('--fill', (Math.max(0, Math.min(1, p)) * 100).toFixed(1) + '%');
-    };
-    fill(); onScroll(fill);
-  }
-
   /* -------------------------------------------------------- hero parallax */
   var heroIn = doc.querySelector('.hero-in');
   if (heroIn && !reduce) {
