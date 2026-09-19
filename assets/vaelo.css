@@ -729,14 +729,13 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
    WORK ARCHIVE — staggered grid with coloured caption bars
    Each project is an image over a bar carrying that brand's own colour, so
    the page reads as a set of brands rather than a wall of thumbnails.
-   The covers stay a uniform 4:5 — the stagger comes from offsetting the
-   middle column, not from letting the images run to different heights.
+   The covers stay a uniform 4:5 and every column starts on the same line,
+   so the cards read as one grid rather than a staggered mosaic.
    ========================================================================== */
 .arch-hd.centred,.tabs.centred{text-align:center}
 .tabs.centred{justify-content:center}
 
 .arch.mason{grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.4vw,34px);align-items:start}
-.arch.mason > :nth-child(3n+2){margin-top:clamp(40px,7vw,96px)}
 
 .arch.mason .arch-item{display:flex;flex-direction:column;gap:14px}
 /* the category filter hides cards with the hidden attribute; a class-level
@@ -768,12 +767,9 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
 
 @media(max-width:900px){
   .arch.mason{grid-template-columns:repeat(2,1fr)}
-  .arch.mason > :nth-child(3n+2){margin-top:0}
-  .arch.mason > :nth-child(2n){margin-top:clamp(30px,6vw,64px)}
 }
 @media(max-width:620px){
   .arch.mason{grid-template-columns:1fr}
-  .arch.mason > :nth-child(n){margin-top:0}
   .arch.mason .bar{flex-wrap:wrap}
 }
 
