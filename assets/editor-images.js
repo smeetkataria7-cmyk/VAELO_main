@@ -260,9 +260,9 @@
       if (r.ok) return r.json();
       return r.json().catch(function () { return {}; }).then(function (j) {
         var msg = (j && j.message) || (r.status + ' ' + r.statusText);
-        if (r.status === 401) msg = 'Token rejected — check it was pasted in full and has not expired.';
-        if (r.status === 403) msg = 'Forbidden — the token needs "Contents: Read and write" on ' + GH_OWNER + '/' + GH_REPO + '. (' + msg + ')';
-        if (r.status === 404) msg = 'Repo or branch not found — check the token has access to ' + GH_OWNER + '/' + GH_REPO + '. (' + msg + ')';
+        if (r.status === 401) msg = 'Token rejected. Check it was pasted in full and has not expired.';
+        if (r.status === 403) msg = 'Forbidden. The token needs "Contents: Read and write" on ' + GH_OWNER + '/' + GH_REPO + '. (' + msg + ')';
+        if (r.status === 404) msg = 'Repo or branch not found. Check the token has access to ' + GH_OWNER + '/' + GH_REPO + '. (' + msg + ')';
         var err = new Error(msg); err.status = r.status; throw err;
       });
     });

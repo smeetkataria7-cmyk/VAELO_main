@@ -1,5 +1,5 @@
 /* ==========================================================================
-   VAELO — blog data. One object per post.
+   VAELO blog data. One object per post.
    Add a post here, then run `python3 build-posts.py` to regenerate the
    pages in /blog. Nothing else needs editing. Body is a list of plain-text
    paragraphs - no HTML needed, one string per paragraph.

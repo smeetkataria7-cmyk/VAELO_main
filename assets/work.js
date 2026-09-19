@@ -1,5 +1,5 @@
 /* ==========================================================================
-   VAELO — work data. One object per case study.
+   VAELO work data. One object per case study.
    Add a project here, then run `python3 build-cases.py` to regenerate
    the pages in /work. Nothing else needs editing.
    ========================================================================== */
@@ -16,8 +16,8 @@ window.VAELO_WORK = [
     client: 'SimpliCare',
     tile: '',
     summary: 'A new range with a fixed launch date, no existing audience, and a category where everything looks the same on shelf and identical in feed.',
-    brief: 'The client had a finished product, a hard launch date and no audience. The category is crowded with brands that all resolved to the same visual language — soft pastels, sans-serif wordmark, a claim nobody reads. A staged rollout would have burned the launch window before anyone noticed the product existed.',
-    did: 'We built the identity and the packaging system first, because the pack is the ad in a category people meet on a shelf. Then the full launch asset library was produced in-house — product, lifestyle and UGC-style video — so the Meta buy launched against creative we made ourselves. One team held the positioning from the first sketch to the third round of ad iterations, which is why the test loop closed in days rather than weeks. The Meta buy returned 4x on a ₹30,000 spend.',
+    brief: 'The client had a finished product, a hard launch date and no audience. The category is crowded with brands that all resolved to the same visual language: soft pastels, sans-serif wordmark, a claim nobody reads. A staged rollout would have burned the launch window before anyone noticed the product existed.',
+    did: 'We built the identity and the packaging system first, because the pack is the ad in a category people meet on a shelf. Then the full launch asset library was produced in-house, covering product, lifestyle and UGC-style video, so the Meta buy launched against creative we made ourselves. One team held the positioning from the first sketch to the third round of ad iterations, which is why the test loop closed in days rather than weeks. The Meta buy returned 4x on a ₹30,000 spend.',
     kpis: [['4x', 'Return on ad spend'], ['₹30,000', 'Media spend'], ['9 days', 'Concept to live']],
     images: { cover: 'assets/work/launch-not-a-rollout/cover.png', hero: 'assets/work/launch-not-a-rollout/01.mp4', heroPoster: 'assets/work/launch-not-a-rollout/01-poster.jpg', gallery: [
       'assets/work/launch-not-a-rollout/02.mp4',
@@ -45,9 +45,9 @@ window.VAELO_WORK = [
     link: 'https://deontapes.com/',
     linkLabel: 'deontapes.com',
     tile: '',
-    summary: 'A full website rebuild for an adhesive tape manufacturer — the whole range catalogued, and the factory itself made the argument.',
-    brief: 'Deon Tapes makes adhesive tape at industrial scale and sells to buyers who need proof before they need persuasion: what is actually made, to what standard, on what plant. The site in place did none of that work — the range was not catalogued, the accreditations were invisible, and there was nothing to show a buyer the factory behind the claim.',
-    did: 'We started with a gap analysis against the existing site, then wireframed the whole thing before a line of it was built — brief, wireframes, brand guidelines and a redesign report, each signed off in turn. The build runs to thirty pages: the full product catalogue, a knowledge centre, applications by industry, OEM partners, a company journey, and a blog the team publishes to themselves. Twenty-two factory photographs carry the plant, and the accreditation marks sit where a procurement buyer looks first.',
+    summary: 'A full website rebuild for an adhesive tape manufacturer. The whole range catalogued, and the factory itself made the argument.',
+    brief: 'Deon Tapes makes adhesive tape at industrial scale and sells to buyers who need proof before they need persuasion: what is actually made, to what standard, on what plant. The site in place did none of that work. The range was not catalogued, the accreditations were invisible, and there was nothing to show a buyer the factory behind the claim.',
+    did: 'We started with a gap analysis against the existing site, then wireframed the whole thing before a line of it was built: brief, wireframes, brand guidelines and a redesign report, each signed off in turn. The build runs to thirty pages: the full product catalogue, a knowledge centre, applications by industry, OEM partners, a company journey, and a blog the team publishes to themselves. Twenty-two factory photographs carry the plant, and the accreditation marks sit where a procurement buyer looks first.',
     kpis: [['33', 'Products catalogued'], ['30', 'Pages built'], ['9', 'Accreditations shown']],
     images: { cover: 'assets/work/deon-tapes/cover.jpg', hero: 'assets/work/deon-tapes/01.jpg', gallery: [
       'assets/work/deon-tapes/02.jpg',
@@ -67,8 +67,8 @@ window.VAELO_WORK = [
     client: 'Marigold Miraaya by K H Jogani',
     tile: '',
     summary: 'A completed Mumbai tower with its OC in hand, sold on how the evenings feel rather than on the floor plan.',
-    brief: 'Marigold Miraaya had reached the point most developments treat as the finish line — OC received, ready to move in, MahaRERA P51800003669. The category answers that moment with specification: carpet area, configuration, possession date. None of it tells a buyer what living there is actually like, and every competing listing reads the same way.',
-    did: 'We shot the building the way residents use it and built the campaign around moments rather than amenities — carrom in the indoor games room, a couple in the poolside cabana, families in the water at the same hour. The line carries the argument: Evenings Well Spent. Unwind. Together. Something for Everyone. The specification and the RERA number stay on the pack where they belong; the campaign sells the evening.',
+    brief: 'Marigold Miraaya had reached the point most developments treat as the finish line: OC received, ready to move in, MahaRERA P51800003669. The category answers that moment with specification: carpet area, configuration, possession date. None of it tells a buyer what living there is actually like, and every competing listing reads the same way.',
+    did: 'We shot the building the way residents use it and built the campaign around moments rather than amenities: carrom in the indoor games room, a couple in the poolside cabana, families in the water at the same hour. The line carries the argument: Evenings Well Spent. Unwind. Together. Something for Everyone. The specification and the RERA number stay on the pack where they belong; the campaign sells the evening.',
     kpis: [['OC', 'Received'], ['P51800003669', 'MahaRERA'], ['Ready', 'To move in']],
     images: { cover: 'assets/work/marigold-miraaya/cover.png', hero: 'assets/work/marigold-miraaya/photo-01.jpg', gallery: [
       'assets/work/marigold-miraaya/film.mp4',
@@ -88,12 +88,12 @@ window.VAELO_WORK = [
     cat: 'Fashion',
     scope: 'AI Production',
     year: '2025',
-    client: 'Tribal Zone — jewellery and accessories',
+    client: 'Tribal Zone',
     link: 'https://www.tribalzone.in/',
     linkLabel: 'tribalzone.in',
     tile: '',
     summary: 'A catalogue too large to shoot conventionally inside the season it was meant to sell in.',
-    brief: 'Hundreds of SKUs, a season that would be over before a traditional shoot schedule finished, and a brand team who would reject anything that looked synthetic. The constraint was never cost — it was calendar.',
+    brief: 'Hundreds of SKUs, a season that would be over before a traditional shoot schedule finished, and a brand team who would reject anything that looked synthetic. The constraint was never cost. It was calendar.',
     did: 'We stood up an AI production pipeline for product and lifestyle imagery with a consistency specification tight enough to pass the brand team\'s own review: fixed lighting logic, a locked colour response, and a per-SKU checklist. Everything that failed review went back through the pipeline rather than into a reshoot. The catalogue it fed has generated over ₹1 lakh in revenue.',
     kpis: [['₹1L+', 'Revenue generated'], ['100%', 'Brand-review pass'], ['0', 'Reshoots']],
     images: { cover: 'assets/work/catalogue-at-scale/cover.png', hero: 'assets/work/catalogue-at-scale/01.mp4', heroPoster: 'assets/work/catalogue-at-scale/01-poster.jpg', gallery: [
@@ -114,12 +114,12 @@ window.VAELO_WORK = [
     cat: 'Ed-Tech',
     scope: 'Content Systems',
     year: '2025',
-    client: 'DVOC Institute — digital marketing certification',
+    client: 'DVOC Institute',
     link: 'https://dvoc.in/',
     linkLabel: 'dvoc.in',
     tile: '',
     summary: 'Strong course outcomes, and a content operation that could not keep pace with the enrolment calendar.',
-    brief: 'Enrolment runs to a calendar that does not move. The content operation did move — deadlines slipped, approvals stalled in inboxes, and trend-driven swaps arrived too late to make the window they were meant to catch.',
+    brief: 'Enrolment runs to a calendar that does not move. The content operation did move: deadlines slipped, approvals stalled in inboxes, and trend-driven swaps arrived too late to make the window they were meant to catch.',
     did: 'We designed the system before producing anything: a content calendar with real stage gates, an approval flow with named owners, and a change log so a trend swap is a recorded decision rather than a lost message. Then we produced against it through two full intake cycles to prove it held under load.',
     kpis: [['2', 'Intake cycles run'], ['7 stages', 'Idea to posted'], ['0', 'Missed windows']],
     images: { cover: 'assets/work/built-to-enroll/cover.jpg', hero: 'assets/work/built-to-enroll/01.mp4', heroPoster: 'assets/work/built-to-enroll/01-poster.jpg', gallery: [
@@ -140,10 +140,10 @@ window.VAELO_WORK = [
     cat: 'Sustainable Packaging',
     scope: 'Design',
     year: '2025',
-    client: 'Zerolys — sustainable materials',
+    client: 'Zerolys',
     tile: '',
     summary: 'A genuinely sustainable material story that customers could not read off the pack in three seconds.',
-    brief: 'The sustainability claim was real, third-party verified, and buried. It sat below an ingredient list, in a typographic hierarchy that gave equal weight to everything — which is the same as giving weight to nothing.',
+    brief: 'The sustainability claim was real, third-party verified, and buried. It sat below an ingredient list, in a typographic hierarchy that gave equal weight to everything, which is the same as giving weight to nothing.',
     did: 'We rebuilt the pack hierarchy so the claim lands before the ingredient list, with an iconography set that carries the science without a paragraph of explanation. The system was drawn to scale across the full range, including the smallest format, where most pack systems quietly fall apart.',
     kpis: [['1 system', 'Full range'], ['SKU-min', 'Tested at smallest format']],
     images: { cover: 'assets/work/make-the-science-legible/cover.jpg', hero: 'assets/work/make-the-science-legible/01.mp4', heroPoster: 'assets/work/make-the-science-legible/01-poster.jpg', gallery: [
@@ -187,11 +187,11 @@ window.VAELO_WORK = [
     cat: 'AI Production',
     scope: 'AI Production Reel',
     year: '2025',
-    client: 'Vaelo Creative — internal showcase',
+    client: 'Vaelo Creative',
     tile: '',
     summary: 'A concept reel produced entirely inside the AI production stack, with no traditional shoot day at all.',
-    brief: 'Most of what a production line does can\'t be shown in a portfolio without shooting it again. This reel exists to show the stack itself — what it can produce before a client brief even asks for it.',
-    did: 'Six concepts, generated and finished end to end through the AI pipeline — no camera, no set, no shoot day. The point isn\'t any single concept; it\'s the production speed that let all six exist.',
+    brief: 'Most of what a production line does can\'t be shown in a portfolio without shooting it again. This reel exists to show the stack itself, and what it can produce before a client brief even asks for it.',
+    did: 'Six concepts, generated and finished end to end through the AI pipeline: no camera, no set, no shoot day. The point isn\'t any single concept; it\'s the production speed that let all six exist.',
     kpis: [['6', 'Concepts produced'], ['0', 'Shoot days'], ['100%', 'AI-native production']],
     images: { cover: 'assets/work/conceptual/cover.jpg', hero: 'assets/work/conceptual/01.mp4', heroPoster: 'assets/work/conceptual/01-poster.jpg', gallery: ['assets/work/conceptual/02.mp4', 'assets/work/conceptual/03.mp4', 'assets/work/conceptual/04.mp4', 'assets/work/conceptual/05.mp4', 'assets/work/conceptual/06.mp4'] }
   },
@@ -205,8 +205,8 @@ window.VAELO_WORK = [
     year: '2026',
     client: 'Niti Bothra',
     tile: '',
-    summary: 'A full ethnic-wear lookbook produced entirely through AI product photography — no studio day, no models on set.',
-    brief: 'An ethnic wear label needed a lookbook that reads like a studio shoot with hired models, stylists and a location — on a timeline and budget that a traditional shoot day couldn’t meet.',
+    summary: 'A full ethnic-wear lookbook produced entirely through AI product photography, with no studio day and no models on set.',
+    brief: 'An ethnic wear label needed a lookbook that reads like a studio shoot with hired models, stylists and a location, on a timeline and budget that a traditional shoot day couldn’t meet.',
     did: 'We ran the full lookbook through the AI production pipeline: garment shots turned into styled, model-worn imagery with consistent lighting, skin tone and drape across every piece, so the set reads as one shoot rather than a patchwork of renders.',
     kpis: [['6', 'Looks produced'], ['0', 'Shoot days'], ['100%', 'AI-native production']],
     images: { hero: 'assets/work/niti-bothra/01-hero.jpg', gallery: [

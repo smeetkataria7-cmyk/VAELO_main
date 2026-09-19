@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Site Manager — Vaelo</title>
+<title>Site Manager | Vaelo</title>
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -57,7 +57,7 @@
 <div class="gate" id="gate">
   <div class="gate-box">
     <h1>Site Manager</h1>
-    <p>Admins only. This screen keeps casual visitors out — the GitHub token
+    <p>Admins only. This screen keeps casual visitors out. The GitHub token
       you enter afterward is the real permission check for actually publishing
       anything.</p>
     <div class="field"><label for="gUser">Username</label><input id="gUser" autocomplete="username"></div>
@@ -82,14 +82,14 @@
   </div>
   <div class="hint-bar" id="hintBar">
     Click any text to edit it. Hover a service card for controls to reorder, duplicate or remove it,
-    or hover an image below to replace it. The work rail and blog list aren't editable here —
+    or hover an image below to replace it. The work rail and blog list aren't editable here.
     use the <a href="editor.html" style="color:var(--accent)">Work / Blog editor</a> for those, since
     they're generated from data, not fixed page content.
   </div>
   <div class="hint-bar" id="genWarning" style="border-top:1px solid #5a3a1a;color:#e0a860">
     This page's text is generated from <code>work.js</code>/<code>blog.js</code>. Edits here are safe
     until this project or post is next edited via the
-    <a href="editor.html" style="color:#e0a860">Work / Blog editor</a> and published — that regenerates
+    <a href="editor.html" style="color:#e0a860">Work / Blog editor</a> and published. That regenerates
     this exact page from the data, and these edits would be overwritten. For changes you want to survive
     that, edit it there instead.
   </div>
@@ -336,7 +336,7 @@
             var path = IM.pathsFor(UPLOAD_SLUG)[i];
             img.src = URL.createObjectURL(file);
             img.setAttribute('data-vaelo-new-src', path);
-            toast('Image staged — publish to make it live');
+            toast('Image staged. Publish to make it live');
           });
         };
         input.click();
@@ -366,13 +366,13 @@
   (function buildPageList() {
     var sel = document.getElementById('pageSel');
     var groups = [
-      { label: 'Work', items: [{ path: 'work/index.html', name: 'Work — Archive' }]
+      { label: 'Work', items: [{ path: 'work/index.html', name: 'Work / Archive' }]
           .concat((window.VAELO_WORK || []).map(function (w) {
-            return { path: 'work/' + w.slug + '.html', name: 'Work — ' + w.title, generated: true };
+            return { path: 'work/' + w.slug + '.html', name: 'Work / ' + w.title, generated: true };
           })) },
-      { label: 'Blog', items: [{ path: 'blog/index.html', name: 'Blog — Archive' }]
+      { label: 'Blog', items: [{ path: 'blog/index.html', name: 'Blog / Archive' }]
           .concat((window.VAELO_BLOG || []).map(function (p) {
-            return { path: 'blog/' + p.slug + '.html', name: 'Blog — ' + p.title, generated: true };
+            return { path: 'blog/' + p.slug + '.html', name: 'Blog / ' + p.title, generated: true };
           })) }
     ];
     groups.forEach(function (g) {
@@ -420,7 +420,7 @@
     IM.publishToGitHub([{ path: pagePath, content: html }], function (done, total, label) {
       btn.textContent = label + '…';
     }).then(function () {
-      toast('Published — live in about a minute');
+      toast('Published. Live in about a minute');
       btn.textContent = 'Publish changes';
       btn.disabled = false;
       frame.contentWindow.location.reload();

@@ -21,18 +21,18 @@ TPL = """<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{title} — Vaelo</title>
+<title>{title} | Vaelo</title>
 <meta name="description" content="{summary}">
 <link rel="canonical" href="https://www.vaelocreative.com/work/{slug}.html">
 <meta name="theme-color" content="#0a0a0a">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Vaelo Creative">
-<meta property="og:title" content="{title} — Vaelo">
+<meta property="og:title" content="{title} | Vaelo">
 <meta property="og:description" content="{summary}">
 <meta property="og:url" content="https://www.vaelocreative.com/work/{slug}.html">
 <meta property="og:image" content="https://www.vaelocreative.com/assets/work/{slug}-og.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{title} — Vaelo">
+<meta name="twitter:title" content="{title} | Vaelo">
 <meta name="twitter:description" content="{summary}">
 <meta name="twitter:image" content="https://www.vaelocreative.com/assets/work/{slug}-og.jpg">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
@@ -94,7 +94,7 @@ TPL = """<!DOCTYPE html>
 </main>
 
 <a class="next" href="{next_slug}.html">
-  <p class="lab ac">Next project — {next_idx}</p>
+  <p class="lab ac">Next project · {next_idx}</p>
   <h2>{next_title}</h2>
   <span class="arrow" aria-hidden="true">↗</span>
 </a>

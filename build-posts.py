@@ -30,18 +30,18 @@ POST_TPL = """<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{title} — Vaelo Blog</title>
+<title>{title} | Vaelo Blog</title>
 <meta name="description" content="{excerpt}">
 <link rel="canonical" href="https://www.vaelocreative.com/blog/{slug}.html">
 <meta name="theme-color" content="#0a0a0a">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Vaelo Creative">
-<meta property="og:title" content="{title} — Vaelo Blog">
+<meta property="og:title" content="{title} | Vaelo Blog">
 <meta property="og:description" content="{excerpt}">
 <meta property="og:url" content="https://www.vaelocreative.com/blog/{slug}.html">
 <meta property="og:image" content="https://www.vaelocreative.com/assets/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{title} — Vaelo Blog">
+<meta name="twitter:title" content="{title} | Vaelo Blog">
 <meta name="twitter:description" content="{excerpt}">
 <meta name="twitter:image" content="https://www.vaelocreative.com/assets/og.jpg">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
@@ -101,18 +101,18 @@ INDEX_TPL = """<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blog — Vaelo</title>
+<title>Blog | Vaelo</title>
 <meta name="description" content="Notes from Vaelo Creative on brand, AI-native production and performance work.">
 <link rel="canonical" href="https://www.vaelocreative.com/blog/">
 <meta name="theme-color" content="#0a0a0a">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Vaelo Creative">
-<meta property="og:title" content="Blog — Vaelo">
+<meta property="og:title" content="Blog | Vaelo">
 <meta property="og:description" content="Notes from Vaelo Creative on brand, AI-native production and performance work.">
 <meta property="og:url" content="https://www.vaelocreative.com/blog/">
 <meta property="og:image" content="https://www.vaelocreative.com/assets/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Blog — Vaelo">
+<meta name="twitter:title" content="Blog | Vaelo">
 <meta name="twitter:image" content="https://www.vaelocreative.com/assets/og.jpg">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">

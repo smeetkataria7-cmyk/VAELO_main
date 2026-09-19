@@ -14,7 +14,7 @@ How files are matched to projects
   ("Launch Not A Rollout/", "d2c-launch/", "01 Launch/").
 * Otherwise a file whose name starts with a project slug is matched
   ("launch-not-a-rollout-03.jpg").
-* Anything unmatched is listed at the end and left alone — nothing is
+* Anything unmatched is listed at the end and left alone. Nothing is
   silently dropped.
 
 A file named *hero*, *cover*, *main* or *01* becomes the hero image;
@@ -70,7 +70,7 @@ def write_work(work):
         body.append("\n".join(block))
     WORKJS.write_text(
         "/* ==========================================================================\n"
-        "   VAELO — work data. One object per case study.\n"
+        "   VAELO work data. One object per case study.\n"
         "   Image paths are written by import-assets.py; everything else is yours\n"
         "   to edit here or in editor.html. After changing this file run\n"
         "   `python3 build-cases.py` to regenerate the pages in /work.\n"
