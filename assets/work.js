@@ -113,6 +113,8 @@ window.VAELO_WORK = [
     scope: 'Content Systems',
     year: '2025',
     client: 'DVOC Institute — digital marketing certification',
+    link: 'https://dvoc.in/',
+    linkLabel: 'dvoc.in',
     tile: '',
     summary: 'Strong course outcomes, and a content operation that could not keep pace with the enrolment calendar.',
     brief: 'Enrolment runs to a calendar that does not move. The content operation did move — deadlines slipped, approvals stalled in inboxes, and trend-driven swaps arrived too late to make the window they were meant to catch.',
