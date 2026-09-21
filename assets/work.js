@@ -311,5 +311,32 @@ window.VAELO_WORK = [
       'assets/work/pharmatiya/03.jpg',
       'assets/work/pharmatiya/04.jpg'
     ] }
+  },
+  {
+    slug: 'voiz',
+    idx: '12',
+    title: 'The Sound of India, Given a Voice',
+    cat: 'Music',
+    scope: 'Brand Identity',
+    year: '2025',
+    client: 'VOIZ Entertainment',
+    tile: '',
+    summary: 'A full brand identity for an artist-first platform for independent and regional Indian music.',
+    brief: 'VOIZ exists to give undiscovered regional musicians a stage. It is entering a category run by algorithms and charts, with a promise that is the opposite of both: real music, real stories, no noise. The brand needed to feel like a movement before it had a single listener, and to sound as bold as the artists it backs without turning into slang or a trend.',
+    did: 'We built the identity from a single idea: a vertical soundwave in an elliptical pulse, the heartbeat of music and of each artist finding their own voice. Each curve stands for a different frequency, a nod to the range of genres and languages across India. Around the mark we wrote the whole verbal identity, covering purpose, positioning for artists and for listeners, a tone of voice that is bold not brash, and four messaging pillars. The visual system pairs a custom display wordmark with a quiet black and blue palette, and everything was tested on the app icon, the site, the name tag, the business card, the letterhead and the merch. The result is one 35-page brand book.',
+    kpis: [['35', 'Pages in one brand book'], ['2', 'Typefaces'], ['4', 'Messaging pillars']],
+    images: { cover: 'assets/work/voiz/cover.jpg', hero: 'assets/work/voiz/01.jpg', gallery: [
+      'assets/work/voiz/02.jpg',
+      'assets/work/voiz/03.jpg',
+      'assets/work/voiz/04.jpg',
+      'assets/work/voiz/05.jpg',
+      'assets/work/voiz/06.jpg',
+      'assets/work/voiz/07.jpg',
+      'assets/work/voiz/08.jpg',
+      'assets/work/voiz/09.jpg',
+      'assets/work/voiz/10.jpg',
+      'assets/work/voiz/11.jpg',
+      'assets/work/voiz/12.jpg'
+    ] }
   }
 ];
