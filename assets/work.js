@@ -249,7 +249,7 @@ window.VAELO_WORK = [
   {
     slug: 'twenty2-eyewear',
     idx: '09',
-    title: 'Everyday Eyewear, Made Watchable',
+    title: 'Twenty2 Eyewear',
     cat: 'Eyewear',
     scope: 'Short-form Video',
     year: '2026',
@@ -270,7 +270,7 @@ window.VAELO_WORK = [
   {
     slug: 'to-dear-self',
     idx: '10',
-    title: 'Begin Slowly. End Honestly.',
+    title: 'To Dear Self',
     cat: 'Wellness',
     scope: 'Performance Marketing + Creative',
     year: '2026',
@@ -296,7 +296,7 @@ window.VAELO_WORK = [
   {
     slug: 'pharmatiya',
     idx: '11',
-    title: 'Evidence That Holds Up',
+    title: 'Pharmatiya Health',
     cat: 'Healthcare',
     scope: 'Web & Product',
     year: '2026',
@@ -315,7 +315,7 @@ window.VAELO_WORK = [
   {
     slug: 'voiz',
     idx: '12',
-    title: 'The Sound of India, Given a Voice',
+    title: 'VOIZ',
     cat: 'Music',
     scope: 'Brand Identity',
     year: '2025',
