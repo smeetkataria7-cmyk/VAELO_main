@@ -266,5 +266,31 @@ window.VAELO_WORK = [
       'assets/work/twenty2-eyewear/05.mp4',
       'assets/work/twenty2-eyewear/06.mp4'
     ] }
+  },
+  {
+    slug: 'to-dear-self',
+    idx: '10',
+    title: 'Begin Slowly. End Honestly.',
+    cat: 'Wellness',
+    scope: 'Performance Marketing + Creative',
+    year: '2026',
+    client: 'To Dear Self',
+    link: 'https://www.todearself.com/',
+    linkLabel: 'todearself.com',
+    tile: '',
+    summary: 'Creative and performance marketing for an intimate-wellness label, in a category where most advertising is either coy or crude.',
+    brief: 'Intimate wellness is a category most platforms police and most brands shout in. To Dear Self wanted the opposite register: calm, adult and unembarrassed, with the product treated as considered design rather than something to be hidden or oversold.',
+    did: 'We built the creative around restraint. Monochrome, decade-by-decade editorial frames carry the message that intimacy changes with you, and the product itself is photographed as an object of design, in warm copper light over still water. The same system runs across reels and static ads, with performance marketing built on top of it.',
+    kpis: [['9', 'Creatives produced'], ['Reels + statics', 'One system'], ['25+', 'Adults only']],
+    images: { cover: 'assets/work/to-dear-self/cover.jpg', hero: 'assets/work/to-dear-self/01.mp4', heroPoster: 'assets/work/to-dear-self/01-poster.jpg', gallery: [
+      'assets/work/to-dear-self/02.jpg',
+      'assets/work/to-dear-self/03.jpg',
+      'assets/work/to-dear-self/04.jpg',
+      'assets/work/to-dear-self/05.jpg',
+      'assets/work/to-dear-self/06.jpg',
+      'assets/work/to-dear-self/07.jpg',
+      'assets/work/to-dear-self/08.jpg',
+      'assets/work/to-dear-self/09.jpg'
+    ] }
   }
 ];
