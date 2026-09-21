@@ -292,5 +292,24 @@ window.VAELO_WORK = [
       'assets/work/to-dear-self/08.jpg',
       'assets/work/to-dear-self/09.jpg'
     ] }
+  },
+  {
+    slug: 'pharmatiya',
+    idx: '11',
+    title: 'Evidence That Holds Up',
+    cat: 'Healthcare',
+    scope: 'Web & Product',
+    year: '2026',
+    client: 'Pharmatiya Health',
+    tile: '',
+    summary: 'A website for an independent health-economics consultancy, built to show a sceptical pharma buyer the method before the pitch.',
+    brief: 'Pharmatiya designs health economics and real-world evidence studies for payer, provider and claims data. Its buyers are medical affairs and market access teams who distrust marketing and read evidence for a living. The existing site was a thin holding page: a logo, a search box and a line about experience.',
+    did: 'We rebuilt it as an argument rather than a brochure. The hero is a live survival curve you can read with the arrow keys, the record of publications is counted and searchable, and each service is shown with the kind of figure it produces: hazard ratios, participant flow, a cost-effectiveness plane. The AI-assisted work is stated plainly, with human review at every stage. The palette is quiet and clinical so the data does the talking.',
+    kpis: [['49', 'Publications catalogued'], ['15', 'Full papers listed'], ['12', 'Therapeutic areas']],
+    images: { cover: 'assets/work/pharmatiya/cover.jpg', hero: 'assets/work/pharmatiya/01.jpg', gallery: [
+      'assets/work/pharmatiya/02.jpg',
+      'assets/work/pharmatiya/03.jpg',
+      'assets/work/pharmatiya/04.jpg'
+    ] }
   }
 ];
