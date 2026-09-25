@@ -727,6 +727,9 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
      the whole statement into the first screen. */
   .hero{min-height:92svh;padding:96px var(--pad) 40px}
   .hero-foot{margin-top:22px}
+  /* On a portrait phone the 16:9 film letterboxes into tall black bars, so it
+     fills the hero here instead; desktop keeps the whole 16:9 frame visible. */
+  .hero-media video{object-fit:cover}
 
   /* ---------- copy ----------
      Uppercase text with wide tracking is hard work at small sizes over
