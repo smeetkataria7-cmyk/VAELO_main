@@ -249,6 +249,7 @@ window.VAELO_WORK = [
   {
     slug: 'twenty2-eyewear',
     idx: '09',
+    tone: '#c2703a',
     title: 'Twenty2 Eyewear',
     cat: 'Eyewear',
     scope: 'Short-form Video',
@@ -270,6 +271,7 @@ window.VAELO_WORK = [
   {
     slug: 'to-dear-self',
     idx: '10',
+    tone: '#a85072',
     title: 'To Dear Self',
     cat: 'Wellness',
     scope: 'Performance Marketing + Creative',
@@ -296,6 +298,7 @@ window.VAELO_WORK = [
   {
     slug: 'pharmatiya',
     idx: '11',
+    tone: '#2f8489',
     title: 'Pharmatiya Health',
     cat: 'Healthcare',
     scope: 'Web & Product',
@@ -315,6 +318,7 @@ window.VAELO_WORK = [
   {
     slug: 'voiz',
     idx: '12',
+    tone: '#6d3fa0',
     title: 'VOIZ',
     cat: 'Music',
     scope: 'Brand Identity',
