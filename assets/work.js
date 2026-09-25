@@ -259,7 +259,7 @@ window.VAELO_WORK = [
     summary: 'A run of short reels for an eyewear label, each one a small story rather than a product shot.',
     brief: 'Eyewear is a category where every feed post is the same frame: a pair of frames on a plain surface. The brand wanted people to stop on the product, and to feel the label’s personality before they ever saw a price.',
     did: 'We built the reels as small scenes with a hook in the first second: a mistaken drug deal that turns out to be a frames pick-up, a boot-of-the-car second delivery, a street collage, and an underground event. The product is the punchline each time, and the brand mark stays quiet in the corner.',
-    kpis: [['6', 'Reels produced'], ['4', 'Story formats'], ['9:16', 'Built for the feed']],
+    kpis: [['6', 'Reels produced'], ['4', 'Story formats']],
     images: { cover: 'assets/work/twenty2-eyewear/cover.jpg', hero: 'assets/work/twenty2-eyewear/01.mp4', heroPoster: 'assets/work/twenty2-eyewear/hero-poster.jpg', gallery: [
       'assets/work/twenty2-eyewear/02.mp4',
       'assets/work/twenty2-eyewear/03.mp4',

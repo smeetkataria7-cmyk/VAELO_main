@@ -40,7 +40,7 @@ TPL = """<!DOCTYPE html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Archivo:wght@300;400;500;600&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/vaelo.css?v=8f455360">
+<link rel="stylesheet" href="../assets/vaelo.css?v=3986daac">
 <script type="application/ld+json">
 {{"@context":"https://schema.org","@type":"CreativeWork","name":{title_j},
 "about":{cat_j},"dateCreated":"{year}",
@@ -80,14 +80,12 @@ TPL = """<!DOCTYPE html>
   <div class="prose" data-rev data-stagger><p>{brief}</p></div>
 </section>
 
-{gal1}
+{gallery}
 
 <section class="case-body" data-rev style="padding-top:0">
   <div class="stick"><p class="lab ac">What we did</p><h2 style="margin-top:12px">The work<br>itself</h2></div>
   <div class="prose" data-rev data-stagger><p>{did}</p></div>
 </section>
-
-{gal2}
 
 <div class="kpis" data-rev data-stagger>{kpis}</div>
 </main>
@@ -109,7 +107,7 @@ TPL = """<!DOCTYPE html>
   <div>© 2026</div>
 </footer>
 
-<script src="../assets/vaelo.js?v=dbc7a7c2"></script>
+<script src="../assets/vaelo.js?v=6920936b"></script>
 </body>
 </html>
 """
@@ -164,25 +162,24 @@ for i, w in enumerate(WORK):
         for v, l in w["kpis"])
     imgs = w.get("images") or {}
     gal = list(imgs.get("gallery") or [])
-    hero_html = media(imgs.get("hero"), w["title"], "", "Case hero · 2400×1400", "8")
-    if not imgs.get("hero"):
-        hero_html = '<div class="slot" data-spec="Case hero · 2400×1400" data-par="8"></div>'
-    first, second = gal[:3], gal[3:]  # second carries everything past the first three
-    gal1 = gallery(first, ["g-full", "g-half", "g-half"], w["title"]) or (
+    # Group the media so it reads as an ordered set, not a random wall: all the
+    # stills together, then all the clips together, in one uninterrupted run
+    # (no copy wedged between). Stills go 2-up, the vertical reels 3-up.
+    is_vid = lambda s: s.lower().endswith((".mp4", ".webm", ".mov", ".m4v"))
+    stills = [s for s in gal if not is_vid(s)]
+    clips = [s for s in gal if is_vid(s)]
+    blocks = []
+    if stills:
+        blocks.append(gallery(stills, ["g-half"], w["title"]))
+    if clips:
+        blocks.append(gallery(clips, ["g-third"], w["title"]))
+    gallery_html = "\n\n".join(blocks) or (
         '<div class="gal" data-rev>\n'
-        '  <div class="slot g-full" data-par="7" data-spec="Campaign still · 1920×1080"></div>\n'
+        '  <div class="slot g-half" data-par="7" data-spec="Campaign still · 1920×1080"></div>\n'
         '  <div class="slot g-half" data-par="9" data-spec="Detail · 1200×1500"></div>\n'
-        '  <div class="slot g-half" data-par="9" data-spec="Detail · 1200×1500"></div>\n'
-        '</div>')
-    gal2 = gallery(second, ["g-third", "g-third", "g-third", "g-full"], w["title"]) or (
-        '<div class="gal" data-rev>\n'
-        '  <div class="slot g-third" data-par="6" data-spec="Asset · 1200×1200"></div>\n'
-        '  <div class="slot g-third" data-par="6" data-spec="Asset · 1200×1200"></div>\n'
-        '  <div class="slot g-third" data-par="6" data-spec="Asset · 1200×1200"></div>\n'
-        '  <div class="slot g-full" data-par="7" data-spec="Film still · 1920×1080"></div>\n'
         '</div>')
     page = TPL.format(
-        hero=hero_html, gal1=gal1, gal2=gal2,
+        gallery=gallery_html,
         slug=w["slug"], idx=w["idx"], title=html.escape(w["title"]), cat=html.escape(w["cat"]),
         scope=html.escape(w["scope"]), year=w["year"], client=html.escape(w["client"]),
         summary=html.escape(w["summary"], quote=True),
