@@ -792,13 +792,11 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
 .arch.mason .bar .pill{color:inherit;border-color:currentColor;opacity:.85;font-size:11px}
 .arch.mason .arch-item:hover .bar .pill{color:inherit;border-color:currentColor}
 
-.arch.mason .see{flex:none;align-self:center;display:inline-flex;align-items:center;gap:7px;
+.arch.mason .see{flex:none;align-self:center;display:inline-flex;align-items:center;
   font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
   border:1px solid currentColor;border-radius:999px;padding:10px 16px;white-space:nowrap;
   transition:background .3s,color .3s}
-.arch.mason .see::after{content:"\2197";font-size:13px;line-height:1;transition:transform .3s}
 .arch.mason .arch-item:hover .see{background:var(--ink);color:var(--tone)}
-.arch.mason .arch-item:hover .see::after{transform:translate(2px,-2px)}
 
 @media(max-width:900px){
   .arch.mason{grid-template-columns:repeat(2,1fr)}
@@ -808,10 +806,9 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
   /* single column: no need to force uniform bar heights, so drop the floor
      that leaves the button stranded in dead space, and stack it full-width */
   .arch.mason .bar{flex-direction:column;align-items:stretch;min-height:0;gap:12px}
-  .arch.mason .see{align-self:stretch;justify-content:space-between;
+  .arch.mason .see{align-self:stretch;justify-content:center;
     background:var(--ink);color:var(--tone);border-color:transparent;
     padding:14px 18px;font-size:12px}
-  .arch.mason .see::after{transform:none}
 }
 
 /* every caption bar is the same height: a floor tall enough for a two-line title
