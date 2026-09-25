@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Archivo:wght@300;400;500;600&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/vaelo.css?v=625cc06a">
+<link rel="stylesheet" href="assets/vaelo.css?v=e26a43ea">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"Vaelo Creative LLP",
 "url":"https://www.vaelocreative.com/","address":{"@type":"PostalAddress","addressLocality":"Mumbai","addressCountry":"IN"},
@@ -46,6 +46,11 @@
 <header class="hero">
   <div class="hero-media">
     <canvas id="heroCanvas" aria-hidden="true"></canvas>
+    <!-- The showreel takes over the backdrop once it can play; if it is
+         missing or refuses to autoplay, the canvas above keeps the hero alive. -->
+    <video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="assets/showreel-poster.jpg" style="display:none">
+      <source src="assets/showreel.mp4" type="video/mp4">
+    </video>
   </div>
   <div class="hero-scan"></div>
   <div class="hero-bars"></div>
@@ -198,6 +203,6 @@ document.getElementById('rail').innerHTML = window.VAELO_WORK.map(function (w) {
       '<span class="see">See case</span></div></a>';
 }).join('');
 </script>
-<script src="assets/vaelo.js?v=3ccf79f1"></script>
+<script src="assets/vaelo.js?v=6920936b"></script>
 </body>
 </html>

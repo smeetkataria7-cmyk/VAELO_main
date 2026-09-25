@@ -299,9 +299,23 @@
     startLit();
   }
 
-  /* ---------------------------------------------------- hero backdrop ---
-     A generative canvas carries the hero's motion so it is never a flat
-     black box. */
+  /* --------------------------------------------------- hero backdrop ---
+     A showreel takes over when the file exists and can autoplay. Until then
+     a generative canvas carries the motion so the hero is never a flat box. */
+  var hv = doc.getElementById('heroVideo'), heroCv = doc.getElementById('heroCanvas');
+  if (hv) {
+    on(hv, 'canplay', function () {
+      hv.style.display = '';
+      if (heroCv) heroCv.style.display = 'none';
+      var pr = hv.play();
+      if (pr && pr.catch) pr.catch(function () {
+        hv.style.display = 'none';
+        if (heroCv) heroCv.style.display = '';
+      });
+    });
+    on(hv, 'error', function () { hv.style.display = 'none'; });
+    if (reduce) hv.pause();
+  }
   var canvas = doc.getElementById('heroCanvas');
   if (canvas && canvas.getContext) {
     var ctx = canvas.getContext('2d'), W = 0, H = 0, live = true;

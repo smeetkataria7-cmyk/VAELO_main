@@ -97,7 +97,9 @@ body.menu .burger i:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;
   padding:110px var(--pad) 56px;overflow:hidden;background:var(--deep)}
 .hero-media{position:absolute;inset:0;z-index:0}
-.hero-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+/* The showreel is a 16:9 film, shown whole (contain) rather than cropped to
+   the taller hero; the deep hero background fills the letterbox margins. */
+.hero-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
   filter:saturate(.72) contrast(1.14) brightness(.66)}
 /* Generative backdrop: runs whenever no video file is present, so the hero
    is never a flat black box. Drawn small and blurred up — cheap on mobile. */
