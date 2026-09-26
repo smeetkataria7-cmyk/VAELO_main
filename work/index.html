@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Archivo:wght@300;400;500;600&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/vaelo.css?v=e500b95d">
+<link rel="stylesheet" href="../assets/vaelo.css?v=24350702">
 </head>
 <body>
 <div class="wipe"></div>
@@ -42,7 +42,7 @@
     <h1 style="margin-top:16px"><span class="mask"><i>Every project,</i></span><span class="mask"><i class="out">on the record.</i></span></h1>
   </header>
 
-  <div class="tabs centred" role="tablist" aria-label="Filter work by category" id="tabs"></div>
+  <p class="arch-count" id="archCount"></p>
   <div class="arch mason" id="arch"></div>
 </main>
 
@@ -86,12 +86,10 @@ function shot(w) {
   var W = window.VAELO_WORK, cats = [];
   W.forEach(function (w) { if (cats.indexOf(w.cat) === -1) cats.push(w.cat); });
 
-  document.getElementById('tabs').innerHTML =
-    '<button class="tab-btn on" role="tab" aria-selected="true" data-cat="all">All<span class="c">' + W.length + '</span></button>' +
-    cats.map(function (c) {
-      var n = W.filter(function (w) { return w.cat === c; }).length;
-      return '<button class="tab-btn" role="tab" aria-selected="false" data-cat="' + c + '">' + c + '<span class="c">' + n + '</span></button>';
-    }).join('');
+  /* Counted here rather than written into the page, so it cannot go stale
+     the way a hand-typed number does when a project is added. */
+  document.getElementById('archCount').textContent =
+    W.length + (W.length === 1 ? ' project' : ' projects');
 
   function tags(w) {
     var list = [w.cat].concat(w.scope.split('+').map(function (s) { return s.trim(); }));

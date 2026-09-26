@@ -46,7 +46,7 @@ jobs:
         run: |
           git config user.name "vaelo-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add work/*.html blog/*.html index.html services/*.html editor.html manage.html
+          git add work/*.html blog/*.html index.html services/*.html editor.html manage.html build-cases.py build-posts.py
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else

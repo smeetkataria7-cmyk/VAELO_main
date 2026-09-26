@@ -896,3 +896,11 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
   .svc-shot{grid-column:1;grid-row:auto;aspect-ratio:4/3}
   .svc-chips{flex-direction:row;flex-wrap:wrap}
 }
+
+/* The archive used to carry a filter pill per category. With roughly one
+   project in each, every pill read "1" and narrowed nothing, so the row
+   was noise. A plain count says the same thing in one line. */
+.arch-count{text-align:center;padding:clamp(20px,3vw,34px) var(--pad) 0;
+  font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim)}
+.arch-hd + .arch-count{padding-top:clamp(18px,2.6vw,30px)}
+.arch-count + .arch.mason{padding-top:clamp(30px,5vw,58px)}
