@@ -11,6 +11,7 @@ window.VAELO_BLOG = [
     date: '2026-09-28',
     author: 'Vaelo Creative',
     tag: 'Brand',
+    cover: 'assets/blog/whats-a-brand-strategy-anyway/cover.jpg',
     excerpt: 'Not a logo, not a colour palette, not a deck that gets filed after the kickoff. A brand strategy is the set of decisions everything else answers to.',
     body: [
       'Say your brand walked into a room. Would anyone remember it after it left? Could they describe it to a friend without pointing at your logo? Most can\'t, and it is almost never a design problem. It is a strategy problem - or the absence of one.',

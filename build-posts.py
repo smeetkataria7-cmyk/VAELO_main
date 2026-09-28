@@ -39,11 +39,11 @@ POST_TPL = """<!DOCTYPE html>
 <meta property="og:title" content="{title} | Vaelo Blog">
 <meta property="og:description" content="{excerpt}">
 <meta property="og:url" content="https://www.vaelocreative.com/blog/{slug}.html">
-<meta property="og:image" content="https://www.vaelocreative.com/assets/og.jpg">
+<meta property="og:image" content="{og_image}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{title} | Vaelo Blog">
 <meta name="twitter:description" content="{excerpt}">
-<meta name="twitter:image" content="https://www.vaelocreative.com/assets/og.jpg">
+<meta name="twitter:image" content="{og_image}">
 <link rel="icon" href="../assets/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -73,6 +73,8 @@ POST_TPL = """<!DOCTYPE html>
     <h1 style="margin-top:16px"><span class="mask"><i>{title_line1}</i></span>{title_line2_html}</h1>
     <p class="lab" style="margin-top:22px">{date_fmt} · {author}</p>
   </header>
+
+{cover_html}
 
   <section class="case-body" style="grid-template-columns:1fr;max-width:74ch;margin:0 auto" data-rev>
     <div class="prose" data-rev data-stagger>
@@ -175,6 +177,19 @@ def render_block(par):
 def build_post(p):
     title = p["title"]
     paras = "\n".join(render_block(par) for par in p.get("body", []))
+    cover = p.get("cover", "")
+    if cover:
+        cover_html = (
+            '  <figure class="post-cover" data-rev style="margin:0 auto;padding:0 var(--pad);'
+            'max-width:1100px">\n'
+            '    <img src="../%s" alt="%s" loading="lazy" decoding="async" '
+            'style="width:100%%;height:auto;border-radius:18px;display:block">\n'
+            '  </figure>' % (esc(cover), esc(title))
+        )
+        og_image = "https://www.vaelocreative.com/" + esc(cover)
+    else:
+        cover_html = ""
+        og_image = "https://www.vaelocreative.com/assets/og.jpg"
     words = title.split(" ", 1)
     # letter-reveal mask wants the headline pre-split; keep it to one or two
     # lines, breaking after the first word only if the title is long
@@ -190,6 +205,7 @@ def build_post(p):
         date_fmt=fmt_date(p.get("date", "")), author=esc(p.get("author", "")),
         tag=esc(p.get("tag", "")), title_line1=esc(line1),
         title_line2_html=title_line2_html, paragraphs=paras,
+        cover_html=cover_html, og_image=og_image,
     )
     out = pathlib.Path("blog") / (p["slug"] + ".html")
     out.write_text(page, encoding="utf-8")
