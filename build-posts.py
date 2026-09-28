@@ -49,7 +49,7 @@ POST_TPL = """<!DOCTYPE html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Archivo:wght@300;400;500;600&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/vaelo.css?v=24350702">
+<link rel="stylesheet" href="../assets/vaelo.css?v=bc80e6b5">
 <script type="application/ld+json">
 {{"@context":"https://schema.org","@type":"BlogPosting","headline":{title_j},
 "datePublished":"{date}","author":{{"@type":"Organization","name":"Vaelo Creative LLP"}}}}
@@ -96,7 +96,7 @@ POST_TPL = """<!DOCTYPE html>
   <div><a href="mailto:hello@vaelocreative.com">hello@vaelocreative.com</a></div>
   <div>© 2026</div>
 </footer>
-<script src="../assets/vaelo.js?v=c772da44"></script>
+<script src="../assets/vaelo.js?v=6920936b"></script>
 </body>
 </html>
 """
@@ -124,7 +124,7 @@ INDEX_TPL = """<!DOCTYPE html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Archivo:wght@300;400;500;600&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/vaelo.css?v=24350702">
+<link rel="stylesheet" href="../assets/vaelo.css?v=bc80e6b5">
 </head>
 <body>
 <div class="wipe"></div>
@@ -156,7 +156,7 @@ INDEX_TPL = """<!DOCTYPE html>
   <div><a href="mailto:hello@vaelocreative.com">hello@vaelocreative.com</a></div>
   <div>© 2026</div>
 </footer>
-<script src="../assets/vaelo.js?v=c772da44"></script>
+<script src="../assets/vaelo.js?v=6920936b"></script>
 </body>
 </html>
 """
