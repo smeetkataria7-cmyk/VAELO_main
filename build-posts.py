@@ -166,11 +166,29 @@ def esc(s):
     return html.escape(s or "")
 
 
+IMG_RE = re.compile(r"^!\[(.*?)\]\((.+?)\)$")
+
+
 def render_block(par):
-    # A paragraph beginning "## " becomes a section heading; everything else
-    # is body copy. Keeps blog.js plain text while allowing structured posts.
+    # "## " -> section heading; "![alt](src)" -> inline figure; otherwise a
+    # paragraph. Keeps blog.js plain text while allowing structured posts.
     if par.startswith("## "):
         return '      <h2 style="margin:1.4em 0 .1em">%s</h2>' % esc(par[3:].strip())
+    m = IMG_RE.match(par.strip())
+    if m:
+        alt, src = m.group(1), m.group(2)
+        return (
+            '      </div>\n'
+            '  </section>\n'
+            '  <figure class="post-inline" data-rev style="margin:0 auto;padding:0 var(--pad);'
+            'max-width:1100px">\n'
+            '    <img src="../%s" alt="%s" loading="lazy" decoding="async" '
+            'style="width:100%%;height:auto;border-radius:14px;display:block">\n'
+            '  </figure>\n'
+            '  <section class="case-body" style="grid-template-columns:1fr;max-width:74ch;'
+            'margin:0 auto" data-rev>\n'
+            '    <div class="prose" data-rev data-stagger>' % (esc(src), esc(alt))
+        )
     return "      <p>%s</p>" % esc(par)
 
 
