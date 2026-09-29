@@ -48,6 +48,7 @@ window.VAELO_BLOG = [
     date: '2026-09-13',
     author: 'Vaelo Creative',
     tag: 'Studio',
+    cover: 'assets/blog/welcome-to-the-vaelo-blog/cover.jpg',
     excerpt: 'Notes on brand, AI-native production and building fast without it feeling rushed, starting here.',
     body: [
       'We build brand, content and performance work at a pace most studios our size can\'t match, and this is where we\'ll write about how.',

@@ -455,9 +455,16 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
 .post-list{padding:0 var(--pad) clamp(70px,10vw,130px);display:grid;
   grid-template-columns:repeat(2,1fr);gap:clamp(20px,3vw,44px)}
 @media(max-width:760px){.post-list{grid-template-columns:1fr}}
-.post-card{display:block;border:1px solid var(--line);border-radius:18px;
+.post-card{display:block;border:1px solid var(--line);border-radius:18px;overflow:hidden;
   padding:clamp(24px,2.6vw,34px);transition:border-color .3s,background .3s}
 .post-card:hover{border-color:rgba(244,242,236,.3);background:#0f0f0e}
+/* a card with a cover carries the image flush to its top edge, then pads the
+   text below; a card without one keeps the plain padded text layout */
+.post-card.has-cover{padding:0}
+.post-card.has-cover .post-body{padding:clamp(24px,2.6vw,34px)}
+.post-card-cover{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;
+  border-bottom:1px solid var(--line)}
+.post-card .post-body{display:block}
 .post-meta{display:flex;justify-content:space-between;font-size:11px;text-transform:uppercase;
   letter-spacing:.07em;color:var(--dim);margin-bottom:14px}
 .post-meta .tag{color:var(--accent)}

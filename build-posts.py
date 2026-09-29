@@ -49,7 +49,7 @@ POST_TPL = """<!DOCTYPE html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Archivo:wght@300;400;500;600&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/vaelo.css?v=24350702">
+<link rel="stylesheet" href="../assets/vaelo.css?v=c8ae6415">
 <script type="application/ld+json">
 {{"@context":"https://schema.org","@type":"BlogPosting","headline":{title_j},
 "datePublished":"{date}","author":{{"@type":"Organization","name":"Vaelo Creative LLP"}}}}
@@ -96,7 +96,7 @@ POST_TPL = """<!DOCTYPE html>
   <div><a href="mailto:hello@vaelocreative.com">hello@vaelocreative.com</a></div>
   <div>© 2026</div>
 </footer>
-<script src="../assets/vaelo.js?v=c772da44"></script>
+<script src="../assets/vaelo.js?v=6920936b"></script>
 </body>
 </html>
 """
@@ -124,7 +124,7 @@ INDEX_TPL = """<!DOCTYPE html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Archivo:wght@300;400;500;600&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/vaelo.css?v=24350702">
+<link rel="stylesheet" href="../assets/vaelo.css?v=c8ae6415">
 </head>
 <body>
 <div class="wipe"></div>
@@ -156,7 +156,7 @@ INDEX_TPL = """<!DOCTYPE html>
   <div><a href="mailto:hello@vaelocreative.com">hello@vaelocreative.com</a></div>
   <div>© 2026</div>
 </footer>
-<script src="../assets/vaelo.js?v=c772da44"></script>
+<script src="../assets/vaelo.js?v=6920936b"></script>
 </body>
 </html>
 """
@@ -233,14 +233,24 @@ def build_post(p):
 def build_index():
     cards = []
     for p in POSTS:
+        cover = p.get("cover", "")
+        cover_html = (
+            '      <img class="post-card-cover" src="../%s" alt="%s" loading="lazy" decoding="async">\n'
+            % (esc(cover), esc(p["title"]))
+        ) if cover else ""
         cards.append(
-            '    <a class="post-card" data-rev href="%s.html">\n'
-            '      <div class="post-meta"><span class="tag">%s</span><span class="date">%s</span></div>\n'
-            '      <h2>%s</h2>\n'
-            '      <p>%s</p>\n'
-            '      <span class="more">Read more <i class="arrow">↗</i></span>\n'
+            '    <a class="post-card%s" data-rev href="%s.html">\n'
+            '%s'
+            '      <div class="post-body">\n'
+            '        <div class="post-meta"><span class="tag">%s</span><span class="date">%s</span></div>\n'
+            '        <h2>%s</h2>\n'
+            '        <p>%s</p>\n'
+            '        <span class="more">Read more <i class="arrow">↗</i></span>\n'
+            '      </div>\n'
             '    </a>' % (
-                p["slug"], esc(p.get("tag", "")), fmt_date(p.get("date", "")),
+                " has-cover" if cover else "",
+                p["slug"], cover_html,
+                esc(p.get("tag", "")), fmt_date(p.get("date", "")),
                 esc(p["title"]), esc(p.get("excerpt", "")),
             )
         )
