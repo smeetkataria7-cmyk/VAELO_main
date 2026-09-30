@@ -6,6 +6,32 @@
    ========================================================================== */
 window.VAELO_BLOG = [
   {
+    slug: 'integrating-ar-and-vr-into-customer-experiences',
+    title: 'What AR and VR Are Actually Good For',
+    date: '2026-09-30',
+    author: 'Vaelo Creative',
+    tag: 'Industry',
+    cover: 'assets/blog/integrating-ar-and-vr-into-customer-experiences/cover.jpg',
+    excerpt: 'Strip away the headset hype and AR/VR does a few things genuinely well for a brand, and a lot of things worse than a good photo. Here is the line between them.',
+    body: [
+      'Every year someone declares that this is the year AR and VR change marketing forever, and every year most of it stays a gimmick that gets used once and abandoned. That does not mean the tech is useless. It means the useful part is narrow and specific, and worth knowing precisely, so you spend on the bit that works and skip the bit that just photographs well in a case study.',
+      '## The one thing it genuinely fixes',
+      'The real problem AR solves is buying blind. Online, a customer cannot tell if the sofa fits the room, if the frames suit their face, or how big the thing actually is. AR answers exactly that: point a phone, put the product in your own space at true scale, and the guesswork disappears. Fewer returns, more confident purchases. This is not a gimmick, it is the single most valuable thing the technology does, and it pays for itself on expensive products that are hard to picture.',
+      '![Placing a product in your own room at true scale, before buying](assets/blog/integrating-ar-and-vr-into-customer-experiences/fig-1.jpg)',
+      '## Seeing a product properly',
+      'The second real use is examination. For anything complex, expensive or physically large, letting someone turn it over, look inside it, or stand next to it beats any flat photo. A watch movement, a car interior, a piece of machinery, a flat still cannot carry those. Immersive views build trust because they hide nothing, and trust is what closes a considered purchase.',
+      '![Turning a product over and looking inside it, not just at it](assets/blog/integrating-ar-and-vr-into-customer-experiences/fig-2.jpg)',
+      '## The personalization promise, kept small',
+      'Every deck about immersive tech promises deep personalization, and most of it never ships. The version that is real and modest: remember what someone looked at, show them the configuration they were building, let them pick up where they left off. That is genuinely useful. A fully bespoke virtual world per customer is not, at least not at a price that returns anything. Keep the ambition the size of the budget.',
+      '## Where it still breaks',
+      'The honest costs. Good AR/VR is expensive to build and needs specialist skills most teams do not have on staff. It leans on devices and app installs that a lot of your audience will not have or bother with. And it carries privacy weight, because spatial and camera data is sensitive and people are right to be wary. None of this kills the idea; all of it means you pilot narrowly and prove the return before you scale.',
+      '![The build cost and effort that sit behind the seamless demo](assets/blog/integrating-ar-and-vr-into-customer-experiences/fig-3.jpg)',
+      '## What to actually do about it',
+      'Do not commission a metaverse. Find the single place in your funnel where a customer is hesitating because they cannot picture the product, and put AR exactly there. AR that runs in a browser with no app to install beats a beautiful headset experience nobody downloads. Measure it against returns and conversion, not against how futuristic it feels in the room. The brands that win with this are quiet about it, they just removed a specific doubt at a specific moment.',
+      'That is how we weigh any new format at Vaelo: find the real friction it removes, ignore the part that is only a spectacle. If you are wondering whether AR earns a place in your funnel, that is the conversation worth having before anyone builds anything.'
+    ]
+  },
+  {
     slug: 'blockchain-and-digital-marketing',
     title: 'What Blockchain Actually Changes in Marketing',
     date: '2026-09-29',
