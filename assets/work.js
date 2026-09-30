@@ -243,7 +243,18 @@ window.VAELO_WORK = [
       'assets/work/niti-bothra/03.jpg',
       'assets/work/niti-bothra/04.jpg',
       'assets/work/niti-bothra/05.jpg',
-      'assets/work/niti-bothra/06.jpg'
+      'assets/work/niti-bothra/06.jpg',
+      'assets/work/niti-bothra/07.jpg',
+      'assets/work/niti-bothra/08.jpg',
+      'assets/work/niti-bothra/09.jpg',
+      'assets/work/niti-bothra/10.jpg',
+      'assets/work/niti-bothra/11.jpg',
+      'assets/work/niti-bothra/12.jpg',
+      'assets/work/niti-bothra/13.jpg',
+      'assets/work/niti-bothra/14.jpg',
+      'assets/work/niti-bothra/15.jpg',
+      'assets/work/niti-bothra/16.jpg',
+      'assets/work/niti-bothra/17.jpg'
     ] }
   },
   {
