@@ -6,6 +6,32 @@
    ========================================================================== */
 window.VAELO_BLOG = [
   {
+    slug: 'marketing-in-the-age-of-ai',
+    title: 'The Work AI Cannot Be Blamed For',
+    date: '2026-10-01',
+    author: 'Vaelo Creative',
+    tag: 'Industry',
+    cover: 'assets/blog/marketing-in-the-age-of-ai/cover.jpg',
+    excerpt: 'A model can write you fifty taglines before lunch. It cannot decide which one is right, and it will not be in the room when a client asks why the campaign flopped. That part is still yours.',
+    body: [
+      'Most marketing teams now run AI somewhere in the pipeline, and the number keeps climbing. That part of the story is settled. The part nobody has settled is what happens to judgment once the tool is this fast: who decides the fifty taglines are wrong, who is accountable when the campaign underperforms, and whether speed was ever the thing holding the work back in the first place.',
+      '## Everyone has it, nobody trusts it yet',
+      'The adoption numbers and the confidence numbers do not match. Most teams have a model somewhere in their process, and almost none of them believe that use has actually matured. That gap is not teams being slow. It is teams noticing, correctly, that a tool producing fast drafts is not the same as a tool producing good judgment, and they have not yet built the habits that tell the two apart.',
+      '![Fast output and good judgment are not the same thing](assets/blog/marketing-in-the-age-of-ai/fig-1.jpg)',
+      '## "AI slop" is a real signal, not just a meme',
+      'The joke about bland, generic AI output exists because the failure mode is common and easy to spot. A model trained on everyone\'s content tends to produce the average of everyone\'s content, and average is the opposite of a brand that is supposed to be distinct. The fix is not avoiding the tool. It is refusing to publish the first draft it gives you, every time, as a matter of process rather than discipline you have to remember.',
+      '## Where the return is actually proven',
+      'Strip out the hype and two things are backed by real numbers. Personalized experiences earn a measurable premium, people will pay more for a message that feels built for them, and that is exactly the kind of work AI is suited to doing at a scale no team could do by hand. Creator and influencer spend already returns well, and sharper targeting only improves that further. These are not speculative; they are the two places worth actually investing effort.',
+      '![Personalization at scale is the proven return, not a slogan](assets/blog/marketing-in-the-age-of-ai/fig-2.jpg)',
+      '## The part that still has your name on it',
+      'A model can generate fifty headlines in the time it takes to make coffee. It cannot tell you which one fits the brand, which one will read as tone deaf next to the news that week, or which one a client will ask you to defend in a room. That judgment call is still entirely human, and it always will be, because it requires actually caring about the outcome rather than optimizing for a prompt. The teams getting this right are not the ones using AI the most. They are the ones who decided exactly where the model stops and a person starts, and never let that line move by accident.',
+      '![Deciding which draft is right is still a human call](assets/blog/marketing-in-the-age-of-ai/fig-3.jpg)',
+      '## What to actually do about it',
+      'Use the model to multiply ideas and automate the tedious parts of production, not to replace the decision about what the work should say. Train your team on it properly instead of letting everyone quietly figure it out alone, since most people say they never got that training in the first place. And keep one rule above all: nothing goes out that a person has not looked at and actually chosen, because the blame for a bad campaign will land on a person either way, not on the model that drafted it.',
+      'That is the posture we take on every project at Vaelo: AI drafts, a person decides. If you want a second opinion on where that line should sit in your own process, that is the conversation worth having first.'
+    ]
+  },
+  {
     slug: 'integrating-ar-and-vr-into-customer-experiences',
     title: 'What AR and VR Are Actually Good For',
     date: '2026-09-30',
