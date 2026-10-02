@@ -214,7 +214,7 @@ window.VAELO_WORK = [
     summary: 'A concept reel produced entirely inside the AI production stack, with no traditional shoot day at all.',
     brief: 'Most of what a production line does can\'t be shown in a portfolio without shooting it again. This reel exists to show the stack itself, and what it can produce before a client brief even asks for it.',
     did: 'Six concepts, generated and finished end to end through the AI pipeline: no camera, no set, no shoot day. The point isn\'t any single concept; it\'s the production speed that let all six exist.',
-    kpis: [['6', 'Concepts produced'], ['0', 'Shoot days'], ['100%', 'AI-native production']],
+    kpis: [['6', 'Concepts produced']],
     images: { cover: 'assets/work/conceptual/cover.jpg', hero: 'assets/work/conceptual/01.mp4', heroPoster: 'assets/work/conceptual/01-poster.jpg', gallery: ['assets/work/conceptual/02.mp4', 'assets/work/conceptual/03.mp4', 'assets/work/conceptual/04.mp4', 'assets/work/conceptual/05.mp4', 'assets/work/conceptual/06.mp4',
       'assets/work/conceptual/07.png',
       'assets/work/conceptual/08.png',
@@ -237,7 +237,7 @@ window.VAELO_WORK = [
     summary: 'A full ethnic-wear lookbook produced entirely through AI product photography, with no studio day and no models on set.',
     brief: 'An ethnic wear label needed a lookbook that reads like a studio shoot with hired models, stylists and a location, on a timeline and budget that a traditional shoot day couldn’t meet.',
     did: 'We ran the full lookbook through the AI production pipeline: garment shots turned into styled, model-worn imagery with consistent lighting, skin tone and drape across every piece, so the set reads as one shoot rather than a patchwork of renders.',
-    kpis: [['500+', 'Catalogue images created'], ['0', 'Shoot days'], ['100%', 'AI-native production']],
+    kpis: [['500+', 'Catalogue images created']],
     images: { hero: 'assets/work/niti-bothra/01-hero.jpg', gallery: [
       'assets/work/niti-bothra/02.jpg',
       'assets/work/niti-bothra/03.jpg',
