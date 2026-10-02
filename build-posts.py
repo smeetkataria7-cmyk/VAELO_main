@@ -62,7 +62,7 @@ POST_TPL = """<!DOCTYPE html>
 <nav class="top">
   <a href="../index.html" class="word">Vaelo</a>
   <div class="nav-links">
-    <a href="../work/">Work</a><a href="../blog/">Blog</a><a href="../services/">Services</a><a href="../index.html#process">Process</a><a href="../index.html#contact">Contact</a>
+    <a href="../work/">Work</a><a href="../blog/">Blog</a><a href="../services/">Services</a><a href="../contact/">Contact</a>
   </div>
   <button class="burger" aria-label="Menu" aria-expanded="false"><i></i><i></i><i></i></button>
 </nav>
@@ -133,7 +133,7 @@ INDEX_TPL = """<!DOCTYPE html>
 <nav class="top">
   <a href="../index.html" class="word">Vaelo</a>
   <div class="nav-links">
-    <a href="../work/">Work</a><a href="">Blog</a><a href="../services/">Services</a><a href="../index.html#process">Process</a><a href="../index.html#contact">Contact</a>
+    <a href="../work/">Work</a><a href="">Blog</a><a href="../services/">Services</a><a href="../contact/">Contact</a>
   </div>
   <button class="burger" aria-label="Menu" aria-expanded="false"><i></i><i></i><i></i></button>
 </nav>
