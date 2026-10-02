@@ -37,7 +37,7 @@
 </nav>
 
 <main>
-  <section class="end" id="contact" style="min-height:80vh;display:flex;flex-direction:column;justify-content:center">
+  <section class="end" id="contact" style="min-height:auto;padding-top:120px;display:flex;flex-direction:column">
     <p class="lab ac">New Business</p>
     <h2 style="margin-top:20px">Let&#39;s build<br>something people<br><span class="out">can&#39;t ignore.</span></h2>
     <a class="mail" href="mailto:hello@vaelocreative.com">hello@vaelocreative.com <span aria-hidden="true">&#8599;</span></a>
@@ -46,7 +46,54 @@
       <div><span class="lab">Instagram</span><b>@vaelocreative.official</b></div>
     </div>
   </section>
+
+  <section style="max-width:640px;margin:0 auto;padding:40px var(--pad) 120px">
+    <form id="contactForm" action="https://formsubmit.co/ajax/hello@vaelocreative.com" method="POST" style="display:flex;flex-direction:column;gap:18px">
+      <input type="hidden" name="_subject" value="New enquiry from vaelocreative.com">
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+      <label style="display:flex;flex-direction:column;gap:8px">
+        <span class="lab">Name</span>
+        <input type="text" name="Name" required style="background:transparent;border:1px solid rgba(244,242,236,.25);border-radius:8px;padding:14px 16px;color:var(--ink,#f4f2ec);font:inherit">
+      </label>
+      <label style="display:flex;flex-direction:column;gap:8px">
+        <span class="lab">Email</span>
+        <input type="email" name="Email" required style="background:transparent;border:1px solid rgba(244,242,236,.25);border-radius:8px;padding:14px 16px;color:var(--ink,#f4f2ec);font:inherit">
+      </label>
+      <label style="display:flex;flex-direction:column;gap:8px">
+        <span class="lab">Company</span>
+        <input type="text" name="Company" style="background:transparent;border:1px solid rgba(244,242,236,.25);border-radius:8px;padding:14px 16px;color:var(--ink,#f4f2ec);font:inherit">
+      </label>
+      <label style="display:flex;flex-direction:column;gap:8px">
+        <span class="lab">Message</span>
+        <textarea name="Message" required rows="5" style="background:transparent;border:1px solid rgba(244,242,236,.25);border-radius:8px;padding:14px 16px;color:var(--ink,#f4f2ec);font:inherit;resize:vertical"></textarea>
+      </label>
+      <button type="submit" class="mail" style="border:none;cursor:pointer;background:none;text-align:left;padding:0">Send message <span aria-hidden="true">&#8599;</span></button>
+      <p id="formStatus" style="min-height:1.2em"></p>
+    </form>
+  </section>
 </main>
+<script>
+(function () {
+  var form = document.getElementById('contactForm');
+  var status = document.getElementById('formStatus');
+  if (!form) return;
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    status.textContent = 'Sending...';
+    fetch(form.action, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(form)
+    }).then(function (r) {
+      if (!r.ok) throw new Error('bad response');
+      form.reset();
+      status.textContent = "Thanks — we'll be in touch soon.";
+    }).catch(function () {
+      status.textContent = 'Something went wrong — email us directly at hello@vaelocreative.com.';
+    });
+  });
+})();
+</script>
 
 <div class="endmark"><span>Vaelo</span></div>
 
