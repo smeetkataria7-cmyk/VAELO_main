@@ -18,7 +18,7 @@ window.VAELO_WORK = [
     summary: 'A new range with a fixed launch date, no existing audience, and a category where everything looks the same on shelf and identical in feed.',
     brief: 'The client had a finished product, a hard launch date and no audience. The category is crowded with brands that all resolved to the same visual language: soft pastels, sans-serif wordmark, a claim nobody reads. A staged rollout would have burned the launch window before anyone noticed the product existed.',
     did: 'We built the identity and the packaging system first, because the pack is the ad in a category people meet on a shelf. Then the full launch asset library was produced in-house, covering product, lifestyle and UGC-style video, so the Meta buy launched against creative we made ourselves. One team held the positioning from the first sketch to the third round of ad iterations, which is why the test loop closed in days rather than weeks. The Meta buy returned $31,000 in revenue, a 6x return on ad spend.',
-    kpis: [['6x', 'Return on ad spend'], ['$31,000', 'Revenue generated']],
+    kpis: [['6x', 'Return on ad spend'], ['$31,000', 'Revenue generated'], ['769K+', 'Amazon ad impressions'], ['$9,123', 'Amazon ad sales']],
     images: { cover: 'assets/work/simplicare/cover.png', hero: 'assets/work/simplicare/01.mp4', heroPoster: 'assets/work/simplicare/01-poster.jpg', gallery: [
       'assets/work/simplicare/02.mp4',
       'assets/work/simplicare/03.jpg',
