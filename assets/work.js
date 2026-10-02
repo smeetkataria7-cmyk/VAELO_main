@@ -6,7 +6,7 @@
 window.VAELO_WORK = [
 
   {
-    slug: 'launch-not-a-rollout',
+    slug: 'simplicare',
     tone: '#2970af',
     idx: '01',
     title: 'SimpliCare',
@@ -17,21 +17,21 @@ window.VAELO_WORK = [
     tile: '',
     summary: 'A new range with a fixed launch date, no existing audience, and a category where everything looks the same on shelf and identical in feed.',
     brief: 'The client had a finished product, a hard launch date and no audience. The category is crowded with brands that all resolved to the same visual language: soft pastels, sans-serif wordmark, a claim nobody reads. A staged rollout would have burned the launch window before anyone noticed the product existed.',
-    did: 'We built the identity and the packaging system first, because the pack is the ad in a category people meet on a shelf. Then the full launch asset library was produced in-house, covering product, lifestyle and UGC-style video, so the Meta buy launched against creative we made ourselves. One team held the positioning from the first sketch to the third round of ad iterations, which is why the test loop closed in days rather than weeks. The Meta buy returned 4x on a ₹30,000 spend.',
-    kpis: [['4x', 'Return on ad spend'], ['₹30,000', 'Media spend'], ['9 days', 'Concept to live']],
-    images: { cover: 'assets/work/launch-not-a-rollout/cover.png', hero: 'assets/work/launch-not-a-rollout/01.mp4', heroPoster: 'assets/work/launch-not-a-rollout/01-poster.jpg', gallery: [
-      'assets/work/launch-not-a-rollout/02.mp4',
-      'assets/work/launch-not-a-rollout/03.jpg',
-      'assets/work/launch-not-a-rollout/04.jpg',
-      'assets/work/launch-not-a-rollout/05.jpg',
-      'assets/work/launch-not-a-rollout/06.jpg',
-      'assets/work/launch-not-a-rollout/07.jpg',
-      'assets/work/launch-not-a-rollout/08.jpg',
-      'assets/work/launch-not-a-rollout/09.jpg',
-      'assets/work/launch-not-a-rollout/10.jpg',
-      'assets/work/launch-not-a-rollout/11.jpg',
-      'assets/work/launch-not-a-rollout/12.jpg',
-      'assets/work/launch-not-a-rollout/13.jpg'
+    did: 'We built the identity and the packaging system first, because the pack is the ad in a category people meet on a shelf. Then the full launch asset library was produced in-house, covering product, lifestyle and UGC-style video, so the Meta buy launched against creative we made ourselves. One team held the positioning from the first sketch to the third round of ad iterations, which is why the test loop closed in days rather than weeks. The Meta buy returned $30,000 in revenue on a $5,000 spend, a 6x return on ad spend.',
+    kpis: [['6x', 'Return on ad spend'], ['$5,000', 'Media spend']],
+    images: { cover: 'assets/work/simplicare/cover.png', hero: 'assets/work/simplicare/01.mp4', heroPoster: 'assets/work/simplicare/01-poster.jpg', gallery: [
+      'assets/work/simplicare/02.mp4',
+      'assets/work/simplicare/03.jpg',
+      'assets/work/simplicare/04.jpg',
+      'assets/work/simplicare/05.jpg',
+      'assets/work/simplicare/06.jpg',
+      'assets/work/simplicare/07.jpg',
+      'assets/work/simplicare/08.jpg',
+      'assets/work/simplicare/09.jpg',
+      'assets/work/simplicare/10.jpg',
+      'assets/work/simplicare/11.jpg',
+      'assets/work/simplicare/12.jpg',
+      'assets/work/simplicare/13.jpg'
     ] }
   },
   {
