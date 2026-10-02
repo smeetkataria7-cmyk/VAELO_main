@@ -80,14 +80,14 @@ TPL = """<!DOCTYPE html>
   <div class="prose" data-rev data-stagger><p>{brief}</p></div>
 </section>
 
+<div class="kpis" data-rev data-stagger>{kpis}</div>
+
 {gallery}
 
 <section class="case-body" data-rev style="padding-top:0">
   <div class="stick"><p class="lab ac">What we did</p><h2 style="margin-top:12px">The work<br>itself</h2></div>
   <div class="prose" data-rev data-stagger><p>{did}</p></div>
 </section>
-
-<div class="kpis" data-rev data-stagger>{kpis}</div>
 </main>
 
 <a class="next" href="{next_slug}.html" style="--tone:{next_tone}">
