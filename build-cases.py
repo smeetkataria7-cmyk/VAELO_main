@@ -40,7 +40,7 @@ TPL = """<!DOCTYPE html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Archivo:wght@300;400;500;600&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/vaelo.css?v=0d790e85">
+<link rel="stylesheet" href="../assets/vaelo.css?v=c8ae6415">
 <script type="application/ld+json">
 {{"@context":"https://schema.org","@type":"CreativeWork","name":{title_j},
 "about":{cat_j},"dateCreated":"{year}",
@@ -107,7 +107,7 @@ TPL = """<!DOCTYPE html>
   <div>© 2026</div>
 </footer>
 
-<script src="../assets/vaelo.js?v=c772da44"></script>
+<script src="../assets/vaelo.js?v=6920936b"></script>
 </body>
 </html>
 """
@@ -169,10 +169,10 @@ for i, w in enumerate(WORK):
     stills = [s for s in gal if not is_vid(s)]
     clips = [s for s in gal if is_vid(s)]
     blocks = []
-    if stills:
-        blocks.append(gallery(stills, ["g-half"], w["title"]))
     if clips:
         blocks.append(gallery(clips, ["g-third"], w["title"]))
+    if stills:
+        blocks.append(gallery(stills, ["g-half"], w["title"]))
     gallery_html = "\n\n".join(blocks) or (
         '<div class="gal" data-rev>\n'
         '  <div class="slot g-half" data-par="7" data-spec="Campaign still · 1920×1080"></div>\n'
