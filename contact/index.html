@@ -48,9 +48,7 @@
   </section>
 
   <section style="max-width:640px;margin:0 auto;padding:40px var(--pad) 120px">
-    <form id="contactForm" action="https://formsubmit.co/ajax/hello@vaelocreative.com" method="POST" style="display:flex;flex-direction:column;gap:18px">
-      <input type="hidden" name="_subject" value="New enquiry from vaelocreative.com">
-      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+    <form id="contactForm" action="https://script.google.com/macros/s/AKfycbxfvAa2DYOTrSwYI69BN9J7DSkDUouwJfaq8-w5qFBMBh5n8i4X-P-EPfX1qy4bNHyH/exec" method="POST" style="display:flex;flex-direction:column;gap:18px">
       <label style="display:flex;flex-direction:column;gap:8px">
         <span class="lab">Name</span>
         <input type="text" name="Name" required style="background:transparent;border:1px solid rgba(244,242,236,.25);border-radius:8px;padding:14px 16px;color:var(--ink,#f4f2ec);font:inherit">
@@ -82,10 +80,9 @@
     status.textContent = 'Sending...';
     fetch(form.action, {
       method: 'POST',
-      headers: { 'Accept': 'application/json' },
+      mode: 'no-cors',
       body: new FormData(form)
-    }).then(function (r) {
-      if (!r.ok) throw new Error('bad response');
+    }).then(function () {
       form.reset();
       status.textContent = "Thanks — we'll be in touch soon.";
     }).catch(function () {
