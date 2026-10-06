@@ -6,6 +6,34 @@
    ========================================================================== */
 window.VAELO_BLOG = [
   {
+    slug: 'llmo-getting-quoted-when-nobody-scrolls',
+    title: 'LLMO: Getting Quoted When Nobody Scrolls',
+    date: '2026-10-06',
+    author: 'Vaelo Creative',
+    tag: 'Industry',
+    cover: 'assets/blog/llmo-getting-quoted-when-nobody-scrolls/cover.png',
+    excerpt: 'Search used to hand you ten links and let you choose. Increasingly it hands you one answer and names two or three sources. Here is what that changes, and the short list of things that actually move you into the answer.',
+    body: [
+      'For twenty years the job was to rank. Get to the top of a list of ten blue links, and the click was yours to lose. That job is quietly being replaced by a harder one: being the source an AI quotes when it answers instead of listing. The acronym doing the rounds for this is LLMO, large language model optimisation, and under the jargon is a genuine shift in how people find anything.',
+      '## The list became an answer',
+      'When someone asks ChatGPT, Perplexity or Gemini a question, they do not get ten options to evaluate. They get a written answer, and typically only a handful of sources named alongside it, often somewhere between two and seven. Ten positions on a results page have become two or three citations in a paragraph. Reported usage gives a sense of the scale: ChatGPT is now cited at around 800 million weekly users. The competition did not get harder by degrees. The number of slots collapsed.',
+      '![Ten results became one answer with two or three sources](assets/blog/llmo-getting-quoted-when-nobody-scrolls/fig-1.png)',
+      '## It is not SEO with a new name, and it is not a replacement either',
+      'Two mistakes are common here. The first is treating LLMO as a rebrand of SEO, which leads to the same keyword work and no change in outcome. The second is treating it as a replacement, and quietly letting the fundamentals rot. Neither holds. Models still lean heavily on the open web, so crawlable, fast, well linked pages remain the floor. What sits on top of that floor is different: you are no longer writing to win a position, you are writing to be quotable inside somebody else\'s sentence.',
+      '## What actually moves the needle',
+      'The practical work is narrower than the discourse suggests. Give a model something concrete to repeat: specific numbers, named sources, direct quotes, dates. Vague brand copy has nothing a model can lift, so it does not get lifted. Structure the page so the answer to a real question sits in one findable block rather than spread across six paragraphs of preamble. Add the plain structured data that says what the page is, who wrote it and which part is the answer. Publish an llms.txt, a short index pointing AI crawlers at your important pages in clean readable form. And put a real named author with a real bio behind the writing, because a model needs a reason to trust the page before it will quote it.',
+      '![Specific, attributable facts are what a model can actually lift](assets/blog/llmo-getting-quoted-when-nobody-scrolls/fig-2.png)',
+      '## How much it is worth',
+      'The honest answer is that this is early and the measurement is young, but it is not nothing. Research out of Princeton, Georgia Tech and the Allen Institute found that generative engine optimisation methods raised a source\'s visibility in AI answers by up to 40 percent in their tests. Separate work on content structure alone reports a citation rate improvement in the region of 17 percent across several mainstream engines. Those are real effects on a real surface, and almost nobody in your category is working on them yet.',
+      '## The part no plugin fixes',
+      'There is already a market of tools that will generate your schema, write your llms.txt and tell you which AI crawlers fetched you this week. Use them, they save time. But none of them can make a weak page worth citing. A model quotes a source because that source said something specific and useful that it can attribute with confidence. If the underlying page is a wall of category-standard claims, perfect markup just makes it easier to find a page nobody has a reason to quote.',
+      '![Markup makes a page easy to read, not worth reading](assets/blog/llmo-getting-quoted-when-nobody-scrolls/fig-3.png)',
+      '## What to actually do this month',
+      'Start by asking the models what they already say about you. Put your own brand, your category and your three most commercial questions into ChatGPT, Perplexity and Gemini, and write down who gets named. That list is your real competitive set now, and it is often not the one you assumed. Then pick the five pages that should have been the answer, and rewrite them to answer one specific question each, with numbers and sources in them. Add the schema and the llms.txt afterwards, not first.',
+      'That is the order we work in at Vaelo: make the thing worth quoting, then make it easy to quote. If you want to know what the models currently say about your brand, that is the conversation worth having first.'
+    ]
+  },
+  {
     slug: 'ai-doesnt-understand-culture-it-reflects-it',
     title: 'AI Doesn’t Understand Culture. It Reflects It.',
     date: '2026-10-03',
