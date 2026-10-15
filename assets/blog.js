@@ -6,6 +6,29 @@
    ========================================================================== */
 window.VAELO_BLOG = [
   {
+    slug: 'ai-is-reshaping-advertising',
+    title: 'AI Is Reshaping Advertising. The Humans Still Decide What It Says.',
+    date: '2026-10-15',
+    author: 'Vaelo Creative',
+    tag: 'Industry',
+    cover: 'assets/blog/ai-is-reshaping-advertising/cover.jpg',
+    excerpt: 'Production got cheaper, targeting got sharper, and none of that changes who decides what the ad is actually trying to say.',
+    body: [
+      'A launch video used to mean weeks of casting, a shoot day, and a studio bill before anyone saw a single frame. Now a decent first pass can exist the same afternoon. That speed is real, and it is changing what a small team can ship. It is also easy to overstate, because the part of the job that was never about speed, deciding what the work should say and to whom, has not gotten any easier just because the output got faster.',
+      '## Production got cheap and fast',
+      'Text-to-video tools, AI presenters and automated compositing have collapsed the distance between an idea and a watchable draft. Work that used to require a studio and a crew can now start as a prompt and a few iterations. That matters most for smaller teams and smaller budgets, because the floor for what a launch video can look like just rose, without the budget rising to match. The honest caveat is that a fast draft is still a draft. It gets you to the tenth version quickly, not to the right one.',
+      '![Rapid iteration through many draft versions](assets/blog/ai-is-reshaping-advertising/fig-1.png)',
+      '## Targeting got precise, not just personal',
+      'The bigger shift is less visible than the video tools, because it happens inside the ad platform rather than on screen. Copy variants get generated and tested at a volume no team could manage by hand, and the system learns which line, which color, which framing actually moves a given audience, often within the first days of a campaign rather than after a full quarter of reporting. That is a real advantage. It also means the brand voice has to be defined clearly enough upfront that a hundred automated variants still sound like one brand, not a hundred different ones.',
+      '![Testing many creative variations to find what actually works](assets/blog/ai-is-reshaping-advertising/fig-2.png)',
+      '## The part that still needs a human',
+      'None of this changes who decides what the ad is trying to say, who it is for, or whether the clever version is actually the right one for a brand that has to still look like itself next year. A model can generate the options and tell you which one tested best this week. It cannot tell you which one you will regret running once the news cycle moves, or which one quietly undercuts the thing your last three campaigns built. That judgment call was never a production problem, and making production ten times faster does not make the judgment call easier. If anything it raises the stakes on getting it right, because a bad call now ships faster too.',
+      '![A human still makes the final creative call](assets/blog/ai-is-reshaping-advertising/fig-3.png)',
+      '## Where we draw that line at Vaelo',
+      'We run the AI stack hard on the parts that are genuinely mechanical: variant generation, first-pass production, testing creative at a scale no human team could manage by hand. We keep a person on every call about what the work actually says, because that is the part a model has no stake in and no memory of once the campaign ends. Fast production without that discipline just means you can be wrong faster. If you are trying to work out where that line should sit in your own process, that is the conversation worth having first.'
+    ]
+  },
+  {
     slug: 'llmo-getting-quoted-when-nobody-scrolls',
     title: 'LLMO: Getting Quoted When Nobody Scrolls',
     date: '2026-10-06',
