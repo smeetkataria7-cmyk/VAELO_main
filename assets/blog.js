@@ -6,6 +6,30 @@
    ========================================================================== */
 window.VAELO_BLOG = [
   {
+    slug: 'ai-product-photography-where-it-helps',
+    title: 'AI Product Photography Is Real Now. Here Is Where It Actually Helps.',
+    date: '2026-10-16',
+    author: 'Vaelo Creative',
+    tag: 'Industry',
+    cover: 'assets/blog/ai-product-photography-where-it-helps/cover.jpg',
+    excerpt: 'A phone photo of a product and an AI pipeline can now produce a catalogue that used to need a studio day. Here is the honest version of what that is good for, and where a real shoot still wins.',
+    body: [
+      'A year ago, putting a product into a beach scene, a kitchen counter, or a studio backdrop meant booking a location, a model, and a day. Now it can mean an afternoon and a prompt. That is a real shift in what a small catalogue can look like, and it is also the kind of claim that gets oversold fast, so it is worth being specific about what actually changed and what did not.',
+      '## What changed',
+      'The practical change is in variation, not in the base photo. A single clean product shot, even a decent phone photo, can now be placed into dozens of settings, lit different ways, and paired with different model types, without re-shooting the product each time. That is the part that used to be expensive: not the first image, but the fifteenth variant of it for a different market or a different ad placement.',
+      '## Where it genuinely wins',
+      'Catalogue scale is the clear case. A range with hundreds of SKUs that would have taken a traditional shoot schedule weeks to clear can move through an AI production pipeline in a fraction of that, with a locked lighting and colour specification so the output still passes a brand team\'s own review rather than looking like it came from six different photographers. Market localization is the other strong case: the same product, restyled for a different region\'s aesthetic, without flying a crew anywhere.',
+      '![A single product shot restyled across many settings without a reshoot](assets/blog/ai-product-photography-where-it-helps/fig-1.png)',
+      '## Where it still falls short',
+      'Anything that depends on a specific, real place, a specific real person, or a claim the brand needs to stand behind in a legal or editorial sense is still a real shoot. An AI model wearing a product is not a testimonial, and dressing it up as one is the kind of shortcut that costs a brand trust the first time someone notices. The other honest limit is texture at the edges: fine fabric behavior, true-to-life skin tones under tricky lighting, and anything where a buyer is making a purchase decision based on exact color accuracy still deserves scrutiny before it ships.',
+      '![Fine texture and true color still need a careful human check](assets/blog/ai-product-photography-where-it-helps/fig-2.png)',
+      '## How we use it at Vaelo',
+      'We run AI production for exactly the cases it is actually good at: full ethnic-wear lookbooks, catalogue imagery at a scale no shoot schedule could clear in the launch window, and consistency across a range too large to shoot by hand. Every piece still goes through a brand-review pass before it ships, the same bar a traditional shoot would have to clear. The tool changed how fast the first draft arrives. It did not change who signs off on whether it is actually right.',
+      '![Every AI-produced piece still gets a human review pass before it ships](assets/blog/ai-product-photography-where-it-helps/fig-3.png)',
+      'If you are trying to work out whether your own catalogue is a genuine fit for this or a case where a real shoot still wins, that is the conversation worth having first.'
+    ]
+  },
+  {
     slug: 'ai-is-reshaping-advertising',
     title: 'AI Is Reshaping Advertising. The Humans Still Decide What It Says.',
     date: '2026-10-15',
