@@ -31,7 +31,7 @@ POST_TPL = """<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title} | Vaelo Blog</title>
-<meta name="description" content="{excerpt}">
+<meta name="description" content="{excerpt}">{keywords_tag}
 <link rel="canonical" href="https://www.vaelocreative.com/blog/{slug}.html">
 <meta name="theme-color" content="#0a0a0a">
 <meta property="og:type" content="article">
@@ -49,7 +49,7 @@ POST_TPL = """<!DOCTYPE html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Archivo:wght@300;400;500;600&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/vaelo.css?v=0d790e85">
+<link rel="stylesheet" href="../assets/vaelo.css?v=c8ae6415">
 <script type="application/ld+json">
 {{"@context":"https://schema.org","@type":"BlogPosting","headline":{title_j},
 "datePublished":"{date}","author":{{"@type":"Organization","name":"Vaelo Creative LLP"}}}}
@@ -96,7 +96,7 @@ POST_TPL = """<!DOCTYPE html>
   <div><a href="mailto:hello@vaelocreative.com">hello@vaelocreative.com</a></div>
   <div>© 2026</div>
 </footer>
-<script src="../assets/vaelo.js?v=c772da44"></script>
+<script src="../assets/vaelo.js?v=6920936b"></script>
 </body>
 </html>
 """
@@ -124,7 +124,7 @@ INDEX_TPL = """<!DOCTYPE html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Archivo:wght@300;400;500;600&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/vaelo.css?v=0d790e85">
+<link rel="stylesheet" href="../assets/vaelo.css?v=c8ae6415">
 </head>
 <body>
 <div class="wipe"></div>
@@ -156,7 +156,7 @@ INDEX_TPL = """<!DOCTYPE html>
   <div><a href="mailto:hello@vaelocreative.com">hello@vaelocreative.com</a></div>
   <div>© 2026</div>
 </footer>
-<script src="../assets/vaelo.js?v=c772da44"></script>
+<script src="../assets/vaelo.js?v=6920936b"></script>
 </body>
 </html>
 """
@@ -217,13 +217,15 @@ def build_post(p):
     else:
         line1, line2 = title, ""
         title_line2_html = ""
+    keywords = p.get("keywords", "")
+    keywords_tag = ('\n<meta name="keywords" content="%s">' % esc(keywords)) if keywords else ""
     page = POST_TPL.format(
         title=esc(title), title_j=json.dumps(title), slug=p["slug"],
         excerpt=esc(p.get("excerpt", "")), date=p.get("date", ""),
         date_fmt=fmt_date(p.get("date", "")), author=esc(p.get("author", "")),
         tag=esc(p.get("tag", "")), title_line1=esc(line1),
         title_line2_html=title_line2_html, paragraphs=paras,
-        cover_html=cover_html, og_image=og_image,
+        cover_html=cover_html, og_image=og_image, keywords_tag=keywords_tag,
     )
     out = pathlib.Path("blog") / (p["slug"] + ".html")
     out.write_text(page, encoding="utf-8")

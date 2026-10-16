@@ -13,6 +13,7 @@ window.VAELO_BLOG = [
     tag: 'Industry',
     cover: 'assets/blog/ai-product-photography-where-it-helps/cover.jpg',
     excerpt: 'A phone photo of a product and an AI pipeline can now produce a catalogue that used to need a studio day. Here is the honest version of what that is good for, and where a real shoot still wins.',
+    keywords: 'AI product photography, AI catalogue photography, AI product imagery, e-commerce visuals, AI generated product images, catalogue photography at scale, AI fashion photography, product photography automation, AI lookbook, e-commerce AI production',
     body: [
       'A year ago, putting a product into a beach scene, a kitchen counter, or a studio backdrop meant booking a location, a model, and a day. Now it can mean an afternoon and a prompt. That is a real shift in what a small catalogue can look like, and it is also the kind of claim that gets oversold fast, so it is worth being specific about what actually changed and what did not.',
       '## What changed',
