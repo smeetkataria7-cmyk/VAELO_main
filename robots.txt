@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /editor.html
+Disallow: /manage.html
+Disallow: /vaelo-agency.html
+Disallow: /vaelo-content.html
+Disallow: /vaelo-ops.html
+Disallow: /wireframes/
+Disallow: /automation/
+
+Sitemap: https://www.vaelocreative.com/sitemap.xml
