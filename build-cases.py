@@ -40,7 +40,7 @@ TPL = """<!DOCTYPE html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Archivo:wght@300;400;500;600&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/vaelo.css?v=0d790e85">
+<link rel="stylesheet" href="../assets/vaelo.css?v=ce06a26a">
 <script type="application/ld+json">
 {{"@context":"https://schema.org","@type":"CreativeWork","name":{title_j},
 "about":{cat_j},"dateCreated":"{year}",
