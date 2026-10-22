@@ -31,7 +31,9 @@ window.VAELO_WORK = [
       'assets/work/simplicare/10.jpg',
       'assets/work/simplicare/11.jpg',
       'assets/work/simplicare/12.jpg',
-      'assets/work/simplicare/13.jpg'
+      'assets/work/simplicare/14.mp4',
+      'assets/work/simplicare/15.mp4',
+      'assets/work/simplicare/16.mp4'
     ] }
   },
   {
@@ -113,7 +115,11 @@ window.VAELO_WORK = [
       'assets/work/catalogue-at-scale/05.mp4',
       'assets/work/catalogue-at-scale/06.jpg',
       'assets/work/catalogue-at-scale/07.jpg',
-      'assets/work/catalogue-at-scale/08.jpg'
+      'assets/work/catalogue-at-scale/08.jpg',
+      'assets/work/catalogue-at-scale/09.mp4',
+      'assets/work/catalogue-at-scale/10.mp4',
+      'assets/work/catalogue-at-scale/11.mp4',
+      'assets/work/catalogue-at-scale/12.mp4'
     ] }
   },
   {
@@ -165,6 +171,8 @@ window.VAELO_WORK = [
     scope: 'Design + Social Media Management',
     year: '2026',
     client: 'Zerolys',
+    link: 'https://www.zerolys.com/',
+    linkLabel: 'zerolys.com',
     tile: '',
     summary: 'A genuinely sustainable material story that customers could not read off the pack in three seconds.',
     brief: 'The sustainability claim was real, third-party verified, and buried. It sat below an ingredient list, in a typographic hierarchy that gave equal weight to everything, which is the same as giving weight to nothing.',
@@ -200,7 +208,9 @@ window.VAELO_WORK = [
       'assets/work/make-the-science-legible/28.jpg',
       'assets/work/make-the-science-legible/29.jpg',
       'assets/work/make-the-science-legible/30.jpg',
-      'assets/work/make-the-science-legible/31.jpg'
+      'assets/work/make-the-science-legible/31.jpg',
+      'assets/work/make-the-science-legible/32.mp4',
+      'assets/work/make-the-science-legible/33.mp4'
     ] }
   },
   {
