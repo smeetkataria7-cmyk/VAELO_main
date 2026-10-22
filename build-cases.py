@@ -40,7 +40,7 @@ TPL = """<!DOCTYPE html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Archivo:wght@300;400;500;600&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/vaelo.css?v=0d790e85">
+<link rel="stylesheet" href="../assets/vaelo.css?v=c8ae6415">
 <script type="application/ld+json">
 {{"@context":"https://schema.org","@type":"CreativeWork","name":{title_j},
 "about":{cat_j},"dateCreated":"{year}",
@@ -107,7 +107,7 @@ TPL = """<!DOCTYPE html>
   <div>© 2026</div>
 </footer>
 
-<script src="../assets/vaelo.js?v=c772da44"></script>
+<script src="../assets/vaelo.js?v=6920936b"></script>
 </body>
 </html>
 """
@@ -131,15 +131,13 @@ def media(src, alt, cls, spec, par):
     return '<figure class="%s">%s</figure>' % (cls, inner) if cls else inner
 
 
-def gallery(items, layout, alt):
-    if not items:
-        return ""
+def gallery_cells(items, layout, alt):
     cells = []
     for i, src in enumerate(items):
         cls = layout[i % len(layout)]
         spec = "Case image"
         cells.append(media(src, alt, cls, spec, "7"))
-    return '<div class="gal" data-rev>\n  ' + "\n  ".join(cells) + '\n</div>'
+    return cells
 
 
 out = pathlib.Path("work"); out.mkdir(exist_ok=True)
@@ -168,12 +166,15 @@ for i, w in enumerate(WORK):
     is_vid = lambda s: s.lower().endswith((".mp4", ".webm", ".mov", ".m4v"))
     stills = [s for s in gal if not is_vid(s)]
     clips = [s for s in gal if is_vid(s)]
-    blocks = []
+    # Clips and stills share one grid container (not two) so a partial row of
+    # clips flows straight into the stills that follow, instead of leaving a
+    # gap that the next <div> can never fill.
+    cells = []
     if clips:
-        blocks.append(gallery(clips, ["g-third"], w["title"]))
+        cells += gallery_cells(clips, [w.get("clipLayout", "g-third")], w["title"])
     if stills:
-        blocks.append(gallery(stills, ["g-half"], w["title"]))
-    gallery_html = "\n\n".join(blocks) or (
+        cells += gallery_cells(stills, ["g-half"], w["title"])
+    gallery_html = ('<div class="gal" data-rev>\n  ' + "\n  ".join(cells) + '\n</div>') if cells else (
         '<div class="gal" data-rev>\n'
         '  <div class="slot g-half" data-par="7" data-spec="Campaign still · 1920×1080"></div>\n'
         '  <div class="slot g-half" data-par="9" data-spec="Detail · 1200×1500"></div>\n'
