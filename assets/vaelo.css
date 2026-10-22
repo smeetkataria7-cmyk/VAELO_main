@@ -322,7 +322,7 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
 .crumb a:hover{color:var(--accent)}
 .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--soft);border-block:1px solid var(--line)}
 @media(max-width:760px){.facts{grid-template-columns:repeat(2,1fr)}}
-.facts div{background:var(--black);padding:22px clamp(18px,2.6vw,32px)}
+.facts div{background:var(--black);padding:22px clamp(18px,2.6vw,32px);display:flex;flex-direction:column;justify-content:center}
 .facts b{display:block;font-size:15px;font-weight:500;margin-top:7px}
 /* These bands used to open with 130px of air and close with another 130px,
    leaving one small grey paragraph stranded in the middle of a dark screen
