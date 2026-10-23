@@ -131,10 +131,24 @@ def media(src, alt, cls, spec, par):
     return '<figure class="%s">%s</figure>' % (cls, inner) if cls else inner
 
 
+SPAN = {"g-third": 4, "g-half": 6, "g-full": 12}
+FILL_CLS = {4: "g-third", 6: "g-half", 12: "g-full"}
+
+
 def gallery_cells(items, layout, alt):
+    """Lay items out in a repeating column pattern, but stretch a trailing
+    partial row to fill the full width evenly instead of leaving a gap."""
+    base_cls = layout[0]
+    per_row = 12 // SPAN.get(base_cls, 4)
+    n = len(items)
+    remainder = n % per_row
+    fill_cls = FILL_CLS.get(12 // remainder) if remainder else None
     cells = []
     for i, src in enumerate(items):
-        cls = layout[i % len(layout)]
+        if fill_cls and i >= n - remainder:
+            cls = fill_cls
+        else:
+            cls = layout[i % len(layout)]
         spec = "Case image"
         cells.append(media(src, alt, cls, spec, "7"))
     return cells
@@ -166,15 +180,19 @@ for i, w in enumerate(WORK):
     is_vid = lambda s: s.lower().endswith((".mp4", ".webm", ".mov", ".m4v"))
     stills = [s for s in gal if not is_vid(s)]
     clips = [s for s in gal if is_vid(s)]
-    # Clips and stills share one grid container (not two) so a partial row of
-    # clips flows straight into the stills that follow, instead of leaving a
-    # gap that the next <div> can never fill.
-    cells = []
+    # Clips and stills render as two separate grids (videos first, then
+    # stills) so the two kinds read as distinct groups rather than an
+    # interleaved wall. A trailing partial row inside either group is
+    # stretched to fill the width evenly (see gallery_cells) so it never
+    # leaves a visible gap.
+    blocks = []
     if clips:
-        cells += gallery_cells(clips, [w.get("clipLayout", "g-third")], w["title"])
+        cells = gallery_cells(clips, [w.get("clipLayout", "g-third")], w["title"])
+        blocks.append('<div class="gal" data-rev>\n  ' + "\n  ".join(cells) + '\n</div>')
     if stills:
-        cells += gallery_cells(stills, ["g-half"], w["title"])
-    gallery_html = ('<div class="gal" data-rev>\n  ' + "\n  ".join(cells) + '\n</div>') if cells else (
+        cells = gallery_cells(stills, ["g-half"], w["title"])
+        blocks.append('<div class="gal" data-rev>\n  ' + "\n  ".join(cells) + '\n</div>')
+    gallery_html = "\n\n".join(blocks) or (
         '<div class="gal" data-rev>\n'
         '  <div class="slot g-half" data-par="7" data-spec="Campaign still · 1920×1080"></div>\n'
         '  <div class="slot g-half" data-par="9" data-spec="Detail · 1200×1500"></div>\n'
