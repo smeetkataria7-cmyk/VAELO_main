@@ -6,6 +6,31 @@
    ========================================================================== */
 window.VAELO_BLOG = [
   {
+    slug: 'ai-agents-and-the-approval-problem',
+    title: 'AI Agents Can Run Your Workflow. They Cannot Run Your Approvals.',
+    date: '2026-10-24',
+    author: 'Vaelo Creative',
+    tag: 'Industry',
+    cover: 'assets/blog/ai-agents-and-the-approval-problem/cover.jpg',
+    excerpt: 'An agent that books the meetings, drafts the report and sends the email is a real productivity gain. It is also the fastest way to find out your approval process never actually existed.',
+    keywords: 'AI agents, AI workflow automation, AI agent marketing, content approval workflow, AI agent risk, agentic AI for business, AI operations, AI content systems, approval stage gates, AI agent guardrails',
+    body: [
+      'An AI agent is not a chatbot with extra steps. A chatbot answers the question you asked. An agent takes a goal, breaks it into steps, and goes and does them: checks a calendar, drafts a brief, posts a caption, flags a budget. The distinction sounds small until one of those steps is wrong and nobody notices until it has already gone out.',
+      '## What actually changed',
+      'The tools got genuinely capable this year. An agent can now chain a dozen small actions together without a human approving each one: pull last week\'s numbers, draft the report, format the slide, send it to the right inbox. That used to be a half day of someone\'s time. Now it is a task someone assigns and checks later, if they remember to check at all.',
+      '## Where this is a real gain',
+      'Repetitive, well-defined work is the obvious fit: scheduling, first-draft reporting, pulling a content calendar together, routing an approval request to the right person. None of that needs judgment so much as it needs someone who does not get bored on the fourth repetition in a week. Handing it to an agent frees the people who used to do it to spend that time on the part of the job that actually needed a person: deciding what the report should argue, not assembling it.',
+      '![An agent handles the repetitive first draft, a person decides what it should argue](assets/blog/ai-agents-and-the-approval-problem/fig-1.png)',
+      '## Where it quietly breaks things',
+      'The risk is not that the agent makes an obvious mistake. It is that it makes a plausible one inside a process that had no real checkpoint to catch it. A lot of teams discover their approval process was a Slack message and a shrug, not an actual gate, the first time an agent posts something nobody signed off on. Giving a tool broad access to send messages, publish content or touch a budget is a different decision than giving it access to draft them, and a lot of rollouts skip straight past that distinction.',
+      '![A plausible mistake moving at agent speed is harder to catch than an obvious one](assets/blog/ai-agents-and-the-approval-problem/fig-2.png)',
+      '## How we are actually using this at Vaelo',
+      'We run agents on the parts of content production that are genuinely repetitive: first-pass drafts, scheduling, pulling a calendar together, flagging when a trend swap needs a decision. None of it ships without a named person signing off, the same stage gate we would run with or without AI in the loop. The agent changed how fast the draft shows up. It did not change who is accountable for what goes out under a client\'s name.',
+      '![Every draft still passes through a named approval before it ships](assets/blog/ai-agents-and-the-approval-problem/fig-3.png)',
+      'If you are weighing where an agent actually earns its keep in your own workflow versus where it just moves the risk somewhere less visible, that is the conversation worth having before the rollout, not after something ships that nobody meant to approve.'
+    ]
+  },
+  {
     slug: 'ai-product-photography-where-it-helps',
     title: 'AI Product Photography Is Real Now. Here Is Where It Actually Helps.',
     date: '2026-10-16',
