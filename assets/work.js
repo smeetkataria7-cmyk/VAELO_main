@@ -365,5 +365,50 @@ window.VAELO_WORK = [
       'assets/work/voiz/11.jpg',
       'assets/work/voiz/12.jpg'
     ] }
+  },
+ {
+    slug: 'lotus-diamonds',
+    tone: '#4b58c9',
+    idx: '13',
+    title: 'Lotus Diamonds',
+    cat: 'Colored Diamonds',
+    scope: 'AI Production + Social Media Marketing',
+    year: '2026',
+    client: 'Lotus Diamonds',
+    tile: '',
+    summary: 'AI-produced films for a diamond jewellery brand, made to give the stones the light and scale a camera crew would have taken weeks to set up.',
+    brief: 'Diamond jewellery lives or dies on light. Every piece has to sparkle on a small phone screen in a feed full of the same close-up on black velvet. The brand needed a steady supply of premium moving content for social, without the cost and delay of a studio shoot for every collection.',
+    did: 'We produced the films with AI, directing each one as a short scene built around the jewellery rather than a plain product shot. The same visual language runs through every clip, so the feed reads as one brand. The films were cut for vertical social placement and used as the core of the social media marketing.',
+    kpis: [],
+    images: { cover: 'assets/work/lotus-diamonds/cover.jpeg', gallery: [
+      'assets/work/lotus-diamonds/04.mp4',
+      'assets/work/lotus-diamonds/02.mov',
+      'assets/work/lotus-diamonds/03.mov',
+      'assets/work/lotus-diamonds/01.mp4',
+      'assets/work/lotus-diamonds/05.mp4',
+      'assets/work/lotus-diamonds/06.mp4'
+
+    ] }
+  },
+  {
+    slug: 'sky-gem',
+    tone: '#2aa8d8',
+    idx: '14',
+    title: 'Sky Gem',
+    cat: 'Jewellery',
+    scope: 'AI Production + Social Media Marketing',
+    year: '2026',
+    client: 'Sky Gem',
+    tile: '',
+    summary: 'AI-produced reels for a diamond jewellery brand whose promise is simple, pure and authentic.',
+    brief: 'Sky Gem sells fine diamond jewellery under one line: simple, pure, authentic. In a feed full of glossy product spins, that promise has to be felt in a few seconds, on the skin, in real light. Shooting every piece in a studio for every drop was slow and expensive.',
+    did: 'We produced the reels with AI, building each one around the piece worn close to the skin so the stones catch the light the way they do in real life. The same warm, quiet look runs through every clip, so the feed reads as one brand. The reels were cut for vertical placement and published as part of the social media marketing.',
+    kpis: [],
+    images: { cover: 'assets/work/sky-gem/cover.png', gallery: [
+      'assets/work/sky-gem/04.mp4',
+      'assets/work/sky-gem/02.mp4',
+      'assets/work/sky-gem/03.mp4',
+      'assets/work/sky-gem/01.mp4'
+    ] }
   }
 ];
