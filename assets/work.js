@@ -52,6 +52,7 @@ window.VAELO_WORK = [
     brief: 'Deon Tapes makes adhesive tape at industrial scale and sells to buyers who need proof before they need persuasion: what is actually made, to what standard, on what plant. The site in place did none of that work. The range was not catalogued, the accreditations were invisible, and there was nothing to show a buyer the factory behind the claim.',
     did: 'We started with a gap analysis against the existing site, then wireframed the whole thing before a line of it was built: brief, wireframes, brand guidelines and a redesign report, each signed off in turn. The build runs to thirty pages: the full product catalogue, a knowledge centre, applications by industry, OEM partners, a company journey, and a blog the team publishes to themselves. Twenty-two factory photographs carry the plant, and the accreditation marks sit where a procurement buyer looks first.',
     kpis: [['33', 'Products catalogued'], ['30', 'Pages built'], ['9', 'Accreditations shown']],
+    galFit: true,
     images: { cover: 'assets/work/deon-tapes/cover.jpg', hero: 'assets/work/deon-tapes/01.jpg', gallery: [
       'assets/work/deon-tapes/02.jpg',
       'assets/work/deon-tapes/03.jpg',
@@ -72,8 +73,9 @@ window.VAELO_WORK = [
     summary: 'A completed Mumbai tower with its OC in hand, sold on how the evenings feel rather than on the floor plan.',
     brief: 'Marigold Miraaya had reached the point most developments treat as the finish line: a completed tower, ready for residents. The category answers that moment with specification: carpet area, configuration, possession date. None of it tells a buyer what living there is actually like, and every competing listing reads the same way.',
     did: 'We shot the building the way residents use it and built the campaign around moments rather than amenities: carrom in the indoor games room, a couple in the poolside cabana, families in the water at the same hour. The line carries the argument: Evenings Well Spent. Unwind. Together. Something for Everyone. The specification and the RERA number stay on the pack where they belong; the campaign sells the evening.',
-    kpis: [['₹3.5 cr', 'Revenue generated with Meta ads and Social Media']],
+    kpis: [['₹4.5 cr', 'Revenue generated with Meta ads and Social Media'], ['4.5M+', 'Impressions'], ['100+', 'Site visits']],
     clipLayout: 'g-half',
+    galFit: true,
     images: { cover: 'assets/work/marigold-miraaya/cover.jpg', hero: 'assets/work/marigold-miraaya/photo-01.jpg', gallery: [
       'assets/work/marigold-miraaya/film.mp4',
       'assets/work/marigold-miraaya/photo-02.jpg',
@@ -82,11 +84,11 @@ window.VAELO_WORK = [
       'assets/work/marigold-miraaya/photo-05.jpg',
       'assets/work/marigold-miraaya/photo-06.jpg',
       'assets/work/marigold-miraaya/photo-07.jpg',
+      'assets/work/marigold-miraaya/05.mp4',
       'assets/work/marigold-miraaya/01.mp4',
       'assets/work/marigold-miraaya/02.mp4',
       'assets/work/marigold-miraaya/03.mp4',
       'assets/work/marigold-miraaya/04.mp4',
-      'assets/work/marigold-miraaya/05.mp4',
       'assets/work/marigold-miraaya/06.mp4',
       'assets/work/marigold-miraaya/07.mp4'
     ] }
@@ -352,6 +354,7 @@ window.VAELO_WORK = [
     brief: 'VOIZ exists to give undiscovered regional musicians a stage. It is entering a category run by algorithms and charts, with a promise that is the opposite of both: real music, real stories, no noise. The brand needed to feel like a movement before it had a single listener, and to sound as bold as the artists it backs without turning into slang or a trend.',
     did: 'We built the identity from a single idea: a vertical soundwave in an elliptical pulse, the heartbeat of music and of each artist finding their own voice. Each curve stands for a different frequency, a nod to the range of genres and languages across India. Around the mark we wrote the whole verbal identity, covering purpose, positioning for artists and for listeners, a tone of voice that is bold not brash, and four messaging pillars. The visual system pairs a custom display wordmark with a quiet black and blue palette, and everything was tested on the app icon, the site, the name tag, the business card, the letterhead and the merch. The result is one 35-page brand book.',
     kpis: [],
+    galFit: 'natural',
     images: { cover: 'assets/work/voiz/cover.jpg', hero: 'assets/work/voiz/01.jpg', gallery: [
       'assets/work/voiz/02.jpg',
       'assets/work/voiz/03.jpg',

@@ -186,12 +186,15 @@ for i, w in enumerate(WORK):
     # stretched to fill the width evenly (see gallery_cells) so it never
     # leaves a visible gap.
     blocks = []
+    # optional galFit: rows are composed to fill 12 columns (landscape clips
+    # full width, reels 3-up) and cells never stretch past their own ratio
+    gcls = ("gal gal-fit" + (" gal-natural" if w.get("galFit") == "natural" else "")) if w.get("galFit") else "gal"
     if clips:
         cells = gallery_cells(clips, [w.get("clipLayout", "g-third")], w["title"])
-        blocks.append('<div class="gal" data-rev>\n  ' + "\n  ".join(cells) + '\n</div>')
+        blocks.append('<div class="%s" data-rev>\n  ' % gcls + "\n  ".join(cells) + '\n</div>')
     if stills:
         cells = gallery_cells(stills, ["g-half"], w["title"])
-        blocks.append('<div class="gal" data-rev>\n  ' + "\n  ".join(cells) + '\n</div>')
+        blocks.append('<div class="%s" data-rev>\n  ' % gcls + "\n  ".join(cells) + '\n</div>')
     gallery_html = "\n\n".join(blocks) or (
         '<div class="gal" data-rev>\n'
         '  <div class="slot g-half" data-par="7" data-spec="Campaign still · 1920×1080"></div>\n'

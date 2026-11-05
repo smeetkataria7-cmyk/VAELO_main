@@ -912,3 +912,18 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
   font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim)}
 .arch-hd + .arch-count{padding-top:clamp(18px,2.6vw,30px)}
 .arch-count + .arch.mason{padding-top:clamp(30px,5vw,58px)}
+
+/* ---------- gallery fit (opt-in: galFit in work.js) ---------- */
+/* A landscape clip next to a 9:16 reel left the shorter cell with a black hole
+   under it. With galFit, landscape media takes a full row, reels sit 3-up, and
+   cells keep their own ratio instead of stretching to the row's height. */
+.gal-fit figure{align-self:start}
+/* one 16:9 frame for every landscape cell, so a 3:2 photo beside a 16:9 one
+   lines up instead of standing taller (!important beats the inline --ar) */
+.gal-fit figure.is-landscape{grid-column:span 6;aspect-ratio:16/9!important}
+/* galFit:'natural' — same-shape pages (a brand book) keep their own ratio
+   instead of being cropped to 16:9; a lone last item sits centred */
+.gal-natural figure.is-landscape{aspect-ratio:var(--ar,16/9)!important}
+@media(min-width:901px){.gal-natural figure.is-landscape:last-child:nth-child(odd){grid-column:4/10}}
+@media(max-width:900px){.gal-fit figure.is-portrait{grid-column:span 6}.gal-fit figure.is-landscape{grid-column:span 12}}
+@media(max-width:600px){.gal-fit figure{grid-column:1/13!important}}
