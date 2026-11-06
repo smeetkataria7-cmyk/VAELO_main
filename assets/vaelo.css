@@ -927,3 +927,23 @@ footer{border-top:1px solid var(--line);padding:26px var(--pad);display:flex;jus
 @media(min-width:901px){.gal-natural figure.is-landscape:last-child:nth-child(odd){grid-column:4/10}}
 @media(max-width:900px){.gal-fit figure.is-portrait{grid-column:span 6}.gal-fit figure.is-landscape{grid-column:span 12}}
 @media(max-width:600px){.gal-fit figure{grid-column:1/13!important}}
+
+/* ---------- gallery lead (opt-in: galFit:'lead' in work.js) ---------- */
+/* Pharmatiya: one wide screen plus two near-square ones. On the 12-column
+   grid the wide one sat alone beside 4 empty columns and the pair below
+   left a gap and a step, since each kept its own height. Here the first
+   item takes the full width and the rest share a row, each growing by its
+   own ratio (--ar is "w / h", so calc() turns it into a number) — equal
+   heights, edge to edge, nothing cropped. */
+.gal-lead{display:flex;flex-wrap:wrap;align-items:flex-start;row-gap:0}
+.gal-lead figure{flex:calc(var(--ar,1)) 1 0;min-width:0;order:2}
+/* full width made the lead ~750px tall at 1440 and taller on big monitors,
+   so it never fit on screen: cap it at 75svh of height, centred. Once it is
+   narrower than the row the pair could wrap up beside it, so a zero-height
+   ::before forces the line break (row-gap is 0 so that empty line adds no
+   space; the lead's bottom margin stands in for the gap) */
+.gal-lead figure:first-child{order:0;flex:0 0 auto;width:min(100%,calc(75svh * var(--ar,16/9)));
+  margin:0 auto clamp(12px,2vw,26px)}
+.gal-lead::before{content:'';order:1;flex-basis:100%;height:0}
+@media(max-width:600px){.gal-lead{row-gap:clamp(12px,2vw,26px)}.gal-lead figure{flex-basis:100%}
+  .gal-lead figure:first-child{width:100%;margin-bottom:0}}

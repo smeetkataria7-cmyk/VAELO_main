@@ -189,6 +189,11 @@ for i, w in enumerate(WORK):
     # optional galFit: rows are composed to fill 12 columns (landscape clips
     # full width, reels 3-up) and cells never stretch past their own ratio
     gcls = ("gal gal-fit" + (" gal-natural" if w.get("galFit") == "natural" else "")) if w.get("galFit") else "gal"
+    # galFit:'lead' — first item full width, the rest share one row at equal
+    # height (widths in proportion to their ratios), so mixed shapes fill
+    # the row exactly with no crop and no ragged bottom edge
+    if w.get("galFit") == "lead":
+        gcls = "gal gal-lead"
     if clips:
         cells = gallery_cells(clips, [w.get("clipLayout", "g-third")], w["title"])
         blocks.append('<div class="%s" data-rev>\n  ' % gcls + "\n  ".join(cells) + '\n</div>')
