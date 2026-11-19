@@ -317,7 +317,9 @@ window.VAELO_WORK = [
       'assets/work/to-dear-self/07.jpg',
       'assets/work/to-dear-self/08.jpg',
       'assets/work/to-dear-self/09.jpg',
-      'assets/work/to-dear-self/10.mp4'
+      'assets/work/to-dear-self/10.mp4',
+      'assets/work/to-dear-self/11.mp4',
+      'assets/work/to-dear-self/12.mp4'
     ] }
   },
   {
